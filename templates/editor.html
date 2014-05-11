@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+{% load static %}
+
+<html>
+  <head>
+    <meta content="">
+
+    <title>A Simple Page with CKEditor</title>
+    <script src="{% static "ckeditor/ckeditor.js" %}"></script>
+
+  </head>
+
+  <body>
+    <form>
+        <textarea name="editor1" id="editor1" rows="10" cols="80">
+            This is my textarea to be replaced with CKEditor.
+        </textarea>
+        <script>
+            CKEDITOR.replace( 'editor1' );
+        </script>
+    </form>
+  </body>
+
+</html>
