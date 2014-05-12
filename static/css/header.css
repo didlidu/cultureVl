@@ -50,6 +50,13 @@ body{
 #top_header, #bot_header{
     width:inherit;
     display: block;
+    text-align: center;
+}
+#top_header > span{
+    margin-top: 140px;
+    position: absolute;
+    width: inherit;
+    font-size: 41px;
 }
 
 #top_header{
@@ -79,11 +86,13 @@ body{
                 text-align: center; 
             }
             #main-nav ul { list-style: none; margin: 0; padding: 0; }
-            #main-nav ul li { display: inline-block; margin: 0 1em 0 1em; padding: 0.35em 0.75em 0.35em 0.75em; border-radius: 0.5em; }
+            #main-nav ul li { display: inline-block; margin: 0 0.5em 0 0.5em; 
+                padding: 0.35em 0.75em 0.35em 0.75em; border-radius: 0; }
             #main-nav ul li.active { background: #999; }
             #main-nav ul li.active a { color: #fff; text-decoration: none; }
             #nav ul { list-style: none; margin: 0; padding: 0; }
-            #nav ul li { display: inline-block; margin: 0 1em 0 1em; padding: 0.35em 0.75em 0.35em 0.75em; border-radius: 0.5em; }
+            #nav ul li { display: inline-block; margin: 0 0.5em 0 0.5em; 
+                padding: 0.35em 0.75em 0.35em 0.75em; border-radius: 0; }
             #nav ul li.active { background: #999; }
             #nav ul li.active a { color: #fff; text-decoration: none; }
             #main-nav{ text-align:  right;}
@@ -98,3 +107,9 @@ body{
             /* Only applies to top level ("level-0") menus */
             .dropotron.level-0 { margin-top: 0; }
             .dropotron.level-0:before { position: absolute; border-bottom: solid 0.5em #444; border-left: solid 0.5em transparent; border-right: solid 0.5em transparent; top: -0.5em; }
+
+
+nav > ul > li {
+    border: solid 2px black;
+    border-radius: 0;
+}
