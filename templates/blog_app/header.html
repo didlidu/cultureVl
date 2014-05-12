@@ -6,11 +6,31 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="keywords" content="" />
         <meta name="description" content="" />
+        <link rel="stylesheet" type="text/css" href="{% static "css/header.css" %}">
         <link rel="stylesheet" type="text/css" href="{% static "css/main_style.css" %}">
+        <!--
         <link rel="stylesheet" type="text/css" href="{% static "css/drop.css" %}">
-        <script src="{% static "js/libs/jquery-2.1.1.min.js" %}"></script>
-        <script src="{% static "js/libs/jquery.dropotron.min.js" %}"></script>
-        <script src="{% static "js/main.js" %}"></script>
+        <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "css/style-normal.css" %}"> 
+        -->
+        <script src="{% static "js/lib/jquery-2.1.1.min.js" %}"></script>
+        <script src="{% static "js/lib/jquery.dropotron.min.js" %}"></script>
+        <script src="{% static "js/lib/main.js" %}"></script>
+
+        <script>
+            $(function() {
+                
+                // Note: make sure you call dropotron on the top level <ul>
+                $('#main-nav > ul').dropotron({ 
+                    offsetY: 0 // Nudge up submenus by 10px to account for padding
+                });
+                $('#nav > ul').dropotron({ 
+                    offsetY: 0 // Nudge up submenus by 10px to account for padding
+                });
+            
+            });
+        </script>
+
     </head>
 
 <body> 
@@ -19,25 +39,34 @@
        <div id = "header">
             <div id="top_header">
                 <div id="header_pic"></div>
-                <nav id="nav_top"><ul><li><a href="/feed/">Лента</a></li><li><a href="/about/">О нас</a></li><li><a href="/redaction/">Редакция</a></li></ul></nav>
+                <div id="nav_div">
+                    <nav id="main-nav"><ul><li><a href="/feed/">Лента</a></li><li><a href="/about/">О нас</a></li><li><a href="/redaction/">Редакция</a></li></ul>
+                    </nav>
+            </div>
                 <span>Культурный</span>
 
             </div>
             <div id="bot_header">
                 <div id="wrapper"></div>
-                <nav id="nav_filter">
-                <ul>
-                    <li><a href="/premiere/">Премьера</a></li>
-                    <li><a href="/news/">Новость</a></li>
-                    <li>
-                        <span><a href="/person/">Личность</a></span>
-                        <ul>
-                            <li><a href="#">Интервью</a></li>
-                            <li><a href="#">Что-то ещё</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="/about/">Афиша</a></li>
-                </ul>
-                </nav>
+                <div id="div_filter">
+                <nav id="nav">
+                    <ul>
+                        <li>
+                            <a href="index.html">Спектакль</a>
+                            <ul>
+                                <li><a href="#">Премьера</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Новость</a></li>
+                        <li>
+                            <a href="#">Личность</a>
+                            <ul>
+                                <li><a href="#">Мнение</a></li>
+                                <li><a href="#">Интервью</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    </nav>
+                </div>
             </div>
        </div>
