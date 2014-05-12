@@ -11,11 +11,12 @@
   </head>
 
   <body>
-    <form action="." method="post">{% csrf_token %}
+    <form action="." method="post" enctype="multipart/form-data">{% csrf_token %}
 
-        pic url: <input type="text" name="pic_url" default="{{ pic_url }}"><br><br>
+        <br><br>
+        <input type="file" name="pic"><br><br>
 
-        <input type="radio" name="new_type" value=1>Премьера<br>
+        <input type="radio" name="new_type" value=1 checked>Премьера<br>
         <input type="radio" name="new_type" value=2>Новость<br>
         <input type="radio" name="new_type" value=3>Личность<br>
         <input type="radio" name="new_type" value=4>Афиша<br><br>
