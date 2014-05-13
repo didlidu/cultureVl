@@ -43,34 +43,115 @@
             </form>
         </td>
         <td>
-            <script type="text/javascript" language="javascript">
-                function call() {
-                  var msg   = $('#forms').serialize();
-                    $.ajax({
-                      type: 'POST',
-                      url: 'admin_post_pic',
-                      data: msg,
-                      success: function(data) {
-                        $('.results').html(data);
-                      },
-                      error:  function(xhr, str){
-                            alert('Возникла ошибка: ' + xhr.responseCode);
-                        }
-                    });
-                }
-            </script>
-
-            <form method="POST" id="formx" action="javascript:void(null);" onsubmit="call()">{% csrf_token %}
+             <!--<form id="uploadForm" action="/admin_post_pic/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
                 <br><br>
                 <input type="file" name="pic"><br><br>
                 <input type="submit" value="Добавить картинку">
-            </form>
+            </form>-->
+            <!--<script>
+                var message = '';
+                var options = {
+                    url: '/admin_post_pic/',
+                    error: function(response) {
+                        message = '<span class="error">We\'re sorry, but something went wrong. Retry.</span>';
+                        $('.upload-message').html(message);
+                        $('fileInput').val('');
+                    },
+                    success: function(response) {
+                        message = '<span class="' + response.status + '">' + response.result + '</span> ';
+                        message = ( response.status == 'success' ) ? message + response.fileLink : message;
+                        $('.upload-message').html(message);
+                        $('fileInput').val('');
+                    }
+                };
+                $('#uploadForm').ajaxSubmit(options);
+            </script>-->
+            <!--<script>
+                function progressHandlingFunction(e){
+                    if(e.lengthComputable){
+                        $('progress').attr({value:e.loaded,max:e.total});
+                    }
+                }
+                // Attach a submit handler to the form
+                $( "#uploadForm" ).submit(function( event ) {
+                    // Stop form from submitting normally
+                    event.preventDefault();
+                    // Get some values from elements on the page:
+                    var $form = $( this );
+                    // Send the data using post
+                    $.ajax({
+                        type: 'POST',
+                        url: $form.attr( "action" ),
+                        xhr: function() {  // Custom XMLHttpRequest
+                            var myXhr = $.ajaxSettings.xhr();
+                            if(myXhr.upload){ // Check if upload property exists
+                                myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // For handling the progress of the upload
+                            }
+                            return myXhr;
+                        },
+                        contentType: false,
+                        processData: false,
+                        data: {pic: $form.pic, csrfmiddlewaretoken: '{{ csrf_token }}',},//getFormData($form),
+                        success: function (data) {
+                            alert('sucksess');
+                        },
+                    });
+                });
+            </script>-->
+
+
+
+<form enctype="multipart/form-data">
+    {% csrf_token %}
+    <input name="file" type="file" multiple/>
+
+    <input type="button" value="Upload" />
+</form>
+<script type="text/javascript">
+
+
+
+function progressHandlingFunction(e){
+    if(e.lengthComputable){
+        $('progress').attr({value:e.loaded,max:e.total});
+    }
+}
+
+$(':button').click(function(){
+    var formData = new FormData($('form')[1]);
+    $.ajax({
+        url: '/admin_post_pic/',  //Server script to process data
+        type: 'POST',
+        xhr: function() {  // Custom XMLHttpRequest
+            var myXhr = $.ajaxSettings.xhr();
+            if(myXhr.upload){ // Check if upload property exists
+                myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // For handling the progress of the upload
+            }
+            return myXhr;
+        },
+        //Ajax events
+        //beforeSend: beforeSendHandler,
+        //success: completeHandler,
+        //error: errorHandler,
+        // Form data
+        data: formData,
+        //Options to tell jQuery not to process data or worry about content-type.
+        cache: false,
+        contentType: false,
+        processData: false
+    });
+});
+</script>
+<progress></progress>
+
+
+
+
+
         </td>
         </tr>
     </table>
-    <!--{% if  html %}
-        {{ html|safe }}
-    {% endif %}-->
   </body>
 
 </html>
