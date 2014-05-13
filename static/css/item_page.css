@@ -1,0 +1,89 @@
+#main{
+    display: inline-block;
+    width: 800px;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+#main_photo{
+    display: inline-block;
+    width: inherit;
+    height: 470px;
+    background-color: #808080;
+}
+p {
+    line-height: 28px;
+    margin: 0 0 15px;
+}
+#item_date{
+    width: inherit;
+    text-align: left;
+    display: inline-block;
+}
+#title{
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+#item_body{
+    font-size: 17px;
+
+}
+#info{
+    padding-bottom: 20px;
+}
+#item_footer{
+    width: inherit;
+    display: inline-block;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+#author{
+    float: left;
+}
+#looks{
+    float: right;
+    height: 15px;
+}
+#looks_pic{
+    width: 15px;
+    height: 15px;
+    background-color: #0000ff;
+    display: inline-block;
+}
+
+#item_wrapper{
+    width: inherit;
+    height: 7px;
+    background-color: black;
+}
+#item_container{
+    display: inline-block;
+    font-size: 0;
+    letter-spacing: -1px;
+    line-height: 0;
+    margin: 30px auto 0;
+    width: inherit;
+}
+.item_new{
+    display: inline-block !important;
+    letter-spacing: normal;
+    line-height: normal;
+    padding-bottom: 50px;
+    padding-right: 95px;
+    position: relative;
+    vertical-align: top;
+    width: 270px;
+    background-color: brown;
+    height: 330px;
+}
+.foot_pic{
+    width: 270px;
+    height: 190px;
+    background-color: #006600;
+}
+#title{
+
+}
+#item_container .item_new:nth-of-type(3n) {
+    padding-right: 0;
+}

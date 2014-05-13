@@ -71,10 +71,16 @@ def lenta_get(request):
 
 
 def item(request, item_id):
+	html_code = ""
+	ctx ={}
+	html_code += render_to_string('blog_app/header.html', ctx)
+	html_code += render_to_string('pages/item.html', ctx)
+	html_code += render_to_string('blog_app/footer.html', ctx)
+	return HttpResponse(html_code)
 	try:
 		i = New.objects.get(id=item_id)
 	except:
-		return render(request, 'blog_app/404.html')
+		return render(request, 'pages/item.html')
 	i.looks += 1
 	ctx = {
 		'date': i.date,
