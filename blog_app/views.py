@@ -1,11 +1,13 @@
 import os
+from django.http import HttpResponse
 from django.shortcuts import render
+from django.template.loader import render_to_string
 from blog_app.models import New
 from Svetanyashmyash.settings import ROOT_PATH
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.conf import settings
-from datetime import date
+import json
 
 
 def admin(request):
@@ -13,39 +15,50 @@ def admin(request):
 	if request.method == 'POST':  # If the form has been submitted...
 		print(request.FILES)
 		for upfile in request.FILES.getlist('pic'):
-			today = date.today()
-			path = default_storage.save(str(today.year) + '/' + str(today.month) + '/' + str(today.day) + '/' + upfile.name, ContentFile(upfile.read()))
+			path = default_storage.save('%Y/%m/%d/somename.jpg', ContentFile(upfile.read()))
 			tmp_file = os.path.join(settings.MEDIA_ROOT, path)
-			#filename = ROOT_PATH + "/media/" + upfile.name
-			#fd = open(filename, 'w')
-			#for chunk in upfile.chunks():
-			#	fd.write(chunk)
-			#fd.close()
-		dictionary.update({
-			#'pic_url': request.POST['pic_url'],
-			'new_type': request.POST['new_type'],
-			'name': request.POST['name'],
-			'lid': request.POST['lid'],
-			'html': request.POST['html'],
-			})
-		p = New(
-				#pic_url = request.POST['pic_url'],
-				#pic = request.FILES['pic'],
-				new_type = request.POST['new_type'],
-				name = request.POST['name'],
-				lid = request.POST['lid'],
-				html = request.POST['html'],)
+			print("1")
+		#filename = ROOT_PATH + "/media/" + upfile.name
+		#fd = open(filename, 'w')
+		#for chunk in upfile.chunks():
+		#	fd.write(chunk)
+		#fd.close()
+		dictionary.update({  #'pic_url': request.POST['pic_url'],
+		                     'new_type': request.POST['new_type'],
+		                     'name': request.POST['name'],
+		                     'lid': request.POST['lid'],
+		                     'html': request.POST['html'],
+		})
+		p = New(  #pic_url = request.POST['pic_url'],  #pic = request.FILES['pic'],
+		          new_type=request.POST['new_type'],
+		          name=request.POST['name'],
+		          lid=request.POST['lid'],
+		          html=request.POST['html'], )
 		print("debug")
 		p.save()
 	return render(request, 'admin.html', dictionary)
 
-def admin_post_pic(request):
-	print("1")
-	return HttpResponse("ok")
-
 
 def lenta(request):
-	return render(request, 'pages/lenta.html')
+	html_code = ""
+	rcds = New.objects.all()[10:]
+	for i in rcds:
+		record = {
+			'date': i.date,
+			'type': i.new_type,
+			'title': i.name,
+			'info': i.lid,
+			'lid': i.lid,
+			'comments': 0,
+		}
+		html_code += render_to_string('pages/item.html', record)
+	dictionary = {'stuff': html_code}
+	return render(request, 'pages/lenta.html', dictionary)
+
+
+def lenta_get(request):
+	data = {'something': 'useful'}
+	return HttpResponse(json.dumps(data), content_type="application/json")
 
 
 def about(request):

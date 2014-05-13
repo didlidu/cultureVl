@@ -7,70 +7,40 @@
 
     <title>A Simple Page with CKEditor</title>
     <script src="{% static "ckeditor/ckeditor.js" %}"></script>
-    <script src="{% static "js/lib/jquery-2.1.1.min.js" %}"></script>
+
   </head>
 
   <body>
-    <table>
-        <tr>
-        <td>
-            <form action="." method="post" enctype="multipart/form-data">{% csrf_token %}
+    <form action="." method="post" enctype="multipart/form-data">{% csrf_token %}
 
-                <br><br>
-                <input type="file" name="pic"><br><br>
+        <br><br>
+        <input type="file" name="pic"><br><br>
 
-                <input type="radio" name="new_type" value=1 checked>Премьера<br>
-                <input type="radio" name="new_type" value=2>Новость<br>
-                <input type="radio" name="new_type" value=3>Личность<br>
-                <input type="radio" name="new_type" value=4>Афиша<br><br>
+        <input type="radio" name="new_type" value=1 checked>Премьера<br>
+        <input type="radio" name="new_type" value=2>Новость<br>
+        <input type="radio" name="new_type" value=3>Личность<br>
+        <input type="radio" name="new_type" value=4>Афиша<br><br>
 
-                Название: <input type="text" name="name"><br><br>
+        Название: <input type="text" name="name"><br><br>
 
-                <textarea name="lid" id="lid" rows="5" cols="80">
-                    Здесь находится форма лида.
-                </textarea><br>
+        <textarea name="lid" id="lid" rows="5" cols="80">
+            Здесь находится форма лида.
+        </textarea><br>
 
-                <textarea name="html" id="html" rows="10" cols="160">
-                    Здесь находится форма основной статьи.
-                </textarea>
-                <script>
-                    CKEDITOR.replace( 'html' );
-                    CKEDITOR.replace( 'lid' );
-                </script><br>
+        <textarea name="html" id="html" rows="10" cols="160">
+            Здесь находится форма основной статьи.
+        </textarea>
+        <script>
+            CKEDITOR.replace( 'html' );
+            CKEDITOR.replace( 'lid' );
+        </script><br>
 
-                <input type="submit" value="Сохранить">
-                
-            </form>
-        </td>
-        <td>
-            <script type="text/javascript" language="javascript">
-                function call() {
-                  var msg   = $('#forms').serialize();
-                    $.ajax({
-                      type: 'POST',
-                      url: 'admin_post_pic',
-                      data: msg,
-                      success: function(data) {
-                        $('.results').html(data);
-                      },
-                      error:  function(xhr, str){
-                            alert('Возникла ошибка: ' + xhr.responseCode);
-                        }
-                    });
-                }
-            </script>
-
-            <form method="POST" id="formx" action="javascript:void(null);" onsubmit="call()">{% csrf_token %}
-                <br><br>
-                <input type="file" name="pic"><br><br>
-                <input type="submit" value="Добавить картинку">
-            </form>
-        </td>
-        </tr>
-    </table>
-    <!--{% if  html %}
+        <input type="submit" value="Сохранить">
+        
+    </form>
+    {% if  html %}
         {{ html|safe }}
-    {% endif %}-->
+    {% endif %}
   </body>
 
 </html>
