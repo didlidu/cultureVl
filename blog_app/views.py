@@ -1,42 +1,51 @@
 import os
-from django.http import HttpResponse
+import json
 from django.shortcuts import render
-from django.template.loader import render_to_string
 from blog_app.models import New
-from Svetanyashmyash.settings import ROOT_PATH
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.conf import settings
-import json
+from datetime import date
+from django.http import HttpResponse
+from django.template.loader import render_to_string
 
 
 def admin(request):
 	dictionary = {}
 	if request.method == 'POST':  # If the form has been submitted...
-		print(request.FILES)
+		#print(request.FILES)
 		for upfile in request.FILES.getlist('pic'):
-			path = default_storage.save('%Y/%m/%d/somename.jpg', ContentFile(upfile.read()))
+			today = date.today()
+			path = default_storage.save(str(today.year) + '/' + str(today.month) + '/' + str(today.day) + '/' + upfile.name, ContentFile(upfile.read()))
 			tmp_file = os.path.join(settings.MEDIA_ROOT, path)
-			print("1")
-		#filename = ROOT_PATH + "/media/" + upfile.name
-		#fd = open(filename, 'w')
-		#for chunk in upfile.chunks():
-		#	fd.write(chunk)
-		#fd.close()
-		dictionary.update({  #'pic_url': request.POST['pic_url'],
-		                     'new_type': request.POST['new_type'],
-		                     'name': request.POST['name'],
-		                     'lid': request.POST['lid'],
-		                     'html': request.POST['html'],
-		})
-		p = New(  #pic_url = request.POST['pic_url'],  #pic = request.FILES['pic'],
-		          new_type=request.POST['new_type'],
-		          name=request.POST['name'],
-		          lid=request.POST['lid'],
-		          html=request.POST['html'], )
+		dictionary.update({
+			'new_type': request.POST['new_type'],
+			'name': request.POST['name'],
+			'lid': request.POST['lid'],
+			'html': request.POST['html'],
+			})
+		p = New(
+				#pic = request.FILES['pic'],
+				new_type = request.POST['new_type'],
+				name = request.POST['name'],
+				lid = request.POST['lid'],
+				html = request.POST['html'],)
 		print("debug")
 		p.save()
 	return render(request, 'admin.html', dictionary)
+
+
+def admin_post_pic(request):
+	if request.method == 'POST':  # If the form has been submitted...
+		print(request.FILES)
+		for upfile in request.FILES.getlist('file'):
+			today = date.today()
+			path = default_storage.save(str(today.year) + '/' + str(today.month) + '/' + str(today.day) + '/' + upfile.name, ContentFile(upfile.read()))
+			tmp_file = os.path.join(settings.MEDIA_ROOT, path)
+	response_data = {}
+	response_data['status'] = "success"
+	response_data['result'] = "Your file has been uploaded:"
+	return HttpResponse(json.dumps(response_data), content_type='application/json')
 
 
 def lenta(request):
@@ -49,9 +58,9 @@ def lenta(request):
 			'title': i.name,
 			'info': i.lid,
 			'lid': i.lid,
-			'comments': 0,
+			'comments': i.looks,
 		}
-		html_code += render_to_string('pages/item.html', record)
+		html_code += render_to_string('pages/item_li.html', record)
 	dictionary = {'stuff': html_code}
 	return render(request, 'pages/lenta.html', dictionary)
 
@@ -61,29 +70,23 @@ def lenta_get(request):
 	return HttpResponse(json.dumps(data), content_type="application/json")
 
 
-def about(request):
-	return render(request, 'pages/about.html')
-
-
-def redaction(request):
-	return render(request, 'pages/redaction.html')
+def item(request, item_id):
+	try:
+		i = New.objects.get(id=item_id)
+	except:
+		return render(request, 'blog_app/404.html')
+	i.looks += 1
+	ctx = {
+		'date': i.date,
+		'type': i.new_type,
+		'title': i.name,
+		'info': i.lid,
+		'lid': i.lid,
+		'comments': i.looks,
+	    'body': i.html,
+	}
+	return render(request, 'pages/item.html', ctx)
 
 
 def search(request):
 	return render(request, 'search.html')
-
-
-def premiera(request):
-	return render(request, 'pages/premiera.html')
-
-
-def news(request):
-	return render(request, 'pages/news.html')
-
-
-def personality(request):
-	return render(request, 'pages/personality.html')
-
-
-def afisha(request):
-	return render(request, 'pages/afisha.html')

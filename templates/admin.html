@@ -7,40 +7,151 @@
 
     <title>A Simple Page with CKEditor</title>
     <script src="{% static "ckeditor/ckeditor.js" %}"></script>
-
+    <script src="{% static "js/lib/jquery-2.1.1.min.js" %}"></script>
   </head>
 
   <body>
-    <form action="." method="post" enctype="multipart/form-data">{% csrf_token %}
+    <table>
+        <tr>
+        <td>
+            <form action="." method="post" enctype="multipart/form-data">{% csrf_token %}
 
-        <br><br>
-        <input type="file" name="pic"><br><br>
+                <br><br>
+                <input type="file" name="pic"><br><br>
 
-        <input type="radio" name="new_type" value=1 checked>Премьера<br>
-        <input type="radio" name="new_type" value=2>Новость<br>
-        <input type="radio" name="new_type" value=3>Личность<br>
-        <input type="radio" name="new_type" value=4>Афиша<br><br>
+                <input type="radio" name="new_type" value=1 checked>Премьера<br>
+                <input type="radio" name="new_type" value=2>Новость<br>
+                <input type="radio" name="new_type" value=3>Личность<br>
+                <input type="radio" name="new_type" value=4>Афиша<br><br>
 
-        Название: <input type="text" name="name"><br><br>
+                Название: <input type="text" name="name"><br><br>
 
-        <textarea name="lid" id="lid" rows="5" cols="80">
-            Здесь находится форма лида.
-        </textarea><br>
+                <textarea name="lid" id="lid" rows="5" cols="80">
+                    Здесь находится форма лида.
+                </textarea><br>
 
-        <textarea name="html" id="html" rows="10" cols="160">
-            Здесь находится форма основной статьи.
-        </textarea>
-        <script>
-            CKEDITOR.replace( 'html' );
-            CKEDITOR.replace( 'lid' );
-        </script><br>
+                <textarea name="html" id="html" rows="10" cols="160">
+                    Здесь находится форма основной статьи.
+                </textarea>
+                <script>
+                    CKEDITOR.replace( 'html' );
+                    CKEDITOR.replace( 'lid' );
+                </script><br>
 
-        <input type="submit" value="Сохранить">
-        
-    </form>
-    {% if  html %}
-        {{ html|safe }}
-    {% endif %}
+                <input type="submit" value="Сохранить">
+                
+            </form>
+        </td>
+        <td>
+             <!--<form id="uploadForm" action="/admin_post_pic/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <br><br>
+                <input type="file" name="pic"><br><br>
+                <input type="submit" value="Добавить картинку">
+            </form>-->
+            <!--<script>
+                var message = '';
+                var options = {
+                    url: '/admin_post_pic/',
+                    error: function(response) {
+                        message = '<span class="error">We\'re sorry, but something went wrong. Retry.</span>';
+                        $('.upload-message').html(message);
+                        $('fileInput').val('');
+                    },
+                    success: function(response) {
+                        message = '<span class="' + response.status + '">' + response.result + '</span> ';
+                        message = ( response.status == 'success' ) ? message + response.fileLink : message;
+                        $('.upload-message').html(message);
+                        $('fileInput').val('');
+                    }
+                };
+                $('#uploadForm').ajaxSubmit(options);
+            </script>-->
+            <!--<script>
+                function progressHandlingFunction(e){
+                    if(e.lengthComputable){
+                        $('progress').attr({value:e.loaded,max:e.total});
+                    }
+                }
+                // Attach a submit handler to the form
+                $( "#uploadForm" ).submit(function( event ) {
+                    // Stop form from submitting normally
+                    event.preventDefault();
+                    // Get some values from elements on the page:
+                    var $form = $( this );
+                    // Send the data using post
+                    $.ajax({
+                        type: 'POST',
+                        url: $form.attr( "action" ),
+                        xhr: function() {  // Custom XMLHttpRequest
+                            var myXhr = $.ajaxSettings.xhr();
+                            if(myXhr.upload){ // Check if upload property exists
+                                myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // For handling the progress of the upload
+                            }
+                            return myXhr;
+                        },
+                        contentType: false,
+                        processData: false,
+                        data: {pic: $form.pic, csrfmiddlewaretoken: '{{ csrf_token }}',},//getFormData($form),
+                        success: function (data) {
+                            alert('sucksess');
+                        },
+                    });
+                });
+            </script>-->
+
+
+
+<form enctype="multipart/form-data">
+    {% csrf_token %}
+    <input name="file" type="file" multiple/>
+
+    <input type="button" value="Upload" />
+</form>
+<script type="text/javascript">
+
+
+
+function progressHandlingFunction(e){
+    if(e.lengthComputable){
+        $('progress').attr({value:e.loaded,max:e.total});
+    }
+}
+
+$(':button').click(function(){
+    var formData = new FormData($('form')[1]);
+    $.ajax({
+        url: '/admin_post_pic/',  //Server script to process data
+        type: 'POST',
+        xhr: function() {  // Custom XMLHttpRequest
+            var myXhr = $.ajaxSettings.xhr();
+            if(myXhr.upload){ // Check if upload property exists
+                myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // For handling the progress of the upload
+            }
+            return myXhr;
+        },
+        //Ajax events
+        //beforeSend: beforeSendHandler,
+        //success: completeHandler,
+        //error: errorHandler,
+        // Form data
+        data: formData,
+        //Options to tell jQuery not to process data or worry about content-type.
+        cache: false,
+        contentType: false,
+        processData: false
+    });
+});
+</script>
+<progress></progress>
+
+
+
+
+
+        </td>
+        </tr>
+    </table>
   </body>
 
 </html>

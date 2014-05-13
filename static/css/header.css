@@ -113,3 +113,9 @@ nav > ul > li {
     border: solid 2px black;
     border-radius: 0;
 }
+
+#source{
+    width: inherit;
+    display: inline-block;
+    min-height: 600px;
+}
