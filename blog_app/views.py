@@ -7,6 +7,7 @@ from django.core.files.base import ContentFile
 from django.conf import settings
 from datetime import date
 from django.http import HttpResponse
+from django.template.loader import render_to_string
 
 
 def admin(request):
@@ -48,32 +49,44 @@ def admin_post_pic(request):
 
 
 def lenta(request):
-	return render(request, 'pages/lenta.html')
+	html_code = ""
+	rcds = New.objects.all()[10:]
+	for i in rcds:
+		record = {
+			'date': i.date,
+			'type': i.new_type,
+			'title': i.name,
+			'info': i.lid,
+			'lid': i.lid,
+			'comments': i.looks,
+		}
+		html_code += render_to_string('pages/item_li.html', record)
+	dictionary = {'stuff': html_code}
+	return render(request, 'pages/lenta.html', dictionary)
 
 
-def about(request):
-	return render(request, 'pages/about.html')
+def lenta_get(request):
+	data = {'something': 'useful'}
+	return HttpResponse(json.dumps(data), content_type="application/json")
 
 
-def redaction(request):
-	return render(request, 'pages/redaction.html')
+def item(request, item_id):
+	try:
+		i = New.objects.get(id=item_id)
+	except:
+		return render(request, 'blog_app/404.html')
+	i.looks += 1
+	ctx = {
+		'date': i.date,
+		'type': i.new_type,
+		'title': i.name,
+		'info': i.lid,
+		'lid': i.lid,
+		'comments': i.looks,
+	    'body': i.html,
+	}
+	return render(request, 'pages/item.html', ctx)
 
 
 def search(request):
 	return render(request, 'search.html')
-
-
-def premiera(request):
-	return render(request, 'pages/premiera.html')
-
-
-def news(request):
-	return render(request, 'pages/news.html')
-
-
-def personality(request):
-	return render(request, 'pages/personality.html')
-
-
-def afisha(request):
-	return render(request, 'pages/afisha.html')
