@@ -5,6 +5,7 @@ from Svetanyashmyash.settings import ROOT_PATH
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.conf import settings
+from datetime import date
 
 
 def admin(request):
@@ -12,9 +13,9 @@ def admin(request):
 	if request.method == 'POST':  # If the form has been submitted...
 		print(request.FILES)
 		for upfile in request.FILES.getlist('pic'):
-			path = default_storage.save('%Y/%m/%d/somename.jpg', ContentFile(upfile.read()))
+			today = date.today()
+			path = default_storage.save(str(today.year) + '/' + str(today.month) + '/' + str(today.day) + '/' + upfile.name, ContentFile(upfile.read()))
 			tmp_file = os.path.join(settings.MEDIA_ROOT, path)
-			print("1")
 			#filename = ROOT_PATH + "/media/" + upfile.name
 			#fd = open(filename, 'w')
 			#for chunk in upfile.chunks():
@@ -37,6 +38,10 @@ def admin(request):
 		print("debug")
 		p.save()
 	return render(request, 'admin.html', dictionary)
+
+def admin_post_pic(request):
+	print("1")
+	return HttpResponse("ok")
 
 
 def lenta(request):
