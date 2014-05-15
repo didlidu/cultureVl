@@ -46,6 +46,10 @@ body{
     height: 200px;
     background-color: plum;
 }
+#header_pic img {
+    width:inherit;
+    height: inherit;
+}
 
 #top_header, #bot_header{
     width:inherit;

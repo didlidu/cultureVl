@@ -1,0 +1,660 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"p",
+				"p"
+			],
+			[
+				"margin",
+				"margin-top"
+			],
+			[
+				"padd",
+				"padding-top"
+			],
+			[
+				"fon",
+				"font-size"
+			],
+			[
+				"top",
+				"top_header"
+			],
+			[
+				"bor",
+				"border-radius"
+			],
+			[
+				"bo",
+				"border"
+			],
+			[
+				"div",
+				"nav_div"
+			],
+			[
+				"pa",
+				"padding-top"
+			],
+			[
+				"ma",
+				"margin-top"
+			],
+			[
+				"di",
+				"display"
+			],
+			[
+				"Di",
+				"Diffu"
+			],
+			[
+				"D",
+				"Diffu"
+			],
+			[
+				"en",
+				"endl"
+			],
+			[
+				"source",
+				"source_in"
+			],
+			[
+				"b",
+				"b"
+			],
+			[
+				"sou",
+				"source_out"
+			],
+			[
+				"be",
+				"begin"
+			],
+			[
+				"t",
+				"t"
+			],
+			[
+				"Gamm",
+				"Gamma4"
+			],
+			[
+				"Ga",
+				"Gamma3"
+			],
+			[
+				"gamma",
+				"Gamma2"
+			],
+			[
+				"Gamma",
+				"Gamma2"
+			],
+			[
+				"phie",
+				"phiexact"
+			],
+			[
+				"phi",
+				"phiexact"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "templates/pages/item.html",
+			"settings":
+			{
+				"buffer_size": 9850,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/C++/C++.sublime-build",
+	"command_palette":
+	{
+		"height": 296.0,
+		"selected_items":
+		[
+			[
+				"py",
+				"Python Breakpoints: Toggle"
+			],
+			[
+				"Git pu",
+				"Git: Pull"
+			],
+			[
+				"Git:p",
+				"Git: Pull"
+			],
+			[
+				"Git",
+				"Git: Status"
+			],
+			[
+				"Git:s",
+				"Git: Status"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 588.0
+	},
+	"console":
+	{
+		"height": 173.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/komatsu/Документы/svetanyashmyash/manage.py",
+		"/home/komatsu/Документы/svetanyashmyash/svetanyashmyash.sublime-workspace",
+		"/home/komatsu/.config/sublime-text-2/Packages/Default/Preferences.sublime-settings",
+		"/home/komatsu/Документы/svetanyashmyash/svetanyashmyash.sublime-project",
+		"/home/komatsu/Документы/svetanyashmyash/static/js/main.js",
+		"/home/komatsu/Документы/svetanyashmyash/templates/index.html",
+		"/home/komatsu/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
+		"/home/komatsu/Документы/svetanyashmyash/static/css/header.css",
+		"/home/komatsu/.config/sublime-text-2/Packages/User/Git.sublime-settings",
+		"/home/komatsu/Документы/svetanyashmyash/untitled.sublime-workspace",
+		"/home/komatsu/.config/sublime-text-2/Packages/User/Default (Linux).sublime-keymap",
+		"/home/komatsu/Документы/svetanyashmyash/static/css/style.css",
+		"/home/komatsu/Документы/svetanyashmyash/static/css/style-normal.css",
+		"/home/komatsu/Документы/svetanyashmyash/static/css/main_style.css",
+		"/home/komatsu/tmp/страница/js/html5shiv.js",
+		"/home/komatsu/Документы/svetanyashmyash/blog_app/views.py",
+		"/home/komatsu/Документы/diploma_mes_src/presentation.tex",
+		"/home/komatsu/Документы/diploma_mes_src/mes.edp",
+		"/home/komatsu/projects/stuff/trees_tax/output.txt",
+		"/home/komatsu/projects/stuff/trees_tax/input.txt",
+		"/home/komatsu/projects/stuff/trees_tax/main.cpp",
+		"/home/komatsu/projects/stuff/trees_tax/main_2.cpp",
+		"/home/komatsu/projects/pycharm/movement/movement/urls.py",
+		"/home/komatsu/projects/pycharm/movement/movement_app/views.py",
+		"/home/komatsu/projects/pycharm/movement/templates/movement_app/done.html",
+		"/home/komatsu/projects/pycharm/movement/movement/social_settings.py",
+		"/home/komatsu/tmp/formulas.tex",
+		"/home/komatsu/projects/pycharm/movement/static/js/map.js",
+		"/home/komatsu/projects/pycharm/movement/movement/settings.py",
+		"/home/komatsu/Документы/2_b/output.txt",
+		"/home/komatsu/Документы/2_b/input.txt",
+		"/home/komatsu/Документы/1k/2_b/2_b.cpp",
+		"/home/komatsu/Документы/2_b/2_b.cpp",
+		"/home/komatsu/Документы/input.txt",
+		"/home/komatsu/Документы/2_b.cpp",
+		"/home/komatsu/Загрузки/C++/Calculator/src/Calculator.cpp",
+		"/home/komatsu/Загрузки/C++/Calculator/src/Parser.cpp",
+		"/home/komatsu/Загрузки/C++/newspaper_maker/lya.cpp",
+		"/home/komatsu/Документы/pt_manual",
+		"/home/komatsu/.PlayOnLinux/wineprefix/PT/drive_c/planescape/ghost/SETUP-GHOSTDOG'S-PST-UI.DEBUG",
+		"/home/komatsu/Документы/mo_17/fix.tex",
+		"/home/komatsu/Документы/mo_17/prac/calcs.nb",
+		"/home/komatsu/Загрузки/Grand Theft Auto Vice City/ReadMe/ReadMe.txt",
+		"/home/komatsu/Загрузки/Grand Theft Auto Vice City/readMe.txt",
+		"/home/komatsu/Документы/used/diploma_mes_src/mes.edp",
+		"/home/komatsu/Документы/mo_17/adnron/refer.tex",
+		"/home/komatsu/Документы/mo_17/prac/mes.edp",
+		"/home/komatsu/Документы/mo_17/abstract.tex",
+		"/home/komatsu/Документы/mo_17/prac/report.tex",
+		"/home/komatsu/Документы/mo_17/prac/Th.msh",
+		"/home/komatsu/Документы/mo_17/postanova.tex",
+		"/home/komatsu/Документы/mo_17/opti.tex",
+		"/home/komatsu/Документы/mo_17/lit.tex",
+		"/home/komatsu/Документы/mo_17/opti.log",
+		"/home/komatsu/Документы/mo_17/info.txt",
+		"/home/komatsu/Документы/from_nout/alekseev_ref/abstract.tex",
+		"/home/komatsu/Документы/mo_17/prac/helm.pdf",
+		"/home/komatsu/Документы/praktika_diplomki_baydin/report.tex",
+		"/home/komatsu/Документы/praktika_diplomki_baydin/title.tex",
+		"/home/komatsu/Документы/mo_17/postanova",
+		"/home/komatsu/Документы/diplom_practica/title.tex",
+		"/home/komatsu/Документы/diplom_practica/report.tex",
+		"/home/komatsu/Документы/diplom_practica/direct.tex",
+		"/home/komatsu/Документы/diplom_practica/intro.tex",
+		"/home/komatsu/Документы/diploma_mes_src/diploma.tex",
+		"/home/komatsu/Документы/from_nout/Alekseevico/e-u version14d01Transl.tex",
+		"/home/komatsu/Документы/diplom_practica/bem.tex",
+		"/home/komatsu/Документы/diplom/presentation.tex",
+		"/home/komatsu/Документы/diplom/mes.edp",
+		"/home/komatsu/Документы/diplom/abstract.tex",
+		"/home/komatsu/Документы/diplom/diploma.tex",
+		"/home/komatsu/Документы/fem_17/report.tex",
+		"/home/komatsu/Документы/diplom/blueprnttokamak.png",
+		"/home/komatsu/Документы/fem_17/sut.tex",
+		"/home/komatsu/Документы/diplom/practise.nb",
+		"/home/komatsu/Документы/diplom/abstract_work.tex",
+		"/home/komatsu/Документы/diplom/texput.log",
+		"/home/komatsu/Документы/fem_17/andron/solve.maxima",
+		"/home/komatsu/Документы/fem_17/sut'.tex",
+		"/home/komatsu/Документы/fem_17/refer.tex",
+		"/home/komatsu/Документы/fem_17/andron/report.tex",
+		"/home/komatsu/Документы/from_nout/alekseev_ref/fem/abstract.tex",
+		"/home/komatsu/Документы/from_nout/Alekseevico/BaydinAV_1.tex",
+		"/home/komatsu/Документы/from_nout/Alekseevico/fem/report.tex",
+		"/home/komatsu/.PlayOnLinux/wineprefix/PT/drive_c/Games/Planescape/Torment.log",
+		"/home/komatsu/.PlayOnLinux/wineprefix/PT/drive_c/Games/Planescape Torment/torment.ini",
+		"/home/komatsu/.PlayOnLinux/wineprefix/PT/drive_c/Games/Planescape Torment/Readme.txt",
+		"/home/komatsu/.PlayOnLinux/wineprefix/PT/drive_c/Games/Planescape Torment/widescreen/backup/g3readme.css",
+		"/home/komatsu/.PlayOnLinux/wineprefix/PT/drive_c/Games/Planescape Torment/widescreen/desktop.ini",
+		"/home/komatsu/.PlayOnLinux/wineprefix/PT/drive_c/Games/Planescape Torment/widescreen/lib/game_config.tpa",
+		"/home/komatsu/.PlayOnLinux/wineprefix/PT/drive_c/Games/Planescape Torment/SETUP-WIDESCREEN.DEBUG",
+		"/home/komatsu/Загрузки/Mathematica_9.0.1_LINUX.sh",
+		"/home/komatsu/.PlayOnLinux/wineprefix/PT/drive_c/Games/Planescape Torment/widescreen/tra/russian/setup.tra",
+		"/home/komatsu/.PlayOnLinux/wineprefix/NotepadPlusPlus/drive_c/Games/Ja2/Ja2.ini",
+		"/home/komatsu/.PlayOnLinux/wineprefix/NotepadPlusPlus/drive_c/Games/Ja2/Data/Ja2_Options.INI",
+		"/home/komatsu/.PlayOnLinux/wineprefix/NotepadPlusPlus/drive_c/Games/Ja2/Readme.doc",
+		"/home/komatsu/.Xdefaults",
+		"/home/komatsu/.ja2/ja2.ini",
+		"/home/komatsu/.PlayOnLinux/wineprefix/NotepadPlusPlus/drive_c/Games/Ja2/Data-1.13/Ja2_Options.INI",
+		"/home/komatsu/.PlayOnLinux/wineprefix/PT/drive_c/Games/Planescape Torment/Uninstall.ini",
+		"/home/komatsu/.conky/.conkyrc_clock",
+		"/home/komatsu/.config/openbox/rc.xml",
+		"/home/komatsu/Документы/eba_tema",
+		"/home/komatsu/.conky/.conkyrc_1d",
+		"/home/komatsu/.Xresources",
+		"/home/komatsu/.config/openbox/autostart.sh",
+		"/home/komatsu/.conky/.conkyrc_sys",
+		"/home/komatsu/.conky/.conkyrc_weather",
+		"/home/komatsu/lxterminal_backup.conf",
+		"/home/komatsu/.config/lxterminal/lxterminal.conf",
+		"/home/komatsu/.conky/.conkyForecast.template",
+		"/home/komatsu/.bashrc",
+		"/home/komatsu/.conky/.conkyrc_disk",
+		"/home/komatsu/tmp/Conky Powered/.conky/.conkyrc_weather",
+		"/home/komatsu/.conky/.conkyRhythmbox.template_dis",
+		"/home/komatsu/tmp/Conky Powered/bin/conky_start"
+	],
+	"find":
+	{
+		"height": 38.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"20",
+			"0",
+			"1000",
+			"20",
+			"min-he",
+			"\" \"",
+			"' '",
+			"height=0.5\\paperheight",
+			"height=0.35\\paperheight",
+			"height=0.4\\paperheight",
+			"width=1\\textwidth",
+			"!h",
+			"htbp",
+			"tilda",
+			"Nabla",
+			"lit",
+			"С учетом этого п",
+			"c учетом этого",
+			"Гельдера",
+			"неравенство Гельдера",
+			"equation",
+			"}\n",
+			"amsfonts",
+			"input",
+			"\\hat k",
+			"отсюда вытекает",
+			"k",
+			"Разобьем",
+			"вывод",
+			"Выведем необходимые условия",
+			"введем необходимые",
+			"выведем нео",
+			"введем необходимые",
+			"section",
+			"se",
+			"ben",
+			"?",
+			"система коорди",
+			"headcomman",
+			".clo",
+			"right",
+			"Tore s",
+			"$\\Gamma_p \\txt{и} \\Gamma_e$",
+			"$\\Gamma_p \\text{и} \\Gamma_e$",
+			"$Gamma_p",
+			"Gamma_e",
+			"в",
+			"Gamma_e",
+			"число обуслов",
+			"выполняются условия",
+			"\\infty",
+			"обозначим",
+			"frac",
+			"\\inf",
+			"^ \\inf",
+			"^\\inf",
+			"C^\\inf",
+			"resolut",
+			"win-D",
+			"win",
+			"75",
+			"eth0",
+			"font",
+			"E_",
+			"${",
+			"color0",
+			"margin",
+			"height",
+			"border_mar",
+			"minimum",
+			"pid",
+			"eth0"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"$\\Gamma_p",
+			"\\infty",
+			"^{\\inf}",
+			"wlp2s0",
+			"\\vec E_",
+			"wlp2s0"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "templates/pages/item.html",
+					"settings":
+					{
+						"buffer_size": 9850,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9717,
+								9717
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"sublime_auto_complete": true,
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2776.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 64.0
+	},
+	"output.git":
+	{
+		"height": 355.0
+	},
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 196.0,
+	"status_bar_visible": true
+}
