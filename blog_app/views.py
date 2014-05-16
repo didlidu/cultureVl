@@ -78,7 +78,10 @@ def lenta_get(request):
 def item(request, item_id):
 	html_code = ""
 	q = ""
-	u = New.objects.get(id=item_id)
+	try:
+		u = New.objects.get(id=item_id)
+	except:
+		return render(request, 'blog_app/404.html', )
 	u.cviews += 1
 	u.save()
 	count_news = 3
@@ -114,10 +117,7 @@ def item(request, item_id):
 	html_code += render_to_string('pages/item.html', record)
 	html_code += render_to_string('blog_app/footer.html', record)
 	return HttpResponse(html_code)
-	try:
-		i = New.objects.get(id=item_id)
-	except:
-		return render(request, 'pages/item.html')
+
 
 def search(request):
 	return render(request, 'search.html')
