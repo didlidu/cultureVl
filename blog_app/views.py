@@ -50,9 +50,10 @@ def admin_post_pic(request):
 
 def lenta(request):
 	html_code = ""
-	rcds = New.objects.all()[10:]
+	rcds = New.objects.all()[:10]
 	for i in rcds:
 		record = {
+			'id': i.id,
 			'date': i.date,
 			'type': i.new_type,
 			'title': i.name,
@@ -73,19 +74,34 @@ def lenta_get(request):
 
 def item(request, item_id):
 	html_code = ""
-	rcds = New.objects.all()[3:]
+	u = New.objects.get(id=item_id)
+	u.cviews += 1
+	u.save()
+	record = {
+			'id': u.id,
+			'date': u.date,
+			'type': u.new_type,
+			'body': u.html,
+			'title': u.name,
+			'info': u.lid,
+			'lid': u.lid,
+			'views': u.cviews,
+			'comments': u.ccomments,
+	}
+	rcds = New.objects.all()[:4]
 	j = 1
-	record = {}
 	for i in rcds:
-		record = {
-			'date_'+j: i.date,
-			'type_'+j: i.new_type,
-			'title_'+j: i.name,
-			'info_'+j: i.lid,
-			'lid_'+j: i.lid,
-			'views_'+j: i.cviews,
-			'comments_'+j: i.ccomments,
-		}
+		if u.id == i.id: continue
+		record.update({
+			'id_'+str(j): i.id,
+			'date_'+str(j): i.date,
+			'type_'+str(j): i.new_type,
+			'title_'+str(j): i.name,
+			'info_'+str(j): i.lid,
+			'lid_'+str(j): i.lid,
+			'views_'+str(j): i.cviews,
+			'comments_'+str(j): i.ccomments,
+		})
 		j += 1
 	html_code += render_to_string('blog_app/header.html', record)
 	html_code += render_to_string('pages/item.html', record)

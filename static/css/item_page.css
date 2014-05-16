@@ -44,11 +44,12 @@ p {
 #looks{
     float: right;
     height: 15px;
+    color: #97999B;
+    font-size: 15px;
 }
 #looks_pic{
     width: 15px;
-    height: 15px;
-    background-color: #0000ff;
+    height: 9px;
     display: inline-block;
 }
 
@@ -75,7 +76,7 @@ p {
     vertical-align: top;
     width: 270px;
     background-color: brown;
-    height: 330px;
+    min-height: 330px;
 }
 #title{
 
@@ -99,13 +100,13 @@ p {
     position: absolute;
 }
 .foot_views{
+    color: #97999B;
     height:17px;
     align: right;
     font-size: 15px;
     width:50%;
     margin-left:50%;
     text-align: right;
-
 }
 .foot_title{
     width: inherit;
@@ -119,7 +120,7 @@ p {
 }
 .foot_eye{
     width: 15px;
-    height: 12px;
+    height: 9px;
     /*background-color: black;*/
     margin-right: 5px;
     display: inline-block;
