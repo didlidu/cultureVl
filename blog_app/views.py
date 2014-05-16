@@ -13,22 +13,24 @@ def admin(request):
 	dictionary = {}
 	if request.method == 'POST':  # If the form has been submitted...
 		p = New(
-				#pic = request.FILES['pic'],
 				new_type = request.POST['new_type'],
 				name = request.POST['name'],
 				lid = request.POST['lid'],
 				html = request.POST['html'],)
 		p.save()
-		print(p.id)
+		p.pic_url = str(p.id) + '/' + "pic.jpg"
+		p.save()
 		print(request.FILES)
 		for upfile in request.FILES.getlist('pic'):
 			path = default_storage.save(str(p.id) + '/' + "pic.jpg", ContentFile(upfile.read()))
 			tmp_file = os.path.join(settings.MEDIA_ROOT, path)
 		dictionary.update({
 			'new_type': request.POST['new_type'],
+			'pic_url': p.pic_url,
 			'name': request.POST['name'],
 			'lid': request.POST['lid'],
 			'html': request.POST['html'],
+			'id': p.id,
 			})
 	return render(request, 'admin.html', dictionary)
 
