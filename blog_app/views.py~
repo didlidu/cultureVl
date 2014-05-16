@@ -1,7 +1,7 @@
 import os
 import json
 from django.shortcuts import render
-from blog_app.models import New, get_records
+from blog_app.models import New
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.conf import settings
@@ -13,9 +13,8 @@ from django.template.loader import render_to_string
 def admin(request):
 	dictionary = {}
 	if request.method == 'POST':  # If the form has been submitted...
-		print(request.FILES)
+		#print(request.FILES)
 		for upfile in request.FILES.getlist('pic'):
-			print("1")
 			today = date.today()
 			path = default_storage.save(str(today.year) + '/' + str(today.month) + '/' + str(today.day) + '/' + upfile.name, ContentFile(upfile.read()))
 			tmp_file = os.path.join(settings.MEDIA_ROOT, path)
@@ -38,7 +37,7 @@ def admin(request):
 
 def admin_post_pic(request):
 	if request.method == 'POST':  # If the form has been submitted...
-		#print(request.FILES)
+		print(request.FILES)
 		for upfile in request.FILES.getlist('file'):
 			today = date.today()
 			path = default_storage.save(str(today.year) + '/' + str(today.month) + '/' + str(today.day) + '/' + upfile.name, ContentFile(upfile.read()))
@@ -50,13 +49,11 @@ def admin_post_pic(request):
 
 
 def lenta(request):
-	a = get_records(10, 1, 0)
-	print(a)
+	print("debug")
 	html_code = ""
-	rcds = New.objects.all()[:10]
+	rcds = (New.objects.all())[:10]
 	for i in rcds:
 		record = {
-			'id': i.id,
 			'date': i.date,
 			'type': i.new_type,
 			'title': i.name,
@@ -77,34 +74,19 @@ def lenta_get(request):
 
 def item(request, item_id):
 	html_code = ""
-	u = New.objects.get(id=item_id)
-	u.cviews += 1
-	u.save()
-	record = {
-			'id': u.id,
-			'date': u.date,
-			'type': u.new_type,
-			'body': u.html,
-			'title': u.name,
-			'info': u.lid,
-			'lid': u.lid,
-			'views': u.cviews,
-			'comments': u.ccomments,
-	}
-	rcds = New.objects.all()[:4]
+	rcds = New.objects.all()[3:]
 	j = 1
+	record = {}
 	for i in rcds:
-		if u.id == i.id: continue
-		record.update({
-			'id_'+str(j): i.id,
-			'date_'+str(j): i.date,
-			'type_'+str(j): i.new_type,
-			'title_'+str(j): i.name,
-			'info_'+str(j): i.lid,
-			'lid_'+str(j): i.lid,
-			'views_'+str(j): i.cviews,
-			'comments_'+str(j): i.ccomments,
-		})
+		record = {
+			'date_'+j: i.date,
+			'type_'+j: i.new_type,
+			'title_'+j: i.name,
+			'info_'+j: i.lid,
+			'lid_'+j: i.lid,
+			'views_'+j: i.cviews,
+			'comments_'+j: i.ccomments,
+		}
 		j += 1
 	html_code += render_to_string('blog_app/header.html', record)
 	html_code += render_to_string('pages/item.html', record)

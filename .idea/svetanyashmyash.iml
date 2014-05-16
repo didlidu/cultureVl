@@ -3,15 +3,15 @@
   <component name="FacetManager">
     <facet type="django" name="Django">
       <configuration>
-        <option name="rootFolder" value="$MODULE_DIR$" />
-        <option name="settingsModule" value="Svetanyashmyash/settings.py" />
-        <option name="manageScript" value="manage.py" />
+        <option name="rootFolder" value="$MODULE_DIR$/Svetanyashmyash" />
+        <option name="settingsModule" value="settings.py" />
+        <option name="manageScript" value="settings.py" />
       </configuration>
     </facet>
   </component>
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$" />
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Python 3.3.5 (/usr/bin/python3)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TemplatesService">

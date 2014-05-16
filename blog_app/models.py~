@@ -11,19 +11,6 @@ class New(models.Model):
     html = models.TextField()
     cviews = models.PositiveIntegerField( default=0 )
     ccomments = models.PositiveIntegerField( default=0 )
-    authors = models.TextField()
 
 
-def get_records(n, mask, next):
-    objects = New.objects.all()
-    if(mask == 0):
-        return objects[ n * next : n * next + n ]
-    i = n * next;
-    j = 0
-    selected_objects = []
-    while(n + 10 and i < len(objects)):
-        if(objects[i].new_type == mask):
-            selected_objects.append(objects[i])
-            j += 1
-        i += 1
-    return selected_objects
+
