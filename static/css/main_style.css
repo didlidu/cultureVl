@@ -1,5 +1,26 @@
 @charset "UTF-8"; 
 
+#more{
+    width: inherit;
+    height: 80px;
+    text-align: center;
+    background-color: whitesmoke;
+    display: inline-block;
+}
+#stuff a{
+    transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+}
+#stuff a:hover{
+    color: rgba(212,212,212,0.85);
+}
+#more span{
+    margin: 30px auto 0;
+    opacity: 1;
+    display: inline-block;
+    cursor: pointer;
+    font-weight: 500;
+}
+
 
 #main_container{
     list-style-type: none;
