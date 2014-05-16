@@ -1,3 +1,4 @@
+{% load static %}
 <div id="main">
 <div id="main_photo"></div>
 <div id="item_date">3 мая</div>
@@ -51,18 +52,37 @@
 <div id="item_container">
     <div class="foot_new">
         <div class="foot_pic"></div>
-        <div class="foot_tag"><span>Премьера</span> <div class="foot_views"><div class="foot_eye"></div>200</div></div>
-        <div class="foot_title">"КТО ТАКОЙ ДЖОН ГАЛТ?"</div>
-        
+        <div class="foot_tag">
+            <span>{{ date_1 }}</span> 
+            <div class="foot_views">
+                <img class="foot_eye" src="{% static "pics/eye.png" %}"/>
+                {{views_1}}
+            </div>
+        </div>
+        <div class="foot_title">{{ title_1 }}</div>
     </div>
+
     <div class="foot_new">
         <div class="foot_pic"></div>
-        <div class="foot_tag"><span>Премьера</span> <div class="foot_views"><div class="foot_eye"></div>200</div></div>
-        <div class="foot_title">"КТО ТАКОЙ ДЖОН ГАЛТ?"</div>
+        <div class="foot_tag">
+            <span>{{date_2}}</span> 
+            <div class="foot_views">
+                    <img class="foot_eye" src="{% static "pics/eye.png" %}"/>
+                {{views_2}}
+            </div>
+        </div>
+        <div class="foot_title">{{ title_2 }}</div>
     </div>
+    
     <div class="foot_new">
         <div class="foot_pic"></div>
-        <div class="foot_tag"><span>Премьера</span> <div class="foot_views"><div class="foot_eye"></div>200</div></div>
-        <div class="foot_title">"КТО ТАКОЙ ДЖОН ГАЛТ?"</div>
+        <div class="foot_tag">
+            <span>{{date_3}}</span>
+            <div class="foot_views">
+                <img class="foot_eye" src="{% static "pics/eye.png" %}"/>
+            {{views_3}}
+        </div>
+    </div>
+        <div class="foot_title">{{ title_3 }}</div>
     </div>
 </div>

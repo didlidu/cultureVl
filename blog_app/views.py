@@ -58,7 +58,8 @@ def lenta(request):
 			'title': i.name,
 			'info': i.lid,
 			'lid': i.lid,
-			'comments': i.looks,
+			'views': i.cviews,
+			'comments': i.ccomments,
 		}
 		html_code += render_to_string('pages/item_li.html', record)
 	dictionary = {'stuff': html_code}
@@ -72,10 +73,23 @@ def lenta_get(request):
 
 def item(request, item_id):
 	html_code = ""
-	ctx ={}
-	html_code += render_to_string('blog_app/header.html', ctx)
-	html_code += render_to_string('pages/item.html', ctx)
-	html_code += render_to_string('blog_app/footer.html', ctx)
+	rcds = New.objects.all()[3:]
+	j = 1
+	record = {}
+	for i in rcds:
+		record = {
+			'date_'+j: i.date,
+			'type_'+j: i.new_type,
+			'title_'+j: i.name,
+			'info_'+j: i.lid,
+			'lid_'+j: i.lid,
+			'views_'+j: i.cviews,
+			'comments_'+j: i.ccomments,
+		}
+		j += 1
+	html_code += render_to_string('blog_app/header.html', record)
+	html_code += render_to_string('pages/item.html', record)
+	html_code += render_to_string('blog_app/footer.html', record)
 	return HttpResponse(html_code)
 	try:
 		i = New.objects.get(id=item_id)
@@ -88,8 +102,8 @@ def item(request, item_id):
 		'title': i.name,
 		'info': i.lid,
 		'lid': i.lid,
-		'comments': i.looks,
-	    'body': i.html,
+		'comments': i.ccomments,
+	    'views': i.cviews,
 	}
 	return render(request, 'pages/item.html', ctx)
 

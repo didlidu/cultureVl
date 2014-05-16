@@ -9,3 +9,5 @@ class New(models.Model):
     name = models.TextField()
     lid = models.TextField()
     html = models.TextField()
+    cviews = models.PositiveIntegerField( default=0 )
+    ccomments = models.PositiveIntegerField( default=0 )

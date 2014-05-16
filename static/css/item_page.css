@@ -119,8 +119,8 @@ p {
 }
 .foot_eye{
     width: 15px;
-    height: 8px;
-    background-color: black;
+    height: 12px;
+    /*background-color: black;*/
     margin-right: 5px;
     display: inline-block;
 }
