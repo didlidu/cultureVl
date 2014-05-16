@@ -5,7 +5,6 @@ from blog_app.models import New, get_records
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.conf import settings
-from datetime import date
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 
@@ -13,11 +12,17 @@ from django.template.loader import render_to_string
 def admin(request):
 	dictionary = {}
 	if request.method == 'POST':  # If the form has been submitted...
+		p = New(
+				#pic = request.FILES['pic'],
+				new_type = request.POST['new_type'],
+				name = request.POST['name'],
+				lid = request.POST['lid'],
+				html = request.POST['html'],)
+		p.save()
+		print(p.id)
 		print(request.FILES)
 		for upfile in request.FILES.getlist('pic'):
-			print("1")
-			today = date.today()
-			path = default_storage.save(str(today.year) + '/' + str(today.month) + '/' + str(today.day) + '/' + upfile.name, ContentFile(upfile.read()))
+			path = default_storage.save(str(p.id) + '/' + "pic.jpg", ContentFile(upfile.read()))
 			tmp_file = os.path.join(settings.MEDIA_ROOT, path)
 		dictionary.update({
 			'new_type': request.POST['new_type'],
@@ -25,14 +30,6 @@ def admin(request):
 			'lid': request.POST['lid'],
 			'html': request.POST['html'],
 			})
-		p = New(
-				#pic = request.FILES['pic'],
-				new_type = request.POST['new_type'],
-				name = request.POST['name'],
-				lid = request.POST['lid'],
-				html = request.POST['html'],)
-		print("debug")
-		p.save()
 	return render(request, 'admin.html', dictionary)
 
 
@@ -40,8 +37,7 @@ def admin_post_pic(request):
 	if request.method == 'POST':  # If the form has been submitted...
 		#print(request.FILES)
 		for upfile in request.FILES.getlist('file'):
-			today = date.today()
-			path = default_storage.save(str(today.year) + '/' + str(today.month) + '/' + str(today.day) + '/' + upfile.name, ContentFile(upfile.read()))
+			path = default_storage.save(str(request.POST['id']) + '/' + upfile.name, ContentFile(upfile.read()))
 			tmp_file = os.path.join(settings.MEDIA_ROOT, path)
 	response_data = {}
 	response_data['status'] = "success"
