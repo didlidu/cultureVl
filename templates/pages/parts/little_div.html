@@ -1,0 +1,14 @@
+{% load static %}
+<div class="foot_new">
+        <div class="foot_pic"></div>
+        <div class="foot_tag">
+            <span>{{ date }} - <a href="">{{ type }}</a></span> 
+            <div class="foot_views">
+                <img class="foot_eye" src="{% static "pics/eye.png" %}"/>
+                {{views}}
+            </div>
+        </div>
+        <div class="foot_title">
+            <a href="/item/{{ id }}">{{ title }}</a>
+        </div>
+</div>

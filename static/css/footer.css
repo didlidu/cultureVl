@@ -1,23 +1,70 @@
-    #more{
-        width: inherit;
-        height: 80px;
-        text-align: center;
-        background-color: whitesmoke;
-        display: inline-block;
-    }
-    #more span{
-        margin: 30px auto 0;
-        opacity: 1;
-        display: inline-block;
-    }
 
 #substrate-footer {
-    height:150px;
+    height:130px;
     margin:20px 0 0
 }
 #footer {
-    background-color: rgba(0, 0, 0, 0.37);
-    height:150px;
+    font-size: 15px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 300;
+    background: #2b252c;
+    color: rgba(128, 128, 128, 0.74902);
+    height:200px;
     margin:-150px auto 0;
     width: inherit;
+}
+#footer a{
+}
+#footer a:hover {
+color: rgba(212,212,212,0.85);
+}
+#footer div{
+    display: inline-block;
+}
+#footer_wrap{
+    width:1000px;
+    margin: 0 auto;
+    display: block !important;
+    padding-top: 20px;
+}
+#footer_logo{
+    display: inline-block;
+    width:inherit;
+}
+#footer_logo > span {
+    font-size: 28px;
+    margin-top: 0;
+}
+#footer_logo img{
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+}
+#footer_social{
+    padding-top: 10px;
+    padding-right: 15px;
+    float: right;
+    display: inline-block;
+    margin-right: 70px;
+
+}
+#footer_social img{
+    width: 20px;
+    height: 20px;
+}
+#footer_social span{
+    display: inline;
+}
+#footer_info, #write_to_us #footer_copyright{
+    width:inherit;
+}
+#footer_development{
+    width:inherit;
+}
+#footer_archive{
+    display: inline-block;
+    margin-right:0;
+    margin-bottom: 0;
+    position: absolute;
 }

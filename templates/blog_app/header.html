@@ -8,6 +8,9 @@
         <meta name="keywords" content="" />
         <meta name="description" content="" />
         <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Ubuntu:300,400,700,300italic,400italic&amp;subset=latin,cyrillic">
+        <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600" rel="stylesheet" type="text/css" />
+        <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+        
         <link rel="stylesheet" type="text/css" href="{% static "css/header.css" %}">
         <link rel="stylesheet" type="text/css" href="{% static "css/main_style.css" %}">
         <link rel="stylesheet" type="text/css" href="{% static "css/footer.css" %}">
@@ -25,14 +28,25 @@
                 
                 // Note: make sure you call dropotron on the top level <ul>
                 $('#main-nav').find('> ul').dropotron({
+                    mode: 'instant',     // Menu mode ("instant", "fade", "slide", "zoom")
+                    speed: '10',     // Menu speed ("fast", "slow", or ms)
+                    hoverDelay: 20,        // Hover delay (in ms)
+                    hideDelay: 50,        // Hide delay (in ms; 0 disables)
                     offsetY: 0 // Nudge up submenus by 10px to account for padding
                 });
                 $('#nav').find('> ul').dropotron({
+                    mode: 'instant',     // Menu mode ("instant", "fade", "slide", "zoom")
+                    speed: '10',     // Menu speed ("fast", "slow", or ms)
+                    
+                    hoverDelay: 20,        // Hover delay (in ms)
+                    hideDelay: 100,        // Hide delay (in ms; 0 disables)
                     offsetY: 0 // Nudge up submenus by 10px to account for padding
                 });
             
             });
         </script>
+
+        <script src="http://vk.com/js/api/openapi.js"; type="text/javascript" charset="windows-1251"></script>
 
     </head>
 

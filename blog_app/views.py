@@ -75,54 +75,46 @@ def lenta_get(request):
 
 def item(request, item_id):
 	html_code = ""
-	u = New.objects.get(id=item_id)
+	q = ""
+	try:
+		u = New.objects.get(id=item_id)
+	except:
+		return render(request, 'blog_app/404.html', )
 	u.cviews += 1
 	u.save()
-	record = {
-			'id': u.id,
-			'date': u.date,
-			'type': u.new_type,
-			'body': u.html,
-			'title': u.name,
-			'info': u.lid,
-			'lid': u.lid,
-			'views': u.cviews,
-			'comments': u.ccomments,
-	}
-	rcds = New.objects.all()[:4]
-	j = 1
+	count_news = 3
+	j = 0
+	rcds = New.objects.all()[:count_news+1]
 	for i in rcds:
 		if u.id == i.id: continue
-		record.update({
-			'id_'+str(j): i.id,
-			'date_'+str(j): i.date,
-			'type_'+str(j): i.new_type,
-			'title_'+str(j): i.name,
-			'info_'+str(j): i.lid,
-			'lid_'+str(j): i.lid,
-			'views_'+str(j): i.cviews,
-			'comments_'+str(j): i.ccomments,
-		})
 		j += 1
+		record = {
+			'id': i.id,
+			'date': i.date,
+			'type': i.new_type,
+			'title': i.name,
+			'views': i.cviews,
+		}
+		q += render_to_string('pages/parts/little_div.html', record)
+		if j == count_news: break
+
+	record = {
+		'id': u.id,
+		'date': u.date,
+		'type': u.new_type,
+		'body': u.html,
+		'title': u.name,
+		'info': u.lid,
+		'lid': u.lid,
+		'views': u.cviews,
+		'comments': u.ccomments,
+		'other_news': q,
+	}
+	
 	html_code += render_to_string('blog_app/header.html', record)
 	html_code += render_to_string('pages/item.html', record)
 	html_code += render_to_string('blog_app/footer.html', record)
 	return HttpResponse(html_code)
-	try:
-		i = New.objects.get(id=item_id)
-	except:
-		return render(request, 'pages/item.html')
-	i.looks += 1
-	ctx = {
-		'date': i.date,
-		'type': i.new_type,
-		'title': i.name,
-		'info': i.lid,
-		'lid': i.lid,
-		'comments': i.ccomments,
-	    'views': i.cviews,
-	}
-	return render(request, 'pages/item.html', ctx)
 
 
 def search(request):

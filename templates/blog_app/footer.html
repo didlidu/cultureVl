@@ -1,10 +1,27 @@
+{% load static %}
 </div>
 <div></div><!-- очищающий блок -->
 <div id="substrate-footer"></div><!-- блок подложка подвала сайта -->
 
 <div id="footer"><!-- подвал сайта -->
-<h3>Подвал сайта</h3>
-
+	<div id="footer_wrap">
+		<div id="footer_logo">
+			<img src="{% static "pics/CHEKHOV.jpg"%}" />
+			<span>Культурный</span>
+			<div id="footer_social">
+				<span>Мы в социальных сетях:</span><br>
+				<img src="{%static "pics/vk_small.jpg"%}" />
+			</div>
 		</div>
+
+		<div id="footer_info">© Культурный 3000, 2014. Городской интернет-журнал. Написать в редакцию <a>info@vladivostok3000.ru.</a> </div>
+		<div id="write_to_us">Для детей старше 16 лет. Все права на тексты, изображения, видео и аудио принадлежат их авторам.</div>
+		<div id="footer_copyright"> Материалы журнала  могут быть использованы в некоммерческих целях при указании авторства и гиперссылки на источник. <a>Архив-2013.</a></div>
+		<div id="footer_development">Разработка, поддержка: <a>Hemingway_team</a></div>
+		<div id="footer_archive"></div>
+	
+	</div>
+</div>
+</div>
 	</body>
 </html>
