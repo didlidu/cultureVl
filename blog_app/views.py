@@ -11,6 +11,8 @@ from blog_app.forms import UserForm, UserProfileForm
 from django.template import RequestContext
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.utils import simplejson
+from dajaxice.decorators import dajaxice_register
 
 
 def admin(request):

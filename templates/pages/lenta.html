@@ -8,5 +8,11 @@
     </div>
     <div id="more">
         <span><a>Ещё записи</a></span>
+        <input type="button" onclick="Dajaxice.blog_app.sayhello(my_js_callback);" value="Get message from server!">
+        <script>
+        	function my_js_callback(data){
+    			alert(data.message);
+			}
+		</script>
     </div>
 {% include 'blog_app/footer.html' %}
