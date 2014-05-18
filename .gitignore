@@ -3,5 +3,5 @@ media/*
 svetanyashmyash.sublime-workspace
 db.sqlite3
 *.pyc
-*~
+*.py~
 *.swp
