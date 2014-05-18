@@ -1,5 +1,5 @@
 media/*
-.idea/
+.idea/*
 svetanyashmyash.sublime-workspace
 db.sqlite3
 *.pyc
