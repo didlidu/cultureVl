@@ -104,9 +104,8 @@ def get_more(request):
 	return HttpResponse(html_code)
 
 def lenta(request):
-	a = get_records(10, 1, 0)
+	rcds = New.objects.all().order_by('-id')[:5]
 	html_code = ""
-	rcds = New.objects.all()[:10]
 	for i in rcds:
 		record = {
 			'id': i.id,

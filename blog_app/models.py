@@ -30,6 +30,7 @@ def get_records(n, mask, next):
         i += 1
     return selected_objects
 
+
 class UserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance.
     user = models.OneToOneField(User)
