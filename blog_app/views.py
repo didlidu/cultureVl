@@ -11,9 +11,6 @@ from blog_app.forms import UserForm, UserProfileForm
 from django.template import RequestContext
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.utils import simplejson
-from dajaxice.decorators import dajaxice_register
-
 
 def admin(request):
 	dictionary = {}
@@ -84,9 +81,30 @@ def admin_get_pic(request):
 	return HttpResponse(json.dumps(list_dir), content_type='application/json')
 
 
+def test(request):
+	return render(request, 'test.html', {})
+
+
+def get_more(request):
+	if request.is_ajax():
+		a = get_records(10, 1, 0)
+		html_code = ""
+		for i in a:
+			ctx = {
+			'id': i.id,
+			'date': i.date,
+			'type': i.new_type,
+			'title': i.name,
+			'info': i.lid,
+			'lid': i.lid,
+			'views': i.cviews,
+			'comments': i.ccomments,
+		}
+		html_code += render_to_string('pages/item_li.html', ctx)
+	return HttpResponse(html_code)
+
 def lenta(request):
 	a = get_records(10, 1, 0)
-	print(a)
 	html_code = ""
 	rcds = New.objects.all()[:10]
 	for i in rcds:

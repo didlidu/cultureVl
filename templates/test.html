@@ -1,0 +1,31 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>click demo</title>
+  <style>
+  p {
+    color: red;
+    margin: 5px;
+    cursor: pointer;
+  }
+  p:hover {
+    background: yellow;
+  }
+  </style>
+<script src="{% static "js/lib/jquery-2.1.1.min.js" %}"></script>
+<script src="{% static "js/init.js" %}"></script>
+</head>
+<body>
+ 
+<p>First Paragraph</p>
+<p>Second Paragraph</p>
+<p>Yet one more Paragraph</p>
+ 
+<script>
+
+</script>
+ 
+</body>
+</html>
