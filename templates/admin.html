@@ -15,34 +15,64 @@
         <tr>
         <td>
             <form action="." method="post" enctype="multipart/form-data">{% csrf_token %}
+                {% if id %}
+                <p>Редактирование: #{{ id }}</p>
+                {% else %}
+                <p>Новая статья:</p>
+                {% endif %}
 
-                <br><br>
-                <input type="file" name="pic"><br><br>
+                <input type="file" name="pic"><br>
+                {% if pic_url %}
+                <img src="{{ MEDIA_URL }}{{ pic_url }}">
+                {% endif %}
+                <br>
 
-                <input type="radio" name="new_type" value=1 checked>Премьера<br>
-                <input type="radio" name="new_type" value=2>Новость<br>
-                <input type="radio" name="new_type" value=3>Личность<br>
-                <input type="radio" name="new_type" value=4>Афиша<br><br>
+                <input type="radio" name="new_type" id=1 value=1 checked>Премьера<br>
+                <input type="radio" name="new_type" id=2 value=2>Новость<br>
+                <input type="radio" name="new_type" id=3 value=3>Личность<br>
+                <input type="radio" name="new_type" id=4 value=4>Афиша<br><br>
 
-                Название: <input type="text" name="name"><br><br>
+                {% if new_type %}
+                <script>document.getElementById({{ new_type }}).checked = true;</script>
+                {% endif %}
+
+                Название: <input type="text" size="80" name="name" value="{{ name }}"><br><br>
 
                 <textarea name="lid" id="lid" rows="5" cols="80">
-                    Здесь находится форма лида.
+                    {{ lid }}
                 </textarea><br>
 
                 <textarea name="html" id="html" rows="10" cols="160">
-                    Здесь находится форма основной статьи.
+                    {{ html }}
                 </textarea>
                 <script>
                     CKEDITOR.replace( 'html' );
                     CKEDITOR.replace( 'lid' );
                 </script><br>
 
+                <input type="hidden" name="id" value="{{ id }}">
                 <input type="submit" value="Сохранить">
                 
             </form>
         </td>
         <td>
+
+  <script>
+  $(document).ready(function(){
+    $.getJSON("/admin_get_pic/",
+        {
+            "csrftoken": "{{ csrf_token }}",
+            "id": "{{ id }}"
+        },
+        function(data){
+          $.each(data.items, function(i,item){
+            $("<img/>").attr("src", item.media.m).appendTo("#images");
+          });
+        });
+  });
+  </script>
+  <div id="images">
+  </div>
 
         <form enctype="multipart/form-data">
             {% csrf_token %}

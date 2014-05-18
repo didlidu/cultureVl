@@ -12,26 +12,33 @@ from django.template.loader import render_to_string
 def admin(request):
 	dictionary = {}
 	if request.method == 'POST':  # If the form has been submitted...
-		p = New(
-				new_type = request.POST['new_type'],
-				name = request.POST['name'],
-				lid = request.POST['lid'],
-				html = request.POST['html'],)
+		if not request.POST['id']:
+			p = New(
+					new_type = request.POST['new_type'],
+					name = request.POST['name'],
+					lid = request.POST['lid'],
+					html = request.POST['html'],)
+		else:
+			p = New.objects.get(id=request.POST['id'])
+			p.new_type = request.POST['new_type']
+			p.name = request.POST['name']
+			p.lid = request.POST['lid']
+			p.html = request.POST['html']
 		p.save()
-		p.pic_url = str(p.id) + '/' + "pic.jpg"
-		p.save()
-		print(request.FILES)
 		for upfile in request.FILES.getlist('pic'):
 			path = default_storage.save(str(p.id) + '/' + "pic.jpg", ContentFile(upfile.read()))
 			tmp_file = os.path.join(settings.MEDIA_ROOT, path)
+			p.pic_url = str(p.id) + '/' + "pic.jpg"
+		p.save()
 		dictionary.update({
 			'new_type': request.POST['new_type'],
-			'pic_url': p.pic_url,
 			'name': request.POST['name'],
 			'lid': request.POST['lid'],
 			'html': request.POST['html'],
+			'pic_url': p.pic_url,
 			'id': p.id,
 			})
+		print(request.POST['name'])
 	return render(request, 'admin.html', dictionary)
 
 
@@ -45,6 +52,14 @@ def admin_post_pic(request):
 	response_data['status'] = "success"
 	response_data['result'] = "Your file has been uploaded:"
 	return HttpResponse(json.dumps(response_data), content_type='application/json')
+
+
+def admin_get_pic(request):
+	list_dir = {}
+	if request.method == 'POST':
+		id = int(request.POST['id'])
+		list_dir = os.listdir(settings.MEDIA_ROOT + str(id))
+	return HttpResponse(json.dumps(list_dir), content_type='application/json')
 
 
 def lenta(request):
