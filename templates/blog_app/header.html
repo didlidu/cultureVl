@@ -58,8 +58,49 @@
                 <div id="header_pic"><img src="{% static "pics/CHEKHOV.jpg" %}"/></div>
 
                 <div id="nav_div">
-                    <nav id="main-nav"><ul><li><a href="/feed/">Лента</a></li><li><a href="/about/">О нас</a></li><li><a href="/redaction/">Редакция</a></li></ul>
+                    <nav id="main-nav"><ul><li><a href="/feed/">Лента</a></li><li><a href="/about/">О нас</a></li><li><a href="/redaction/">Редакция</a></li>
+                    </ul>
                     </nav>
+{% if user.is_authenticated %}
+<style>
+#dev_greeting{
+    position: absolute;
+    font-size: 18px;
+    margin-top: 60px;
+    left: 70%;
+    text-align: right;
+    background-color: aliceblue;
+}
+#dev_panel{
+    position:fixed; 
+    bottom:0; 
+    right:0; 
+    height: 280px; 
+    width: 80px; 
+    background-color:red;
+    padding-top:10px;
+}
+.dev_icon{
+    width:50px;
+    height:50px;
+    margin: 0 auto;
+    margin-bottom: 5px;
+    display: inline-block;
+    background-color: blue;
+    padding: 3px 3px 3px 3px;
+    border: solid 1px black;
+}
+</style>
+<div id="dev_greeting">Здравствуй, {{ user.username}}! <br>
+Приятного рабочего дня <br>
+Не забудь разлогиниться! </div>
+<div id="dev_panel">
+    <a href="/logout/"><div class="dev_icon"></div></a>
+    <a href="/restricted/"><div class="dev_icon"></div></a>
+    <a href="/add/"><div class="dev_icon"></div></a>
+    <a href="/hzchto/"><div class="dev_icon"></div></a>
+</div>
+{% endif %}
             </div>
                 <span>Культурный</span>
 
