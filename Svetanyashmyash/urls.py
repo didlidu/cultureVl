@@ -11,6 +11,12 @@ urlpatterns = patterns('',
 	url(r'^lenta/', lenta),
 	url(r'^item/(?P<item_id>\d+)', item),
 	url(r'^search/', search),
+	url(r'^register/$', register, name='register'),
+	url(r'^restricted/login/$', 'django.contrib.auth.views.login',  {'template_name': 'blog_app/login.html'}),
+	url(r'^staff/$', culture ),
+	url(r'^restricted/', restricted, name='restricted'),
+	url(r'^logout/$', user_logout, name='logout'),
+
 )
 urlpatterns += patterns(
     'django.views.static',

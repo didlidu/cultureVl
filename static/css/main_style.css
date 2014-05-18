@@ -11,7 +11,8 @@
     transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
 }
 #stuff a:hover{
-    color: rgba(212,212,212,0.85);
+    color: #61AE24;
+    cursor: pointer;
 }
 #more span{
     margin: 30px auto 0;

@@ -43,6 +43,7 @@ ALLOWED_HOSTS = []
 # Application definition
 INSTALLED_APPS = (
     'django.contrib.admin',
+    'django.contrib.admindocs',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -75,6 +76,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 LANGUAGE_CODE = 'en-en'
+LOGIN_URL = '/restricted/login/'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
