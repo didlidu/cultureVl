@@ -57,22 +57,41 @@
         </td>
         <td>
 
-  <script>
-  $(document).ready(function(){
-    $.getJSON("/admin_get_pic/",
-        {
-            "csrftoken": "{{ csrf_token }}",
-            "id": "{{ id }}"
-        },
-        function(data){
-          $.each(data.items, function(i,item){
-            $("<img/>").attr("src", item.media.m).appendTo("#images");
-          });
-        });
-  });
-  </script>
-  <div id="images">
-  </div>
+        <script>
+            function admin_get_pic(){
+                document.getElementById("images").innerHTML = "";
+                $.getJSON("/admin_get_pic/",
+                    {
+                        "csrftoken": "{{ csrf_token }}",
+                        "id": "{% if id %}{{ id }}{% else %}{{ -1 }}{% endif %}",
+                    }).done(function( data ) {
+                        var way = {{ MEDIA_URL }};
+                        $.each(data, function(i,item){
+                        $("<img  width='200' height='200'/>").attr("src", way + item).appendTo("#images");
+                    });
+                });
+            }
+
+            $(document).ready(function(){
+                admin_get_pic();
+            });
+        </script>
+
+        <div id="images"></div>
+
+        <!--<script>
+            window.onload = function () {
+                var div = document.getElementById('images');
+                document.body.children[0].onchange = function (e) {
+                    if (navigator.userAgent.indexOf('MSIE') != -1) {
+                        div.innerHTML = '<img id="img" src="' + this.value + '">';
+                    } else {
+                        window.URL = window.URL || webkitURL;
+                        div.innerHTML = '<img id="img" src="' + window.URL.createObjectURL(e.target.files[0]) + '">';
+                    }
+                }
+            }
+        </script>-->
 
         <form enctype="multipart/form-data">
             {% csrf_token %}
@@ -91,10 +110,8 @@
 
             $(':button').click(function(){
                 var formData = new FormData($('form')[1]);
-
-                TODO HERE:
-                formData += {"id": {% if id %} {{ id }} {% else %} {{ -1 }} {% endif %}, };
-                formData += { "csrftoken": "{{ csrf_token }}", };
+                formData.append("id", "{% if id %}{{ id }}{% else %}{{ -1 }}{% endif %}");
+                formData.append("csrftoken", "{{ csrf_token }}");
                 $.ajax({
                     url: '/admin_post_pic/',  //Server script to process data
                     type: 'POST',
@@ -105,17 +122,12 @@
                         }
                         return myXhr;
                     },
-                    //Ajax events
-                    //beforeSend: beforeSendHandler,
-                    //success: completeHandler,
-                    //error: errorHandler,
-                    // Form data
                     data: formData,
-                    //Options to tell jQuery not to process data or worry about content-type.
                     cache: false,
                     contentType: false,
                     processData: false
                 });
+                admin_get_pic();
             });
         </script>
 

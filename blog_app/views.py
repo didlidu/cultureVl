@@ -42,11 +42,23 @@ def admin(request):
 	return render(request, 'admin.html', dictionary)
 
 
+def get_new_id():
+	last = New.objects.last()
+	if last != None:
+		id = last.id
+	else:
+		id = 0
+	return id + 1
+
+
 def admin_post_pic(request):
-	if request.method == 'POST':  # If the form has been submitted...
-		#print(request.FILES)
+	if request.method == 'POST':
+		id = int(request.POST['id'])
 		for upfile in request.FILES.getlist('file'):
-			path = default_storage.save(str(request.POST['id']) + '/' + upfile.name, ContentFile(upfile.read()))
+			if id == -1:
+				path = default_storage.save(str(get_new_id()) + '/' + upfile.name, ContentFile(upfile.read()))
+			else:
+				path = default_storage.save(str(id) + '/' + upfile.name, ContentFile(upfile.read()))
 			tmp_file = os.path.join(settings.MEDIA_ROOT, path)
 	response_data = {}
 	response_data['status'] = "success"
@@ -56,9 +68,13 @@ def admin_post_pic(request):
 
 def admin_get_pic(request):
 	list_dir = {}
-	if request.method == 'POST':
-		id = int(request.POST['id'])
-		list_dir = os.listdir(settings.MEDIA_ROOT + str(id))
+	if request.method == 'GET':
+		id = int(request.GET.get("id"))
+		if id == -1:
+			id = get_new_id()
+		list_dir = os.listdir(settings.MEDIA_ROOT + '/' + str(id))
+		for i in range(0, len(list_dir)):
+			list_dir[i] = str(id) + '/' + list_dir[i]
 	return HttpResponse(json.dumps(list_dir), content_type='application/json')
 
 
