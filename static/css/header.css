@@ -18,7 +18,9 @@ html, body{
     font-size: 19px;
     font-kerning: auto; 
     font-weight: 300;
+    background-color: #f9f9f9;
 }
+
 
 body{
     left:0;
@@ -30,7 +32,7 @@ body{
     display: inline-block;
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 400;
-    height: 300px;
+    height: 200px;
     background-color: greenyellow;
 }
 #header > span{
@@ -38,7 +40,7 @@ body{
     display: inline-block;
     width: inherit;
     text-align: center;
-    margin-top: 170px;
+    margin-top: 55px;
 }
 #header nav{
     float: right;
@@ -47,8 +49,8 @@ body{
 }
 #header_pic{
     position: absolute;
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
     background-color: plum;
 }
 #header_pic img {
@@ -62,14 +64,14 @@ body{
     text-align: center;
 }
 #top_header > span{
-    margin-top: 140px;
+    margin-top: 50px;
     position: absolute;
     width: inherit;
     font-size: 41px;
 }
 
 #top_header{
-    height: 200px;
+    height: 100px;
 }
 #bot_header{
     height:100px;
@@ -94,7 +96,8 @@ body{
             #nav_div, #div_filter { 
                 width: inherit; 
                 margin: 0 auto; 
-                text-align: center; 
+                text-align: right;
+                 
             }
             #main-nav ul { list-style: none; margin: 0; padding: 0; }
             #main-nav ul li { display: inline-block; margin: 0 0.5em 0 0.5em; 
@@ -121,7 +124,7 @@ body{
 
 
 nav > ul > li {
-    border: solid 2px black;
+    /*border: solid 2px black;*/
     border-radius: 0;
 }
 

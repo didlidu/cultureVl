@@ -4,13 +4,14 @@
     margin:20px 0 0
 }
 #footer {
-    font-size: 15px;
+    font-size: 12px;
+    letter-spacing: 1px;
     font-style: normal;
     font-variant: normal;
     font-weight: 300;
-    background: #2b252c;
-    color: rgba(128, 128, 128, 0.74902);
-    height:200px;
+    background: #000;
+    color: #666666;
+    height:230px;
     margin:-150px auto 0;
     width: inherit;
 }

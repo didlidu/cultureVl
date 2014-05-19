@@ -57,8 +57,9 @@
     background-color: #555555;
 }
 .item_date{
-    font-family: times new roman, fantasy;
-    font-weight: bold;
+    font-weight: 300;
+    font-style: italic; 
+    font-size: 18px;
     height: 21px;
     padding-bottom: 8px;
     width: inherit;
