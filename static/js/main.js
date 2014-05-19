@@ -1,3 +1,24 @@
+$(function() {
+                
+                // Note: make sure you call dropotron on the top level <ul>
+                $('#main-nav').find('> ul').dropotron({
+                    mode: 'instant',     // Menu mode ("instant", "fade", "slide", "zoom")
+                    speed: '10',     // Menu speed ("fast", "slow", or ms)
+                    hoverDelay: 20,        // Hover delay (in ms)
+                    hideDelay: 50,        // Hide delay (in ms; 0 disables)
+                    offsetY: 0 // Nudge up submenus by 10px to account for padding
+                });
+                $('#nav').find('> ul').dropotron({
+                    mode: 'instant',     // Menu mode ("instant", "fade", "slide", "zoom")
+                    speed: '10',     // Menu speed ("fast", "slow", or ms)
+                    
+                    hoverDelay: 20,        // Hover delay (in ms)
+                    hideDelay: 100,        // Hide delay (in ms; 0 disables)
+                    offsetY: 0 // Nudge up submenus by 10px to account for padding
+                });
+            
+            });
+
 // using jQuery
 function getCookie(name) {
     var cookieValue = null;

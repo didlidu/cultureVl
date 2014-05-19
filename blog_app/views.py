@@ -110,6 +110,7 @@ def lenta(request):
 		record = {
 			'id': i.id,
 			'date': i.date,
+			'pic_url': settings.MEDIA_URL + i.pic_url,
 			'type': i.new_type,
 			'title': i.name,
 			'info': i.lid,
@@ -146,6 +147,7 @@ def item(request, item_id):
 		record = {
 			'id': i.id,
 			'date': i.date,
+			'pic_url': settings.MEDIA_URL + i.pic_url,
 			'type': i.new_type,
 			'title': i.name,
 			'views': i.cviews,
@@ -155,6 +157,7 @@ def item(request, item_id):
 
 	record = {
 		'id': u.id,
+		'main_pic': settings.MEDIA_URL + u.pic_url,
 		'date': u.date,
 		'type': u.new_type,
 		'body': u.html,
