@@ -22,31 +22,6 @@
         <script src="{% static "js/lib/jquery-2.1.1.min.js" %}"></script>
         <script src="{% static "js/lib/jquery.dropotron.min.js" %}"></script>
         <script src="{% static "js/main.js" %}"></script>
-
-
-        <script>
-            $(function() {
-                
-                // Note: make sure you call dropotron on the top level <ul>
-                $('#main-nav').find('> ul').dropotron({
-                    mode: 'instant',     // Menu mode ("instant", "fade", "slide", "zoom")
-                    speed: '10',     // Menu speed ("fast", "slow", or ms)
-                    hoverDelay: 20,        // Hover delay (in ms)
-                    hideDelay: 50,        // Hide delay (in ms; 0 disables)
-                    offsetY: 0 // Nudge up submenus by 10px to account for padding
-                });
-                $('#nav').find('> ul').dropotron({
-                    mode: 'instant',     // Menu mode ("instant", "fade", "slide", "zoom")
-                    speed: '10',     // Menu speed ("fast", "slow", or ms)
-                    
-                    hoverDelay: 20,        // Hover delay (in ms)
-                    hideDelay: 100,        // Hide delay (in ms; 0 disables)
-                    offsetY: 0 // Nudge up submenus by 10px to account for padding
-                });
-            
-            });
-        </script>
-
         <script src="http://vk.com/js/api/openapi.js"; type="text/javascript" charset="windows-1251"></script>
 
     </head>
@@ -78,7 +53,8 @@
     right:0; 
     height: 280px; 
     width: 80px; 
-    background-color:red;
+    background-color:grey;
+    opacity: 0.7;
     padding-top:10px;
 }
 .dev_icon{
@@ -87,7 +63,8 @@
     margin: 0 auto;
     margin-bottom: 5px;
     display: inline-block;
-    background-color: blue;
+    opacity: 0.4;
+    background-color: orange;
     padding: 3px 3px 3px 3px;
     border: solid 1px black;
 }
