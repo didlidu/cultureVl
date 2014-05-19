@@ -27,14 +27,21 @@
     </head>
 
 <body> 
+    <div id="top_line"></div>
     <div id="stuff">
 
        <div id = "header">
             <div id="top_header">
-                <div id="header_pic"><img src="{% static "pics/CHEKHOV.jpg" %}"/></div>
+                <div id="header_pic"><img src="{% static "pics/mr_che.png" %}"/></div>
 
-                <div id="nav_div">
-                    <nav id="main-nav"><ul><li><a href="/feed/">Лента</a></li><li><a href="/about/">О нас</a></li><li><a href="/redaction/">Редакция</a></li>
+                    <nav id="main-nav"><ul>
+                        <li>
+                            <a href="/">На главную</a>
+                            <ul>
+                                <li><a href="#">о нас</a></li>
+                                <li><a href="#">редакция</a></li>
+                            </ul>
+                        </li>
                     </ul>
                     </nav>
 {% if user.is_authenticated %}
@@ -79,31 +86,30 @@
     <a href="/hzchto/"><div class="dev_icon"></div></a>
 </div>
 {% endif %}
-            </div>
-                <span>Культурный</span>
+            
+                <span><a href="/">КУЛЬТУРНЫЙ</a></span>
 
             </div>
             <div id="bot_header">
-                <div id="wrapper"></div>
                 <div id="div_filter">
                 <nav id="nav">
                     <ul>
-                        <li>
-                            <a href="index.html">Спектакль</a>
+                        <li class="li_item">
+                            <a href="index.html">СПЕКТАКЛЬ</a>
                             <ul>
-                                <li><a href="#">Премьера</a></li>
+                                <li><a href="#">ПРЕМЬЕРА</a></li>
                             </ul>
-                        </li>
-                        <li><a href="#">Новость</a></li>
-                        <li>
-                            <a href="#">Личность</a>
+                        </li><li class="li_wrapper"></li>
+                        <li class="li_item"><a href="#">НОВОСТЬ</a></li><li class="li_wrapper"></li>
+                        <li class="li_item">
+                            <a href="#">ЛИЧНОСТЬ</a>
                             <ul>
-                                <li><a href="#">Мнение</a></li>
-                                <li><a href="#">Интервью</a></li>
+                                <li><a href="#">МНЕНИЕ</a></li>
+                                <li><a href="#">ИНТЕРВЬЮ</a></li>
                             </ul>
-                        </li>
-                        <li><a href="">Мастерская</a></li>
-                        <li><a href="">Афиша</a></li>
+                        </li><li class="li_wrapper"></li>
+                        <li class="li_item"><a href="">МАСТЕРСКАЯ</a></li><li class="li_wrapper"></li>
+                        <li class="li_item"><a href="">АФИША</a></li>
                     </ul>
                     </nav>
                 </div>
