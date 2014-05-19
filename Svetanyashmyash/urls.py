@@ -1,13 +1,17 @@
 from django.conf.urls import patterns, include, url
 
 from blog_app.views import *
+from django.contrib import admin
+admin.autodiscover()
 
 
 urlpatterns = patterns('',
 	url(r'^$', lenta),
-	url(r'^admin_post_pic/', admin_post_pic),
-	url(r'^admin_get_pic/', admin_get_pic),
-	url(r'^admin/', admin),
+	url(r'^admin/', include(admin.site.urls)),
+	url(r'^restricted/admin_post_pic/', admin_post_pic),
+	url(r'^restricted/admin_get_pic/', admin_get_pic),
+	url(r'^restricted/edit/(?P<id>\d+)', edit),
+	url(r'^restricted/edit/', new),
 	url(r'^lenta/', lenta),
 	url(r'^item/(?P<item_id>\d+)', item),
 	url(r'^search/', search),

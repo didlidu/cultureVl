@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+{% load static %}
+
+<html>
+  <head>
+    <meta content="">
+
+    <title>A Simple Page with CKEditor</title>
+    <script src="{% static "ckeditor/ckeditor.js" %}"></script>
+    <script src="{% static "js/lib/jquery-2.1.1.min.js" %}"></script>
+    <style>
+        .images img{
+              width='200'; height='200';
+        }
+    </style>
+    <script>
+        function admin_get_pic(){
+            document.getElementById("images").innerHTML = "";
+            $.getJSON("/restricted/admin_get_pic/",
+                {
+                    "csrftoken": "{{ csrf_token }}",
+                    "id": "{% if id %}{{ id }}{% else %}{{ -1 }}{% endif %}",
+                }).done(function( data ) {
+                    var way = {{ MEDIA_URL }};
+                    $.each(data, function(i,item){
+                    $("<img/>").attr("src", way + item).appendTo("#images");
+                });
+            });
+        }
+
+        $(document).ready(function(){
+            admin_get_pic();
+        });
+    </script>
+  </head>
+
+  <body>
+    <table>
+        <tr>
+            <td>
+                <form action="/restricted/edit/" method="post" enctype="multipart/form-data">{% csrf_token %}
+                    {% if id %}
+                    <p>Редактирование: #{{ id }}</p>
+                    {% else %}
+                    <p>Новая статья:</p>
+                    {% endif %}
+
+                    <input type="file" name="pic"><br>
+                    {% if pic_url %}
+                    <img src="{{ pic_url }}" width="200"; height="200" />
+                    {% endif %}
+                    <br>
+
+                    <input type="radio" name="new_type" id="Премьера" value="Премьера" checked>Премьера<br>
+                    <input type="radio" name="new_type" id="Новость" value="Новость">Новость<br>
+                    <input type="radio" name="new_type" id="Личность" value="Личность">Личность<br>
+                    <input type="radio" name="new_type" id="Афиша" value="Афиша">Афиша<br><br>
+
+                    {% if new_type %}
+                    <script>document.getElementById("{{ new_type }}").checked = true;</script>
+                    {% endif %}
+
+                    Название: <input type="text" size="80" name="name" value="{{ name }}"><br><br>
+
+                    <textarea name="lid" id="lid" rows="5" cols="80">
+                        {{ lid }}
+                    </textarea><br>
+
+                    <textarea name="html" id="html" rows="10" cols="160">
+                        {{ html }}
+                    </textarea>
+                    <script>
+                        CKEDITOR.replace( 'html' );
+                        CKEDITOR.replace( 'lid' );
+                    </script><br>
+
+                    <textarea name="authors" id="authors" rows="4" cols="110">{{ authors }}</textarea><br><br>
+                    Новость активна: <input type="checkbox" id="is_enabled" name="is_enabled" {% if is_enabled %}{{ 'checked' }}{% endif %}><br><br>
+
+                    <input type="hidden" name="id" value="{{ id }}">
+                    <input type="submit" value="Сохранить">
+                    
+                </form>
+            </td>
+            <td width=30%>
+                <div id="images" class="images"></div>
+                <form enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input name="file" type="file" multiple/>
+                    <input type="button" value="Upload" />
+                    <progress value="0"></progress>
+                </form>
+
+                <script type="text/javascript">
+                    function progressHandlingFunction(e){
+                        if(e.lengthComputable){
+                            $('progress').attr({value:e.loaded,max:e.total});
+                        }
+                    }
+
+                    $(':button').click(function(){
+                        var formData = new FormData($('form')[1]);
+                        formData.append("id", "{% if id %}{{ id }}{% else %}{{ -1 }}{% endif %}");
+                        formData.append("csrftoken", "{{ csrf_token }}");
+                        $.ajax({
+                            url: '/restricted/admin_post_pic/',  //Server script to process data
+                            type: 'POST',
+                            xhr: function() {  // Custom XMLHttpRequest
+                                var myXhr = $.ajaxSettings.xhr();
+                                if(myXhr.upload){ // Check if upload property exists
+                                    myXhr.upload.addEventListener('progress',progressHandlingFunction, false);
+                                }
+                                return myXhr;
+                            },
+                            data: formData,
+                            cache: false,
+                            contentType: false,
+                            processData: false
+                        });
+                        admin_get_pic();
+                    });
+                </script>
+            </td>
+        </tr>
+    </table>
+  </body>
+</html>
