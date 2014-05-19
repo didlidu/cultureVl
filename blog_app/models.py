@@ -12,6 +12,7 @@ class New(models.Model):
     cviews = models.PositiveIntegerField( default=0 )
     ccomments = models.PositiveIntegerField( default=0 )
     authors = models.TextField()
+    is_enabled = models.BooleanField( default = False )
 
 
 def get_records(n, mask, next):

@@ -12,7 +12,7 @@ from django.template import RequestContext
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
-def admin(request):
+def new(request):
 	dictionary = {}
 	if request.method == 'POST':  # If the form has been submitted...
 		if not request.POST['id']:
@@ -20,13 +20,18 @@ def admin(request):
 					new_type = request.POST['new_type'],
 					name = request.POST['name'],
 					lid = request.POST['lid'],
-					html = request.POST['html'],)
+					html = request.POST['html'],
+					authors = request.POST['authors'],
+					is_enabled = 'is_enabled' in request.POST,
+					)
 		else:
 			p = New.objects.get(id=request.POST['id'])
 			p.new_type = request.POST['new_type']
 			p.name = request.POST['name']
 			p.lid = request.POST['lid']
 			p.html = request.POST['html']
+			p.authors = request.POST['authors']
+			p.is_enabled = 'is_enabled' in request.POST
 		p.save()
 		for upfile in request.FILES.getlist('pic'):
 			path = default_storage.save(str(p.id) + '/' + "pic.jpg", ContentFile(upfile.read()))
@@ -38,11 +43,13 @@ def admin(request):
 			'name': request.POST['name'],
 			'lid': request.POST['lid'],
 			'html': request.POST['html'],
+			'authors': request.POST['authors'],
+			'is_enabled': 'is_enabled' in request.POST,
 			'pic_url': p.pic_url,
 			'id': p.id,
 			})
 		print(request.POST['name'])
-	return render(request, 'admin.html', dictionary)
+	return render(request, 'new.html', dictionary)
 
 
 def edit(request, id):
@@ -56,8 +63,10 @@ def edit(request, id):
 				'html': a.html,
 				'pic_url': a.pic_url,
 				'id': a.id,
+				'authors': a.authors,
+				'is_enabled': a.authors,
 			}
-			return render(request, 'admin.html', dictionary)
+			return render(request, 'new.html', dictionary)
 	except:
 		pass
 	return render(request, 'blog_app/404.html')
