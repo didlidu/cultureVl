@@ -31,7 +31,7 @@ def admin(request):
 		for upfile in request.FILES.getlist('pic'):
 			path = default_storage.save(str(p.id) + '/' + "pic.jpg", ContentFile(upfile.read()))
 			tmp_file = os.path.join(settings.MEDIA_ROOT, path)
-			p.pic_url = str(p.id) + '/' + "pic.jpg"
+			p.pic_url = settings.MEDIA_URL + str(p.id) + '/' + "pic.jpg"
 		p.save()
 		dictionary.update({
 			'new_type': request.POST['new_type'],
@@ -43,6 +43,24 @@ def admin(request):
 			})
 		print(request.POST['name'])
 	return render(request, 'admin.html', dictionary)
+
+
+def edit(request, id):
+	try:
+		if id:
+			a = New.objects.get(id=id)
+			dictionary = {
+				'new_type': a.new_type,
+				'name': a.name,
+				'lid': a.lid,
+				'html': a.html,
+				'pic_url': a.pic_url,
+				'id': a.id,
+			}
+			return render(request, 'admin.html', dictionary)
+	except:
+		pass
+	return render(request, 'blog_app/404.html')
 
 
 def get_new_id():

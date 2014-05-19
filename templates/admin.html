@@ -8,13 +8,18 @@
     <title>A Simple Page with CKEditor</title>
     <script src="{% static "ckeditor/ckeditor.js" %}"></script>
     <script src="{% static "js/lib/jquery-2.1.1.min.js" %}"></script>
+    <style>
+        .images img{
+              width='200'; height='200';
+        }
+    </style>
   </head>
 
   <body>
     <table>
         <tr>
         <td>
-            <form action="." method="post" enctype="multipart/form-data">{% csrf_token %}
+            <form action="/admin/" method="post" enctype="multipart/form-data">{% csrf_token %}
                 {% if id %}
                 <p>Редактирование: #{{ id }}</p>
                 {% else %}
@@ -23,17 +28,17 @@
 
                 <input type="file" name="pic"><br>
                 {% if pic_url %}
-                <img src="{{ MEDIA_URL }}{{ pic_url }}">
+                <img src="{{ pic_url }}" width="200"; height="200" />
                 {% endif %}
                 <br>
 
-                <input type="radio" name="new_type" id=1 value=1 checked>Премьера<br>
-                <input type="radio" name="new_type" id=2 value=2>Новость<br>
-                <input type="radio" name="new_type" id=3 value=3>Личность<br>
-                <input type="radio" name="new_type" id=4 value=4>Афиша<br><br>
+                <input type="radio" name="new_type" id="Премьера" value="Премьера" checked>Премьера<br>
+                <input type="radio" name="new_type" id="Новость" value="Новость">Новость<br>
+                <input type="radio" name="new_type" id="Личность" value="Личность">Личность<br>
+                <input type="radio" name="new_type" id="Афиша" value="Афиша">Афиша<br><br>
 
                 {% if new_type %}
-                <script>document.getElementById({{ new_type }}).checked = true;</script>
+                <script>document.getElementById("{{ new_type }}").checked = true;</script>
                 {% endif %}
 
                 Название: <input type="text" size="80" name="name" value="{{ name }}"><br><br>
@@ -55,7 +60,7 @@
                 
             </form>
         </td>
-        <td>
+        <td width=30%>
 
         <script>
             function admin_get_pic(){
@@ -67,7 +72,7 @@
                     }).done(function( data ) {
                         var way = {{ MEDIA_URL }};
                         $.each(data, function(i,item){
-                        $("<img  width='200' height='200'/>").attr("src", way + item).appendTo("#images");
+                        $("<img/>").attr("src", way + item).appendTo("#images");
                     });
                 });
             }
@@ -77,21 +82,7 @@
             });
         </script>
 
-        <div id="images"></div>
-
-        <!--<script>
-            window.onload = function () {
-                var div = document.getElementById('images');
-                document.body.children[0].onchange = function (e) {
-                    if (navigator.userAgent.indexOf('MSIE') != -1) {
-                        div.innerHTML = '<img id="img" src="' + this.value + '">';
-                    } else {
-                        window.URL = window.URL || webkitURL;
-                        div.innerHTML = '<img id="img" src="' + window.URL.createObjectURL(e.target.files[0]) + '">';
-                    }
-                }
-            }
-        </script>-->
+        <div id="images" class="images"></div>
 
         <form enctype="multipart/form-data">
             {% csrf_token %}
