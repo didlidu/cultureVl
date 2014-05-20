@@ -102,13 +102,16 @@ def admin_post_pic(request):
 @login_required
 def admin_get_pic(request):
 	list_dir = {}
-	if request.method == 'GET':
-		id = int(request.GET.get("id"))
-		if id == -1:
-			id = get_new_id()
-		list_dir = os.listdir(settings.MEDIA_ROOT + '/' + str(id))
-		for i in range(0, len(list_dir)):
-			list_dir[i] = str(id) + '/' + list_dir[i]
+	try:
+		if request.method == 'GET':
+			id = int(request.GET.get("id"))
+			if id == -1:
+				id = get_new_id()
+			list_dir = os.listdir(settings.MEDIA_ROOT + '/' + str(id))
+			for i in range(0, len(list_dir)):
+				list_dir[i] = str(id) + '/' + list_dir[i]
+	except: 
+		pass
 	return HttpResponse(json.dumps(list_dir), content_type='application/json')
 
 
