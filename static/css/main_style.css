@@ -10,9 +10,10 @@
 #stuff a{
     transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
 }
-#stuff a:hover{
+#source a:hover{
     color: #61AE24;
     cursor: pointer;
+    text-decoration: none;
 }
 #more span{
     margin: 30px auto 0;
@@ -67,8 +68,10 @@
 
 }
 .item_header {
-    font-size: 23px;
+    color: #000;
     font-weight: 700;
+    font-size: 34px;
+    -webkit-font-smoothing: antialiased;
 }
 .item_read{
     width: inherit;
