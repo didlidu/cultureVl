@@ -79,8 +79,31 @@
 
                     <input type="hidden" name="id" value="{{ id }}">
                     <input type="submit" value="Сохранить">
-                    
                 </form>
+                <input type="button" value="Предпросмотр" id="preview">
+                <script>
+                    $(document).ready(function(){
+                        $("#preview").click(function(){
+                            var formData = new FormData($('form')[1]);
+                            formData.append("id", "{% if id %}{{ id }}{% else %}{{ -1 }}{% endif %}");
+                            formData.append("csrftoken", "{{ csrf_token }}");
+                            //form = $('form').serializeArray();
+                            //alert(form);
+                            //form.append("csrftoken", "{{ csrf_token }}");
+                            $.ajax({
+                                url: '/restricted/preview/',
+                                type: 'POST',
+                                data: formData,
+                                success: function(responseData, textStatus, jqXHR) {
+                                    alert("data saved");
+                                },
+                                cache: false,
+                                contentType: false,
+                                processData: false
+                            });
+                        });
+                    });
+                </script>
             </td>
             <td width=30%>
                 <div id="images" class="images"></div>

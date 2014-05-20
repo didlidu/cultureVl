@@ -202,6 +202,28 @@ def item(request, item_id):
 	return HttpResponse(html_code)
 
 
+def preview(request):
+	if request.method == "POST":
+		record = {
+			'id': request.POST['id'],
+			'main_pic': request.POST['pic_url'],
+			'date': request.POST['date'],
+			'type': request.POST['new_type'],
+			'body': request.POST['html'],
+			'title': request.POST['name'],
+			'info': request.POST['lid'],
+			'lid': request.POST['lid'],
+			'views': 0,
+			'comments': 0,
+		}
+	html_code = ""
+	html_code += render_to_string('blog_app/header.html', record)
+	html_code += render_to_string('pages/item.html', record)
+	html_code += render_to_string('blog_app/footer.html', record)
+	return HttpResponse(html_code)
+
+
+
 def search(request):
 	return render(request, 'search.html')
 
