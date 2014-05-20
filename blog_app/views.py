@@ -131,6 +131,8 @@ def get_more(request):
 	return HttpResponse(html_code)
 
 def lenta(request):
+	print(get_records(10,"",0))
+	print("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
 	rcds = New.objects.all().order_by('-id')[:5]
 	html_code = ""
 	for i in rcds:

@@ -13,17 +13,23 @@ class New(models.Model):
     ccomments = models.PositiveIntegerField( default=0 )
     authors = models.TextField()
     is_enabled = models.BooleanField( default = False )
+    def __str__(self):
+        return str(self.id)
+    def __unicode__(self):
+        return u(str(self.id))
 
+
+import datetime
 
 def get_records(n, mask, next):
-    objects = New.objects.all()
-    if(mask == 0):
-        return objects[ n * next : n * next + n ]
+    objects = New.objects.all().order_by('date')
+    print(objects)
+    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
     i = n * next;
     j = 0
     selected_objects = []
-    while(n + 10 and i < len(objects)):
-        if(objects[i].new_type == mask):
+    while(j < n + 10 and i < len(objects)):
+        if((objects[i].new_type == mask or mask == "") and objects[i].date <= datetime.date.today()):
             selected_objects.append(objects[i])
             j += 1
         i += 1
