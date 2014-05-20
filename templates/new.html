@@ -1,11 +1,10 @@
 <!DOCTYPE HTML>
 {% load static %}
-
 <html>
   <head>
     <meta content="">
 
-    <title>A Simple Page with CKEditor</title>
+    <title>Editing</title>
     <script src="{% static "ckeditor/ckeditor.js" %}"></script>
     <script src="{% static "js/lib/jquery-2.1.1.min.js" %}"></script>
     <style>
@@ -45,7 +44,7 @@
                     <p>Новая статья:</p>
                     {% endif %}
 
-                    <input type="file" name="pic"><br>
+                    <input type="file" name="pic" id='pic_url'><br>
                     {% if pic_url %}
                     <img src="{{ pic_url }}" width="200"; height="200" />
                     {% endif %}
@@ -60,13 +59,13 @@
                     <script>document.getElementById("{{ new_type }}").checked = true;</script>
                     {% endif %}
 
-                    Название: <input type="text" size="80" name="name" value="{{ name }}"><br><br>
+                    Название: <input type="text" size="80" name="name" value="{{ name }}" id='name'><br><br>
 
-                    <textarea name="lid" id="lid" rows="5" cols="80">
+                    <textarea name="lid" id="lid" rows="5" cols="80" id='lid'>
                         {{ lid }}
                     </textarea><br>
 
-                    <textarea name="html" id="html" rows="10" cols="160">
+                    <textarea name="html" id="html" rows="10" cols="160" id='html'>
                         {{ html }}
                     </textarea>
                     <script>
@@ -77,25 +76,30 @@
                     <textarea name="authors" id="authors" rows="4" cols="110">{{ authors }}</textarea><br><br>
                     Новость активна: <input type="checkbox" id="is_enabled" name="is_enabled" {% if is_enabled %}{{ 'checked' }}{% endif %}><br><br>
 
-                    <input type="hidden" name="id" value="{{ id }}">
+                    <input type="hidden" name="id" value="{{ id }}" id='id'>
                     <input type="submit" value="Сохранить">
                 </form>
                 <input type="button" value="Предпросмотр" id="preview">
                 <script>
                     $(document).ready(function(){
                         $("#preview").click(function(){
-                            var formData = new FormData($('form')[1]);
-                            formData.append("id", "{% if id %}{{ id }}{% else %}{{ -1 }}{% endif %}");
-                            formData.append("csrftoken", "{{ csrf_token }}");
-                            //form = $('form').serializeArray();
-                            //alert(form);
-                            //form.append("csrftoken", "{{ csrf_token }}");
+                            var formData = new FormData($('form')[0]);
+                            formData.append('pic_url', document.getElementById("pic_url").value);
+                            formData.append('new_type', document.querySelector('input[name="new_type"]:checked').value);
+                            formData.append('name', document.getElementById("name").value);
+                            formData.append('lid', document.getElementById("lid").value);
+                            formData.append('html', document.getElementById("html").value);
+                            formData.append('authors', document.getElementById("authors").value);
+                            //if(document.getElementById("pic_url").checked()) formData.append('is_enabled', true);
+                            formData.append('id', document.getElementById("id").value);
                             $.ajax({
                                 url: '/restricted/preview/',
                                 type: 'POST',
                                 data: formData,
                                 success: function(responseData, textStatus, jqXHR) {
-                                    alert("data saved");
+                                    var params = "menubar=no,location=no,resizable=yes,scrollbars=yes,status=yes";
+                                    myWindow = window.open("", "Preview", params);
+                                    myWindow.document.write(responseData);
                                 },
                                 cache: false,
                                 contentType: false,

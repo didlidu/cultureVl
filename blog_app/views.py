@@ -11,7 +11,9 @@ from blog_app.forms import UserForm, UserProfileForm
 from django.template import RequestContext
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+import datetime
 
+@login_required
 def new(request):
 	dictionary = {}
 	if request.method == 'POST':  # If the form has been submitted...
@@ -51,7 +53,7 @@ def new(request):
 		print(request.POST['name'])
 	return render(request, 'new.html', dictionary)
 
-
+@login_required
 def edit(request, id):
 	try:
 		if id:
@@ -81,6 +83,7 @@ def get_new_id():
 	return id + 1
 
 
+@login_required
 def admin_post_pic(request):
 	if request.method == 'POST':
 		id = int(request.POST['id'])
@@ -96,6 +99,7 @@ def admin_post_pic(request):
 	return HttpResponse(json.dumps(response_data), content_type='application/json')
 
 
+@login_required
 def admin_get_pic(request):
 	list_dir = {}
 	if request.method == 'GET':
@@ -106,10 +110,6 @@ def admin_get_pic(request):
 		for i in range(0, len(list_dir)):
 			list_dir[i] = str(id) + '/' + list_dir[i]
 	return HttpResponse(json.dumps(list_dir), content_type='application/json')
-
-
-def test(request):
-	return render(request, 'test.html', {})
 
 
 def get_more(request):
@@ -209,7 +209,7 @@ def preview(request):
 		record = {
 			'id': request.POST['id'],
 			'main_pic': request.POST['pic_url'],
-			'date': request.POST['date'],
+			'date': datetime.date.today(),
 			'type': request.POST['new_type'],
 			'body': request.POST['html'],
 			'title': request.POST['name'],
