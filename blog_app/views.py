@@ -13,6 +13,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 import datetime
 
+
 @login_required
 def new(request):
 	dictionary = {}
@@ -36,6 +37,8 @@ def new(request):
 			p.is_enabled = 'is_enabled' in request.POST
 		p.save()
 		for upfile in request.FILES.getlist('pic'):
+			if default_storage.exists(str(p.id) + '/' + "pic.jpg"):
+				default_storage.delete(str(p.id) + '/' + "pic.jpg")
 			path = default_storage.save(str(p.id) + '/' + "pic.jpg", ContentFile(upfile.read()))
 			tmp_file = os.path.join(settings.MEDIA_ROOT, path)
 			p.pic_url = settings.MEDIA_URL + str(p.id) + '/' + "pic.jpg"
@@ -52,6 +55,7 @@ def new(request):
 			})
 		print(request.POST['name'])
 	return render(request, 'new.html', dictionary)
+
 
 @login_required
 def edit(request, id):
@@ -74,6 +78,19 @@ def edit(request, id):
 	return render(request, 'blog_app/404.html')
 
 
+@login_required
+def admin_del_pic(request, way):
+	arrWay = way.split("|")
+	print(arrWay)
+	if default_storage.exists(arrWay[0] + '/' + arrWay[1]):
+		default_storage.delete(arrWay[0] + '/' + arrWay[1])
+	response_data = {}
+	response_data['status'] = "success"
+	response_data['result'] = "Your file " + way + " has been deleted:"
+	return HttpResponse(json.dumps(response_data), content_type='application/json')
+
+
+
 def get_new_id():
 	last = New.objects.last()
 	if last != None:
@@ -89,8 +106,12 @@ def admin_post_pic(request):
 		id = int(request.POST['id'])
 		for upfile in request.FILES.getlist('file'):
 			if id == -1:
+				if default_storage.exists(str(get_new_id()) + '/' + upfile.name):
+					default_storage.delete(str(get_new_id()) + '/' + upfile.name)
 				path = default_storage.save(str(get_new_id()) + '/' + upfile.name, ContentFile(upfile.read()))
 			else:
+				if default_storage.exists(str(id) + '/' + upfile.name):
+					default_storage.delete(str(id) + '/' + upfile.name)
 				path = default_storage.save(str(id) + '/' + upfile.name, ContentFile(upfile.read()))
 			tmp_file = os.path.join(settings.MEDIA_ROOT, path)
 	response_data = {}
@@ -133,6 +154,7 @@ def get_more(request):
 		html_code += render_to_string('pages/item_li.html', ctx)
 	return HttpResponse(html_code)
 
+
 def lenta(request):
 	print(get_records(10,"",0))
 	print("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
@@ -142,7 +164,7 @@ def lenta(request):
 		record = {
 			'id': i.id,
 			'date': i.date,
-			'pic_url': settings.MEDIA_URL + i.pic_url,
+			'pic_url': i.pic_url,
 			'type': i.new_type,
 			'title': i.name,
 			'info': i.lid,
@@ -179,7 +201,7 @@ def item(request, item_id):
 		record = {
 			'id': i.id,
 			'date': i.date,
-			'pic_url': settings.MEDIA_URL + i.pic_url,
+			'pic_url': i.pic_url,
 			'type': i.new_type,
 			'title': i.name,
 			'views': i.cviews,
@@ -189,7 +211,7 @@ def item(request, item_id):
 
 	record = {
 		'id': u.id,
-		'main_pic': settings.MEDIA_URL + u.pic_url,
+		'main_pic': u.pic_url,
 		'date': u.date,
 		'type': u.new_type,
 		'body': u.html,
@@ -209,6 +231,7 @@ def item(request, item_id):
 
 def preview(request):
 	if request.method == "POST":
+		print(request.POST)
 		record = {
 			'id': request.POST['id'],
 			'main_pic': request.POST['pic_url'],

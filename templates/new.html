@@ -8,8 +8,8 @@
     <script src="{% static "ckeditor/ckeditor.js" %}"></script>
     <script src="{% static "js/lib/jquery-2.1.1.min.js" %}"></script>
     <style>
-        .images img{
-              width='200'; height='200';
+        img {
+            width:200px;
         }
     </style>
     <script>
@@ -29,6 +29,67 @@
 
         $(document).ready(function(){
             admin_get_pic();
+        });
+    </script>
+    <script>
+        $(document).ready(function(){
+            $("#preview").click(function(){
+                var formData = new FormData($('form')[0]);
+                formData.append('pic_url', document.getElementById("pic_url").value);
+                formData.append('new_type', document.querySelector('input[name="new_type"]:checked').value);
+                formData.append('name', document.getElementById("name").value);
+                formData.append('lid', document.getElementById("lid").value);
+                formData.append('html', document.getElementById("html").value);
+                formData.append('authors', document.getElementById("authors").value);
+                //if(document.getElementById("pic_url").checked()) formData.append('is_enabled', true);
+                formData.append('id', document.getElementById("id").value);
+                $.ajax({
+                    url: '/restricted/preview/',
+                    type: 'POST',
+                    data: formData,
+                    success: function(responseData, textStatus, jqXHR) {
+                        var params = "menubar=no,location=no,resizable=yes,scrollbars=yes,status=yes";
+                        myWindow = window.open("", "Preview", params);
+                        myWindow.document.write(responseData);
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        function progressHandlingFunction(e){
+            if(e.lengthComputable){
+                $('progress').attr({value:e.loaded,max:e.total});
+            }
+        }
+        $(document).ready(function(){
+            $('#upload').click(function(){
+                this.disabled=true; this.value='Please Wait...';
+                var formData = new FormData($('form')[1]);
+                formData.append("id", "{% if id %}{{ id }}{% else %}{{ -1 }}{% endif %}");
+                formData.append("csrftoken", "{{ csrf_token }}");
+                setTimeout($.ajax({
+                    url: '/restricted/admin_post_pic/',  //Server script to process data
+                    type: 'POST',
+                    xhr: function() {  // Custom XMLHttpRequest
+                        var myXhr = $.ajaxSettings.xhr();
+                        if(myXhr.upload){ // Check if upload property exists
+                            myXhr.upload.addEventListener('progress',progressHandlingFunction, false);
+                        }
+                        return myXhr;
+                    },
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                }), 2000);
+                admin_get_pic();;
+                this.disabled=false; this.value='Загрузить';
+                $('#file').disabled=false;
+            });
         });
     </script>
   </head>
@@ -80,73 +141,15 @@
                     <input type="submit" value="Сохранить">
                 </form>
                 <input type="button" value="Предпросмотр" id="preview">
-                <script>
-                    $(document).ready(function(){
-                        $("#preview").click(function(){
-                            var formData = new FormData($('form')[0]);
-                            formData.append('pic_url', document.getElementById("pic_url").value);
-                            formData.append('new_type', document.querySelector('input[name="new_type"]:checked').value);
-                            formData.append('name', document.getElementById("name").value);
-                            formData.append('lid', document.getElementById("lid").value);
-                            formData.append('html', document.getElementById("html").value);
-                            formData.append('authors', document.getElementById("authors").value);
-                            //if(document.getElementById("pic_url").checked()) formData.append('is_enabled', true);
-                            formData.append('id', document.getElementById("id").value);
-                            $.ajax({
-                                url: '/restricted/preview/',
-                                type: 'POST',
-                                data: formData,
-                                success: function(responseData, textStatus, jqXHR) {
-                                    var params = "menubar=no,location=no,resizable=yes,scrollbars=yes,status=yes";
-                                    myWindow = window.open("", "Preview", params);
-                                    myWindow.document.write(responseData);
-                                },
-                                cache: false,
-                                contentType: false,
-                                processData: false
-                            });
-                        });
-                    });
-                </script>
             </td>
-            <td width=30%>
+            <td width=31%>
                 <div id="images" class="images"></div>
                 <form enctype="multipart/form-data">
                     {% csrf_token %}
-                    <input name="file" type="file" multiple/>
-                    <input type="button" value="Upload" />
+                    <input name="file" type="file" id="file" multiple/>
+                    <input type="button" value="Загрузить" id="upload"/>
                     <progress value="0"></progress>
                 </form>
-
-                <script type="text/javascript">
-                    function progressHandlingFunction(e){
-                        if(e.lengthComputable){
-                            $('progress').attr({value:e.loaded,max:e.total});
-                        }
-                    }
-
-                    $(':button').click(function(){
-                        var formData = new FormData($('form')[1]);
-                        formData.append("id", "{% if id %}{{ id }}{% else %}{{ -1 }}{% endif %}");
-                        formData.append("csrftoken", "{{ csrf_token }}");
-                        $.ajax({
-                            url: '/restricted/admin_post_pic/',  //Server script to process data
-                            type: 'POST',
-                            xhr: function() {  // Custom XMLHttpRequest
-                                var myXhr = $.ajaxSettings.xhr();
-                                if(myXhr.upload){ // Check if upload property exists
-                                    myXhr.upload.addEventListener('progress',progressHandlingFunction, false);
-                                }
-                                return myXhr;
-                            },
-                            data: formData,
-                            cache: false,
-                            contentType: false,
-                            processData: false
-                        });
-                        admin_get_pic();
-                    });
-                </script>
             </td>
         </tr>
     </table>
