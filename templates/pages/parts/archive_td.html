@@ -1,0 +1,10 @@
+{% load static %}
+<tr>
+<td>{{ id }}</td>
+<td>{{ title }}</td>
+<td>{{ date|date:"d F" }}</td>
+<td>{{ is_active }}</td>
+<td>{{ authors }}</td>
+<td>{{ views }}</td>
+<td> <a href="/restricted/edit/{{ id }}"><img class="pencil" src="{% static 'pics/pencil.png' %}"/></td>
+</tr>

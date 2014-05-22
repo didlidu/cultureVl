@@ -338,9 +338,34 @@ def culture(request):
 	context = RequestContext(request)
 	return render_to_response('blog_app/staff_only.html', {},context)
 
+
 @login_required
 def restricted(request):
-    return HttpResponse("Since you're logged in, you can see this text!")
+	context = RequestContext(request)
+	return render_to_response('restricted/restricted.html', {}, context)
+
+@login_required
+def profile(request):
+	context = RequestContext(request)
+	return render_to_response('restricted/profile.html', {}, context)
+
+@login_required
+def archive(request):
+	context = RequestContext(request)
+	rrr = New.objects.all()
+	html_code = ""
+	for i in reversed(rrr):
+		record = {
+			'id': i.id,
+			'date': i.date,
+			'type': i.new_type,
+			'title': i.name,
+			'is_active': i.is_enabled,
+			'authors': i.authors,
+			'views': i.cviews,
+		}
+		html_code += render_to_string('pages/parts/archive_td.html', record)
+	return render_to_response('restricted/archive.html', {'info': html_code}, context)
 
 
 @login_required

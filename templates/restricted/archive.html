@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>Здравствуйте. Снова.</title>
+        <link rel="shortcut icon"
+              href="http://www.colourbox.com/preview/2375826-622514-vector-icon-of-hand-saw.jpg" />
+
+<link rel="stylesheet" type="text/css" href="{% static "css/tablesorter/blue/style.css" %}">
+
+<link rel="stylesheet" type="text/css" href="{% static "css/restr.css" %}">
+
+<script src="{% static "js/lib/jquery-2.1.1.min.js" %}"></script>
+<script src="{% static "js/lib/jquery.tablesorter.min.js" %}"></script>
+
+</head>
+<body style="">
+<a href='/restricted/'>Покинуть архив</a>
+<div id="content" style="margin-top: 2%">
+    <table id="myTable" class="tablesorter">
+   <caption>Все статьи, которые когда-либо были</caption>
+   <thead> 
+   <tr>
+    <th>id</th>
+    <th>Заголовок статьи</th>
+    <th>Дата</th>
+    <th>Акт.</th>
+    <th>Авторы</th>
+    <th>Пр.</th>
+    <th>Р.</th>
+   </tr>
+    </thead> 
+    <tbody>
+   {{ info|safe }}
+ </tbody>
+  </table>
+<script>
+   $(document).ready(function() 
+    { 
+        $("#myTable").tablesorter(); 
+    } 
+);     
+</script>
+</div>
+<div id="footer">
+<p style="font-size: 18px; color: #acc8c8; text-align: center;">Hemingway_team</p>
+</div>
+</body>
+</html>

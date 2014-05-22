@@ -1,0 +1,30 @@
+body {
+      background-color: #1a0d2a;
+      font-size: 19px;
+      height: 100%;
+      color: wheat;
+    }
+#footer {
+  width: 99%;
+  position: absolute;
+  bottom: 5%;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+    -moz-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+    -webkit-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+    -o-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+    -ms-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+    transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+}
+table caption{
+  background-color: white; 
+}
+
+
+img.pencil{
+  width:20px;
+  height:auto;
+}
