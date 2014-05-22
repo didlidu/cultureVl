@@ -71,7 +71,7 @@
                 var formData = new FormData($('form')[1]);
                 formData.append("id", "{% if id %}{{ id }}{% else %}{{ -1 }}{% endif %}");
                 formData.append("csrftoken", "{{ csrf_token }}");
-                setTimeout($.ajax({
+                $.ajax({
                     url: '/restricted/admin_post_pic/',  //Server script to process data
                     type: 'POST',
                     xhr: function() {  // Custom XMLHttpRequest
@@ -85,8 +85,9 @@
                     cache: false,
                     contentType: false,
                     processData: false
-                }), 2000);
-                admin_get_pic();;
+                });
+                setTimeout(admin_get_pic(), 1000);
+                alert("PIDORI!!!");
                 this.disabled=false; this.value='Загрузить';
                 $('#file').disabled=false;
             });
