@@ -13,6 +13,9 @@
 
 	<div id="title">{{ title }}</div>
 	<div id="info">{{ info|safe }}</div>
+	<div id="author">
+		    {{ authors }}
+		</div>
 	<div id="item_body">
 	    {{ body|safe }}
 
@@ -20,9 +23,6 @@
 	
 
 	<div id="item_footer">
-		<div id="author">
-		    {{ authors }}
-		</div>
 		    <div id="looks">
 		    	<img id="looks_pic" src="{% static "pics/eye.png" %}" /> 
 		    	<span>{{ views }}</span>

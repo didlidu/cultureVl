@@ -36,7 +36,6 @@ p {
     width: inherit;
 }
 #info{
-    padding-bottom: 20px;
 }
 #item_footer{
     width: inherit;
@@ -45,8 +44,9 @@ p {
     margin-bottom: 20px;
 }
 #author{
-    float: left;
-    color: #666666;
+    padding-bottom: 20px;
+    font-size: 16px;
+
 }
 #looks{
     float: right;
