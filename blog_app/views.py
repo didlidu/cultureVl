@@ -218,6 +218,7 @@ def item(request, item_id):
 		'type': u.new_type,
 		'body': u.html,
 		'title': u.name,
+		'authors': u.authors,
 		'info': u.info,
 		'lid': u.lid,
 		'views': u.cviews,

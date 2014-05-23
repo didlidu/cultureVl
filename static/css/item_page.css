@@ -32,6 +32,9 @@ p {
 #item_body a{
     color: rgb(96, 108, 197);
 }
+#disqus_thread{
+    width: inherit;
+}
 #info{
     padding-bottom: 20px;
 }
@@ -43,6 +46,7 @@ p {
 }
 #author{
     float: left;
+    color: #666666;
 }
 #looks{
     float: right;
@@ -128,8 +132,4 @@ p {
     /*background-color: black;*/
     margin-right: 5px;
     display: inline-block;
-}
-.fotorama{
-    width: inherit;
-    max-height: 450px;
 }

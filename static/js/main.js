@@ -81,10 +81,9 @@ p.each(function(){
   for (var i = 0; i < arrayLength; i++) {
       divbody += '<a href="/media/'+ id + '/' + arpic[i] +'.jpg"' +'></a>';
   }
-  divbody = '<div class="fotorama" data-loop="true">' + divbody + '</div>';
+  divbody = '<div class="fotorama" data-width="100%" data-ratio="800/600" data-minwidth="400" data-maxwidth="1000" data-minheight="300" data-maxheight="100%" data-loop="true">' + divbody + '</div>';
   $(this).replaceWith( divbody );
 });
-
 
 });
 
