@@ -29,6 +29,9 @@ p {
     font-weight: 300;
 
 }
+#item_body a{
+    color: rgb(96, 108, 197);
+}
 #info{
     padding-bottom: 20px;
 }
@@ -125,4 +128,8 @@ p {
     /*background-color: black;*/
     margin-right: 5px;
     display: inline-block;
+}
+.fotorama{
+    width: inherit;
+    max-height: 450px;
 }
