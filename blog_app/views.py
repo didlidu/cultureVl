@@ -23,6 +23,7 @@ def new(request):
 					new_type = request.POST['new_type'],
 					name = request.POST['name'],
 					lid = request.POST['lid'],
+					info = request.POST['info'],
 					html = request.POST['html'],
 					authors = request.POST['authors'],
 					is_enabled = 'is_enabled' in request.POST,
@@ -32,6 +33,7 @@ def new(request):
 			p.new_type = request.POST['new_type']
 			p.name = request.POST['name']
 			p.lid = request.POST['lid']
+			p.info = request.POST['info']
 			p.html = request.POST['html']
 			p.authors = request.POST['authors']
 			p.is_enabled = 'is_enabled' in request.POST
@@ -66,6 +68,7 @@ def edit(request, id):
 				'new_type': a.new_type,
 				'name': a.name,
 				'lid': a.lid,
+				'info': a.info,
 				'html': a.html,
 				'pic_url': a.pic_url,
 				'id': a.id,
@@ -157,8 +160,7 @@ def get_more(request):
 
 def lenta(request):
 	print(get_records(10,"",0))
-	print("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
-	rcds = New.objects.all().order_by('-id')[:5]
+	rcds = New.objects.all().filter(is_enabled=True).order_by('-id')[:5]
 	html_code = ""
 	for i in rcds:
 		record = {
@@ -167,7 +169,7 @@ def lenta(request):
 			'pic_url': i.pic_url,
 			'type': i.new_type,
 			'title': i.name,
-			'info': i.lid,
+			'info': i.info,
 			'lid': i.lid,
 			'views': i.cviews,
 			'comments': i.ccomments,
@@ -194,7 +196,7 @@ def item(request, item_id):
 	u.save()
 	count_news = 3
 	j = 0
-	rcds = New.objects.all()[:count_news+1]
+	rcds = New.objects.all().filter(is_enabled=True)[:count_news+1]
 	for i in rcds:
 		if u.id == i.id: continue
 		j += 1
@@ -216,7 +218,7 @@ def item(request, item_id):
 		'type': u.new_type,
 		'body': u.html,
 		'title': u.name,
-		'info': u.lid,
+		'info': u.info,
 		'lid': u.lid,
 		'views': u.cviews,
 		'comments': u.ccomments,

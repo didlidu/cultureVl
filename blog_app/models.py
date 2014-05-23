@@ -7,6 +7,7 @@ class New(models.Model):
     pic_url = models.CharField(max_length=100)
     new_type = models.CharField(max_length=20)
     name = models.TextField()
+    info = models.TextField()
     lid = models.TextField()
     html = models.TextField()
     cviews = models.PositiveIntegerField( default=0 )
