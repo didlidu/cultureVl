@@ -25,12 +25,17 @@ p {
     margin-bottom: 25px;
 }
 #item_body{
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 300;
 
 }
+#item_body a{
+    color: rgb(96, 108, 197);
+}
+#disqus_thread{
+    width: inherit;
+}
 #info{
-    padding-bottom: 20px;
 }
 #item_footer{
     width: inherit;
@@ -39,7 +44,9 @@ p {
     margin-bottom: 20px;
 }
 #author{
-    float: left;
+    padding-bottom: 20px;
+    font-size: 16px;
+
 }
 #looks{
     float: right;

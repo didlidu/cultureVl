@@ -64,6 +64,28 @@ $.ajaxSetup({
         }
     }
 });
+$( document ).ready(function() {
+
+
+var regex = new RegExp('\\*{3}\\[([0-9 ]+)\\]\\*{3}');
+var p = $("#item_body > p").filter(function( index ){
+    return regex.test($(this).text())
+  });
+var id = $('#article_id').text();
+p.each(function(){
+  text = $(this).text();
+  text = text.match(/[0-9 ]+/);
+  arpic = text[0].split(' ');
+  var arrayLength = arpic.length;
+  divbody = ""
+  for (var i = 0; i < arrayLength; i++) {
+      divbody += '<a href="/media/'+ id + '/' + arpic[i] +'.jpg"' +'></a>';
+  }
+  divbody = '<div class="fotorama" data-width="100%" data-ratio="800/600" data-minwidth="400" data-maxwidth="1000" data-minheight="300" data-maxheight="100%" data-loop="true">' + divbody + '</div>';
+  $(this).replaceWith( divbody );
+});
+
+});
 
 $( document ).ready(function() {
  
@@ -88,6 +110,7 @@ $( document ).ready(function() {
         event.preventDefault();
  
     });
+
+
  
 });
-/*       */

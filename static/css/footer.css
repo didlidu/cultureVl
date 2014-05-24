@@ -10,6 +10,8 @@ width: auto;
 height: 62px;
 }
 #footer_logo{
+    max-width: 270px;
+    line-height: 1.2;
     float:left;
 }
 #footer {

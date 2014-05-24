@@ -87,7 +87,6 @@
                     processData: false
                 });
                 setTimeout(admin_get_pic(), 1000);
-                alert("PIDORI!!!");
                 this.disabled=false; this.value='Загрузить';
                 $('#file').disabled=false;
             });
@@ -123,7 +122,11 @@
 
                     Название: <input type="text" size="80" name="name" value="{{ name }}" id='name'><br><br>
 
-                    <textarea name="lid" id="lid" rows="5" cols="80" id='lid'>
+                    <textarea name="info" id="info" rows="5" cols="80" >
+                        {{ info }}
+                    </textarea><br>
+
+                    <textarea name="lid" id="lid" rows="5" cols="80" >
                         {{ lid }}
                     </textarea><br>
 
@@ -133,6 +136,7 @@
                     <script>
                         CKEDITOR.replace( 'html' );
                         CKEDITOR.replace( 'lid' );
+                        CKEDITOR.replace( 'info' );
                     </script><br>
 
                     <textarea name="authors" id="authors" rows="4" cols="110">{{ authors }}</textarea><br><br>
