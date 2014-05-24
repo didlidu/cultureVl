@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class New(models.Model):
-    date = models.DateField(auto_now=True)
+    date = models.DateTimeField(auto_now=True)
     pic_url = models.CharField(max_length=100)
     new_type = models.CharField(max_length=20)
     name = models.TextField()
@@ -29,7 +29,7 @@ def get_records(n, mask, next):
     j = 0
     selected_objects = []
     while(j < n + 10 and i < len(objects)):
-        if((objects[i].new_type == mask or mask == "") and objects[i].date <= datetime.date.today()):
+        if((objects[i].new_type == mask or mask == "") and objects[i].date <= datetime.datetime.now()):
             selected_objects.append(objects[i])
             j += 1
         i += 1
