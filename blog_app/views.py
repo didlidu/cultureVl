@@ -21,6 +21,7 @@ def new(request):
 		if not request.POST['id']:
 			p = New(
 					new_type = request.POST['new_type'],
+					date = str(datetime.datetime.now()),
 					name = request.POST['name'],
 					lid = request.POST['lid'],
 					info = request.POST['info'],
@@ -55,7 +56,6 @@ def new(request):
 			'pic_url': p.pic_url,
 			'id': p.id,
 			})
-		print(request.POST['name'])
 	return render(request, 'new.html', dictionary)
 
 
@@ -82,14 +82,16 @@ def edit(request, id):
 
 
 @login_required
-def admin_del_pic(request, way):
-	arrWay = way.split("|")
-	print(arrWay)
-	if default_storage.exists(arrWay[0] + '/' + arrWay[1]):
-		default_storage.delete(arrWay[0] + '/' + arrWay[1])
+def admin_del_pic(request):
+	print("DELETING")
 	response_data = {}
-	response_data['status'] = "success"
-	response_data['result'] = "Your file " + way + " has been deleted:"
+	if request.method == 'POST':
+		id = request.POST['id']
+		name = request.POST['name']
+		if default_storage.exists(id + '/' + name):
+			default_storage.delete(id + '/' + name)
+		response_data['status'] = "success"
+		response_data['result'] = "Your file " + id + '/' + name + " has been deleted:"
 	return HttpResponse(json.dumps(response_data), content_type='application/json')
 
 
@@ -101,6 +103,8 @@ def get_new_id():
 	else:
 		id = 0
 	return id + 1
+
+
 
 
 @login_required
@@ -141,7 +145,7 @@ def admin_get_pic(request):
 
 def get_more(request):
 	if request.is_ajax():
-		a = get_records(10, 1, 0)
+		a = get_records(5, "", 1)
 		html_code = ""
 		for i in a:
 			ctx = {
@@ -159,6 +163,7 @@ def get_more(request):
 
 
 def lenta(request):
+	print(get_records(4, "", 5))
 	rcds = New.objects.all().filter(is_enabled=True).order_by('-id')[:5]
 	html_code = ""
 	for i in rcds:
@@ -237,7 +242,8 @@ def preview(request):
 		record = {
 			'id': request.POST['id'],
 			'main_pic': request.POST['pic_url'],
-			'date': datetime.date.today(),
+			'authors': request.POST['authors'],
+			'date': str(datetime.datetime.now()),
 			'type': request.POST['new_type'],
 			'body': request.POST['html'],
 			'title': request.POST['name'],

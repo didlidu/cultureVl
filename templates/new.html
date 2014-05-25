@@ -2,6 +2,13 @@
 {% load static %}
 <html>
   <head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
     <meta content="">
 
     <title>Editing</title>
@@ -11,20 +18,69 @@
         img {
             width:200px;
         }
+        .img-wrap {
+            position: relative;
+            display: inline-block;
+            font-size: 0;
+        }
+        .img-wrap .close {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            z-index: 100;
+            background-color: #FFF;
+            padding: 5px 2px 2px;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            opacity: .2;
+            text-align: center;
+            font-size: 22px;
+            line-height: 10px;
+            border-radius: 50%;
+        }
+        .img-wrap:hover .close {
+            opacity: 1;
+        }
     </style>
     <script>
         function admin_get_pic(){
             document.getElementById("images").innerHTML = "";
-            $.getJSON("/restricted/admin_get_pic/",
-                {
+            $.getJSON("/restricted/admin_get_pic/", {
                     "csrftoken": "{{ csrf_token }}",
                     "id": "{% if id %}{{ id }}{% else %}{{ -1 }}{% endif %}",
-                }).done(function( data ) {
-                    var way = {{ MEDIA_URL }};
-                    $.each(data, function(i,item){
-                    $("<img/>").attr("src", way + item).appendTo("#images");
+            }).done(function( data ) {
+                var way = {{ MEDIA_URL }};
+                var id = 0;
+                $.each(data, function(i,item){
+                    id = id + 1;
+                    var images = document.getElementById("images");
+                    images.innerHTML = images.innerHTML + "<div class=\"img-wrap\">" +
+                        "<span id='" + id + "'' class=\"close\">&times;</span>" +
+                        "<img src='" + way + item + "' data-id='" + item + "'>" + 
+                        "</div>";
+                    document.getElementById(id).onclick = del_onclick;
                 });
+            }); 
+        }
+
+        function del_onclick(){
+            var link = $(this).closest('.img-wrap').find('img').data('id');
+            name = link.split('/')[1];
+            id = link.split('/')[0];
+            var url = '/restricted/admin_del_pic/';
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {'csrftoken': '{{ csrf_token }}', 'id': id, 'name': name, },
+                success: function(responseData, textStatus, jqXHR) {
+                    //alert('remove picture: ' + id);
+                },
+                cache: false,
+                contentType: false,
+                processData: false
             });
+            alert('falied to remove picture: ' + id);
         }
 
         $(document).ready(function(){
@@ -38,10 +94,9 @@
                 formData.append('pic_url', document.getElementById("pic_url").value);
                 formData.append('new_type', document.querySelector('input[name="new_type"]:checked').value);
                 formData.append('name', document.getElementById("name").value);
-                formData.append('lid', document.getElementById("lid").value);
-                formData.append('html', document.getElementById("html").value);
-                formData.append('authors', document.getElementById("authors").value);
-                //if(document.getElementById("pic_url").checked()) formData.append('is_enabled', true);
+                formData.append('lid', CKEDITOR.instances.lid.getData());
+                formData.append('html', CKEDITOR.instances.html.getData());
+                formData.append('authors', $('#authors').val());
                 formData.append('id', document.getElementById("id").value);
                 $.ajax({
                     url: '/restricted/preview/',
@@ -49,7 +104,7 @@
                     data: formData,
                     success: function(responseData, textStatus, jqXHR) {
                         var params = "menubar=no,location=no,resizable=yes,scrollbars=yes,status=yes";
-                        myWindow = window.open("", "Preview", params);
+                        myWindow = window.open("");
                         myWindow.document.write(responseData);
                     },
                     cache: false,
@@ -86,7 +141,7 @@
                     contentType: false,
                     processData: false
                 });
-                setTimeout(admin_get_pic(), 1000);
+                admin_get_pic();
                 this.disabled=false; this.value='Загрузить';
                 $('#file').disabled=false;
             });
