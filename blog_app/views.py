@@ -49,6 +49,7 @@ def new(request):
 		dictionary.update({
 			'new_type': request.POST['new_type'],
 			'name': request.POST['name'],
+			'info': request.POST['info'],
 			'lid': request.POST['lid'],
 			'html': request.POST['html'],
 			'authors': request.POST['authors'],
@@ -73,7 +74,7 @@ def edit(request, id):
 				'pic_url': a.pic_url,
 				'id': a.id,
 				'authors': a.authors,
-				'is_enabled': a.authors,
+				'is_enabled': a.is_enabled,
 			}
 			return render(request, 'new.html', dictionary)
 	except:

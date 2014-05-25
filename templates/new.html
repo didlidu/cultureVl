@@ -94,6 +94,7 @@
                 formData.append('pic_url', document.getElementById("pic_url").value);
                 formData.append('new_type', document.querySelector('input[name="new_type"]:checked').value);
                 formData.append('name', document.getElementById("name").value);
+                formData.append('info', CKEDITOR.instances.info.getData());
                 formData.append('lid', CKEDITOR.instances.lid.getData());
                 formData.append('html', CKEDITOR.instances.html.getData());
                 formData.append('authors', $('#authors').val());
