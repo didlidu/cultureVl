@@ -56,31 +56,29 @@
                     id = id + 1;
                     var images = document.getElementById("images");
                     images.innerHTML = images.innerHTML + "<div class=\"img-wrap\">" +
-                        "<span id='" + id + "'' class=\"close\">&times;</span>" +
+                        "<span id='" + id + "' class=\"close\">&times;</span>" +
                         "<img src='" + way + item + "' data-id='" + item + "'>" + 
                         "</div>";
-                    document.getElementById(id).onclick = del_onclick;
+                    return function() {
+                        document.getElementById(id).onclick = function() { 
+                            var el = this;
+                            var link = $(this).closest('.img-wrap').find('img').data('id');
+                            name = link.split('/')[1];
+                            id = link.split('/')[0];
+                            var url = '/restricted/admin_del_pic/';
+                            $.post( '/restricted/admin_del_pic/', 
+                                { 'csrfmiddlewaretoken': '{{ csrf_token }}', 'id': id, 'name': name } 
+                            ).done(function( data ) {
+                                el.parentNode.parentNode.removeChild(el.parentNode);
+                            });
+                        }
+                    }
                 });
             }); 
         }
 
         function del_onclick(){
-            var link = $(this).closest('.img-wrap').find('img').data('id');
-            name = link.split('/')[1];
-            id = link.split('/')[0];
-            var url = '/restricted/admin_del_pic/';
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: {'csrftoken': '{{ csrf_token }}', 'id': id, 'name': name, },
-                success: function(responseData, textStatus, jqXHR) {
-                    //alert('remove picture: ' + id);
-                },
-                cache: false,
-                contentType: false,
-                processData: false
-            });
-            alert('falied to remove picture: ' + id);
+
         }
 
         $(document).ready(function(){
@@ -123,7 +121,7 @@
         }
         $(document).ready(function(){
             $('#upload').click(function(){
-                this.disabled=true; this.value='Please Wait...';
+                //this.disabled=true; this.value='Please Wait...';
                 var formData = new FormData($('form')[1]);
                 formData.append("id", "{% if id %}{{ id }}{% else %}{{ -1 }}{% endif %}");
                 formData.append("csrftoken", "{{ csrf_token }}");
@@ -143,7 +141,7 @@
                     processData: false
                 });
                 admin_get_pic();
-                this.disabled=false; this.value='Загрузить';
+                //this.disabled=false; this.value='Загрузить';
                 $('#file').disabled=false;
             });
         });
