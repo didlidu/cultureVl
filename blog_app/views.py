@@ -164,7 +164,6 @@ def get_more(request):
 
 
 def lenta(request):
-	print(get_records(4, "", 5))
 	rcds = New.objects.all().filter(is_enabled=True).order_by('-id')[:5]
 	html_code = ""
 	for i in rcds:
