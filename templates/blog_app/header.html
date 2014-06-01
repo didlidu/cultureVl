@@ -17,6 +17,8 @@
         <link rel="stylesheet" type="text/css" href="{% static "css/main_style.css" %}">
         <link rel="stylesheet" type="text/css" href="{% static "css/footer.css" %}">
         <link rel="stylesheet" type="text/css" href="{% static "css/item_page.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "css/item_page.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "css/glyphfonts.css" %}">
 
         <!--
         <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
@@ -31,8 +33,6 @@
         <script type="text/javascript" src="http://vk.com/js/api/share.js?90" charset="windows-1251"></script>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.5.1/fotorama.js"></script>
 
-
-
     </head>
 
 <body> 
@@ -43,39 +43,25 @@
             <div id="top_header">
                 <div id="header_pic"><img src="{% static "pics/mr_che.png" %}"/></div>
 
-                    <nav id="main-nav"><ul>
-                        <li>
-                            <a href="/">На главную</a>
-                            <ul>
-                                <li><a href="#">О нас</a></li>
-                                <li><a href="#">Редакция</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    </nav>
+                    <div id="main-nav">
+                            <div style="display:none"><a href="/about/">О нас</a></div>
+                            <div style="display:none"><a href="/redaction/">Редакция</a></div>
+                            <div ><a href="/">На главную</a></div>
+                            </div>
 {% if user.is_authenticated %}
 <style>
-#dev_greeting{
-    position: absolute;
-    font-size: 18px;
-    margin-top: 60px;
-    left: 70%;
-    text-align: right;
-    background-color: aliceblue;
-}
 #dev_panel{
     position:fixed; 
     bottom:0; 
     right:0; 
-    height: 280px; 
-    width: 80px; 
+    height: 100px; 
+    width: 40px; 
     background-color:grey;
-    opacity: 0.7;
     padding-top:10px;
 }
 .dev_icon{
-    width:50px;
-    height:50px;
+    width:20px;
+    height:20px;
     margin: 0 auto;
     margin-bottom: 5px;
     display: inline-block;
@@ -85,40 +71,26 @@
     border: solid 1px black;
 }
 </style>
-<div id="dev_greeting">Здравствуй, {{ user.username}}! <br>
-Приятного рабочего дня <br>
-Не забудь разлогиниться! </div>
 <div id="dev_panel">
-    <a href="/logout/"><div class="dev_icon"></div></a>
-    <a href="/restricted/"><div class="dev_icon"></div></a>
-    <a href="/add/"><div class="dev_icon"></div></a>
-    <a href="/hzchto/"><div class="dev_icon"></div></a>
+    <a href="/logout/"><div class="dev_icon"><span class="glyphicon glyphicon-log-out"></span></div></a>
+    <a href="/restricted/"><div class="dev_icon"><span class="glyphicon glyphicon-cog"></span></div></a>
+    <a href="/add/"><div class="dev_icon"><span class="glyphicon glyphicon-file"></span></div></a>
 </div>
 {% endif %}
-            
-                <span><a href="/">КУЛЬТУРНЫЙ</a></span>
-
+            <div id="main_title">
+                <a href="/">КУЛЬТУРНЫЙ</a>
+</div>
             </div>
             <div id="bot_header">
                 <div id="div_filter">
 <nav id="nav">
 <ul>
-<li class="li_item">
-<a href="index.html">СПЕКТАКЛЬ</a>
-<ul>
-<li><a href="#">ПРЕМЬЕРА</a></li>
-</ul>
-</li><li class="li_wrapper"></li>
-<li class="li_item"><a href="#">НОВОСТЬ</a></li><li class="li_wrapper"></li>
-<li class="li_item">
-<a href="#">ЛИЧНОСТЬ</a>
-<ul>
-<li><a href="#">МНЕНИЕ</a></li>
-<li><a href="#">ИНТЕРВЬЮ</a></li>
-</ul>
-</li><li class="li_wrapper"></li>
-<li class="li_item"><a href="">МАСТЕРСКАЯ</a></li><li class="li_wrapper"></li>
-<li class="li_item"><a href="">АФИША</a></li>
+<li class="li_item"><a href="/play/">СПЕКТАКЛЬ</a>
+<ul style="width: 95px"><li><a href="/premiere/">ПРЕМЬЕРА</a></li></ul></li><li class="li_wrapper"></li>
+<li class="li_item"><a href="/news/">НОВОСТЬ</a></li><li class="li_wrapper"></li>
+<li class="li_item"><a href="/person/">ЛИЧНОСТЬ</a></li><li class="li_wrapper"></li>
+<li class="li_item"><a href="/workshop/">МАСТЕРСКАЯ</a></li><li class="li_wrapper"></li>
+<li class="li_item"><a href="/search/"><span class="glyphicon glyphicon-search"></a></li>
 </ul>
 </nav>
                 </div>

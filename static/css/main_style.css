@@ -78,6 +78,10 @@
     margin-top: 20px;
     text-align: left;
 }
+.item_read a{
+    color: rgb(96, 108, 197);
+}
+
 .item_lid{
     margin-top: 16px;
 }

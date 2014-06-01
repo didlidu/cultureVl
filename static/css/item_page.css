@@ -62,8 +62,8 @@ p {
 
 #item_wrapper{
     width: inherit;
-    height: 7px;
-    background-color: black;
+    border-bottom: 1px solid gray;
+    margin-top:8px;
 }
 #item_container{
     display: inline-block;

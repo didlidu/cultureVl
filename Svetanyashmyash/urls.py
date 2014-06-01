@@ -7,6 +7,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
 	url(r'^$', lenta),
+	url(r'^about/', about),
 	url(r'^admin/', include(admin.site.urls)),
 	url(r'^restricted/admin_post_pic/', admin_post_pic),
 	url(r'^restricted/admin_get_pic/', admin_get_pic),

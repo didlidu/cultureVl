@@ -20,11 +20,14 @@ html, body{
     font-weight: 300;
     background-color: #f9f9f9;
 }
-
-
+  
 body{
     left: 0;
     margin: 0;
+}
+
+img {
+    page-break-inside: avoid;
 }
 
 #top_line{
@@ -32,6 +35,36 @@ body{
     height: 5px;
     background-color: black;
 }
+
+#main_title{
+    font-size: 41px;
+    padding-top: 35px;
+    padding-bottom: 10px;
+}
+
+#main-nav{ 
+    color: ghostwhite;
+    text-align:  right;
+    background: black;
+    position: absolute;
+    right: 0;
+    padding: 0 5px 5px 0;
+    border-radius: 0 0 7px 7px;
+    color: #ccc;
+ }
+
+ #main-nav div{
+    float:left;
+    padding-left: 10px;
+    padding-right: 5px;
+ }
+ #main-nav a:hover{
+    color:white;
+    text-decoration: underline;
+
+ }
+
+
 
 #header{
     width: inherit;
@@ -41,23 +74,16 @@ body{
     height: 200px;
     color: black;
 }
-#header > span{
-    position: absolute;
-    display: inline-block;
-    width: inherit;
-    text-align: center;
-    margin-top: 55px;
-}
+
 #header nav{
     float: right;
-    width: inherit;
+    width: 900px;
 }
 #header_pic{
     position: absolute;
-    left:0;
-    width: 250px;
-    height: 250px;
-    background-color: #f9f9f9;;
+    left:-200px;
+    width: 300px;
+    height: auto;
 
 }
 #header_pic img {
@@ -66,20 +92,12 @@ body{
 }
 
 #top_header, #bot_header{
-    width:inherit;
+    position: relative;
+    width: inherit;
     display: block;
     text-align: center;
 }
-#top_header > span{
-    margin-top: 25px;
-    position: absolute;
-    width: inherit;
-    font-size: 41px;
-}
 
-#top_header{
-    height: 100px;
-}
 #bot_header{
     height:100px;
 }
@@ -104,6 +122,7 @@ body{
                 width: inherit; 
                 margin: 0 auto; 
                 text-align: right;
+                padding-top: 30px;
                  
             }
             #main-nav ul { list-style: none; margin: 0; padding: 0; }
@@ -116,7 +135,6 @@ body{
                 padding: 0.35em 0.75em 0.25em 0.75em; border-radius: 5px 5px 0 0; }
             #nav ul li.active { background: black; }
             #nav ul li.active a { color: #fff; text-decoration: none; }
-            #main-nav{ color:ghostwhite; text-align:  right;}
             #nav { text-align: right; border-bottom: 1px solid gray;}
             /* A single menu */
             .dropotron { background: black; list-style: none; margin: 0; min-width: 3em; padding: 0em 1em 0.75em 1em; border-radius: 0 0 5px 5px;}
@@ -139,7 +157,7 @@ body{
     margin: 0;
     /* bottom: 0; */
     position: absolute;
-    margin-top: 27px;
+    margin-top: 26px;
     border-right: 1px solid gray;
     display: inline-block;
     height: 8px;
@@ -154,5 +172,9 @@ nav > ul > li {
     width: inherit;
     display: inline-block;
     min-height: 600px;
+    padding-left:70px;
 }
 
+.glyphicon{
+    width:inherit;
+}

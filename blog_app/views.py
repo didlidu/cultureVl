@@ -59,6 +59,8 @@ def new(request):
 			})
 	return render(request, 'new.html', dictionary)
 
+def about(request):
+	return render(request, 'pages/static/about.html', {})
 
 @login_required
 def edit(request, id):
@@ -159,7 +161,7 @@ def get_more(request):
 			'views': i.cviews,
 			'comments': i.ccomments,
 		}
-		html_code += render_to_string('pages/item_li.html', ctx)
+		html_code += render_to_string('pages/parts/item_li.html', ctx)
 	return HttpResponse(html_code)
 
 
@@ -178,7 +180,7 @@ def lenta(request):
 			'views': i.cviews,
 			'comments': i.ccomments,
 		}
-		html_code += render_to_string('pages/item_li.html', record)
+		html_code += render_to_string('pages/parts/item_li.html', record)
 	dictionary = {'stuff': html_code}
 	return render(request, 'pages/lenta.html', dictionary)
 
@@ -261,7 +263,7 @@ def preview(request):
 
 
 def search(request):
-	return render(request, 'search.html')
+	return render(request, 'pages/search.html')
 
 
 def register(request):

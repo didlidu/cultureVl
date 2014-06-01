@@ -17,7 +17,7 @@ height: 62px;
 #footer {
     font-size: 11px;
     line-height: 1.5;
-    font-family: 'Roboto';
+    font-family: sans-serif, 'Roboto';
     font-style: normal;
     font-variant: normal;
     background: #000;
@@ -78,6 +78,14 @@ height: 62px;
     margin-right:0;
     margin-bottom: 0;
     position: absolute;
+}
+#afisha{
+    font-size: 27px;
+    margin-top: 0;
+    padding: 5px;
+    color: #666666;
+    font-weight: 700;
+    font-family: 'Roboto';
 }
 #contact{
     float: right;
