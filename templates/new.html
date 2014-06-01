@@ -12,8 +12,8 @@
     <meta content="">
 
     <title>Editing</title>
-    <script src="{% static "ckeditor/ckeditor.js" %}"></script>
-    <script src="{% static "js/lib/jquery-2.1.1.min.js" %}"></script>
+    <script src='{% static "ckeditor/ckeditor.js" %}'></script>
+    <script src='{% static "js/lib/jquery-2.1.1.min.js" %}'></script>
     <style>
         img {
             width:200px;
@@ -77,12 +77,10 @@
             }); 
         }
 
-        function del_onclick(){
-
-        }
-
         $(document).ready(function(){
-            admin_get_pic();
+            $("#refresh").click(function(){
+                admin_get_pic();
+            });
         });
     </script>
     <script>
@@ -121,7 +119,7 @@
         }
         $(document).ready(function(){
             $('#upload').click(function(){
-                //this.disabled=true; this.value='Please Wait...';
+                this.disabled=true; this.value='Please Wait...';
                 var formData = new FormData($('form')[1]);
                 formData.append("id", "{% if id %}{{ id }}{% else %}{{ -1 }}{% endif %}");
                 formData.append("csrftoken", "{{ csrf_token }}");
@@ -140,8 +138,8 @@
                     contentType: false,
                     processData: false
                 });
-                admin_get_pic();
-                //this.disabled=false; this.value='Загрузить';
+                //admin_get_pic();
+                this.disabled=false; this.value='Загрузить';
                 $('#file').disabled=false;
             });
         });
@@ -199,10 +197,12 @@
                     <input type="hidden" name="id" value="{{ id }}" id='id'>
                     <input type="submit" value="Сохранить">
                 </form>
-                <input type="button" value="Предпросмотр" id="preview">
+                <input type="button" value="Предпросмотр" id="preview"><br>
+                <input type="button" value="Новая запись" onclick="window.location='/restricted/edit/';">
             </td>
             <td width=31%>
                 <div id="images" class="images"></div>
+                <input type="button" value="Обновить" id="refresh">
                 <form enctype="multipart/form-data">
                     {% csrf_token %}
                     <input name="file" type="file" id="file" multiple/>

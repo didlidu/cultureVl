@@ -88,6 +88,7 @@ p.each(function(){
 });
 
 $( document ).ready(function() {
+
     var nav = $(" #main-nav ");
     nav.hover(
     function(){
@@ -100,24 +101,27 @@ $( document ).ready(function() {
     );
 
 
-    $( "#more" ).click(function( event ) {
-
-      $.ajax({
-       type:"POST",
-       url:"/get_more/",
-       data: {
-              'arbitrary-data': 'this is arbitrary data',
-              'some-form-field': $("myform input:first").val(), // from form
-              'background-color': $("body").css("background-color")
-              // all of this data is submitted via POST to your view.
-              // in django, request.POST['background-color'] 
-       },
-       success: function(data){
-           //alert(data);
-           $("#main_container").append(data);
-       }
-      });
- 
+	//next = {{ next }};
+	next = 0;
+  $( "#more" ).click(function( event ) {
+		alert(next);
+		$.ajax({
+		   type:"POST",
+		   url:"/get_more/",
+		   data: {
+					'csrfmiddlewaretoken': '{{ csrf_token }}',
+					"csrftoken": "{{ csrf_token }}",
+				  'next': next,
+				  'some-form-field': $("myform input:first").val(), // from form
+				  'background-color': $("body").css("background-color")
+				  // all of this data is submitted via POST to your view.
+				  // in django, request.POST['background-color'] 
+		   },
+		   success: function(data){
+			   alert(data);
+			   $("#main_container").append(data);
+		   }
+		});
         event.preventDefault();
  
     });

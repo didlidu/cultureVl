@@ -86,7 +86,6 @@ def edit(request, id):
 
 @login_required
 def admin_del_pic(request):
-	print("DELETING")
 	response_data = {}
 	if request.method == 'POST':
 		id = request.POST['id']
@@ -147,9 +146,11 @@ def admin_get_pic(request):
 
 
 def get_more(request):
-	if request.is_ajax():
-		a = get_records(5, "", 1)
-		html_code = ""
+	html_code = ""
+	if 'next' in request.POST:
+		next = request.POST['next']
+		a = get_records(5, "", next)
+		ctx = {}
 		for i in a:
 			ctx = {
 			'id': i.id,
@@ -182,6 +183,28 @@ def lenta(request):
 		}
 		html_code += render_to_string('pages/parts/item_li.html', record)
 	dictionary = {'stuff': html_code}
+	return render(request, 'pages/lenta.html', dictionary)
+
+
+def lenta_mask(request, mask):
+	print(mask)
+	rcds = get_records(5, mask, 0)
+	html_code = ""
+	for i in rcds:
+		record = {
+			'id': i.id,
+			'date': i.date,
+			'pic_url': i.pic_url,
+			'type': i.new_type,
+			'title': i.name,
+			'info': i.info,
+			'lid': i.lid,
+			'views': i.cviews,
+			'comments': i.ccomments,
+		}
+		html_code += render_to_string('pages/item_li.html', record)
+	dictionary = {'stuff': html_code, }
+	print("Debug")
 	return render(request, 'pages/lenta.html', dictionary)
 
 
