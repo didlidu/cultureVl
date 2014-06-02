@@ -103,7 +103,7 @@ $( document ).ready(function() {
 
 	//next = {{ next }};
 	next = 0;
-  $( "#more" ).click(function( event ) {
+      $( "#more" ).click(function( event ) {
 		alert(next);
 		$.ajax({
 		   type:"POST",

@@ -23,7 +23,7 @@ class New(models.Model):
 import datetime
 
 def get_records(n, mask, next):
-    objects = New.objects.all().order_by('-date')
+    objects = New.objects.all().filter(is_enabled=True).order_by('-date')
     print(objects)
     i = 0 if next == 0 else list(objects.values_list('id', flat=True)).index(next) + 1;
     j = 0

@@ -1,5 +1,6 @@
 import os
 import json
+import datetime
 from django.shortcuts import render, render_to_response
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
@@ -11,7 +12,6 @@ from blog_app.forms import UserForm, UserProfileForm
 from django.template import RequestContext
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-import datetime
 
 
 @login_required
@@ -166,25 +166,6 @@ def get_more(request):
 	return HttpResponse(html_code)
 
 
-def lenta(request):
-	rcds = New.objects.all().filter(is_enabled=True).order_by('-id')[:5]
-	html_code = ""
-	for i in rcds:
-		record = {
-			'id': i.id,
-			'date': i.date,
-			'pic_url': i.pic_url,
-			'type': i.new_type,
-			'title': i.name,
-			'info': i.info,
-			'lid': i.lid,
-			'views': i.cviews,
-			'comments': i.ccomments,
-		}
-		html_code += render_to_string('pages/parts/item_li.html', record)
-	dictionary = {'stuff': html_code}
-	return render(request, 'pages/lenta.html', dictionary)
-
 
 def lenta_mask(request, mask):
 	print(mask)
@@ -202,9 +183,8 @@ def lenta_mask(request, mask):
 			'views': i.cviews,
 			'comments': i.ccomments,
 		}
-		html_code += render_to_string('pages/item_li.html', record)
+		html_code += render_to_string('pages/parts/item_li.html', record)
 	dictionary = {'stuff': html_code, }
-	print("Debug")
 	return render(request, 'pages/lenta.html', dictionary)
 
 
@@ -388,12 +368,6 @@ def user_login(request):
         # No context variables to pass to the template system, hence the
         # blank dictionary object...
         return render_to_response('blog_app/login.html', {}, context)
-
-
-def culture(request):
-	context = RequestContext(request)
-	return render_to_response('blog_app/staff_only.html', {},context)
-
 
 @login_required
 def restricted(request):

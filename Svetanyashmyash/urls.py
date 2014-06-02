@@ -6,33 +6,28 @@ admin.autodiscover()
 
 
 urlpatterns = patterns('',
-	url(r'^$', lenta),
+	url(r'^$', lenta_mask, {'mask': ""}),
 	url(r'^about/', about),
-	url(r'^admin/', include(admin.site.urls)),
-	url(r'^restricted/admin_post_pic/', admin_post_pic),
-	url(r'^restricted/admin_get_pic/', admin_get_pic),
-	url(r'^restricted/admin_del_pic/', admin_del_pic),	
-	url(r'^restricted/edit/(?P<id>\d+)', edit),
-	url(r'^restricted/edit/', new),
-	url(r'^restricted/preview/', preview),
-	url(r'^restricted/archive/', archive),
-	url(r'^restricted/profile/', profile),
-	url(r'^lenta/(?P<mask>\w+)', lenta_mask),
-	url(r'^lenta/', lenta),
-	url(r'^item/(?P<item_id>\d+)', item),
+	url(r'^item/(?P<item_id>\d+)', item),	
+	url(r'^restricted/', include('Svetanyashmyash.urls_restricted')),
 	url(r'^search/', search),
 	url(r'^register/$', register, name='register'),
-	url(r'^restricted/login/$', 'django.contrib.auth.views.login',  
-		{'template_name': 'blog_app/login.html'}),
-	url(r'^staff/$', culture ),
 	url(r'^get_more/$', get_more ),
 
-	url(r'^restricted/', restricted, name='restricted'),
-	url(r'^logout/$', user_logout, name='logout'),
 
+	url(r'^admin/', include(admin.site.urls)),
 )
 urlpatterns += patterns(
     'django.views.static',
     (r'media/(?P<path>.*)',
     'serve',
     {'document_root': settings.MEDIA_ROOT}), )
+
+urlpatterns += patterns('',
+	url(r'^play/$', lenta_mask, {'mask': 'Спектакль'}),
+	url(r'^premiere/$', lenta_mask, {'mask': 'Премьера'}),
+	url(r'^news/$', lenta_mask, {'mask': 'Новость'}),
+	url(r'^person/$', lenta_mask, {'mask': 'Личность'}),
+	url(r'^workshop/$', lenta_mask, {'mask': 'Мастерская'}),
+
+)
