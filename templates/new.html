@@ -5,15 +5,18 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <!-- Optional theme -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">    
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+
     <!-- Latest compiled and minified JavaScript -->
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
     <meta content="">
 
     <title>Editing</title>
-    <script src='{% static "ckeditor/ckeditor.js" %}'></script>
-    <script src='{% static "js/lib/jquery-2.1.1.min.js" %}'></script>
+    <script src="{% static "js/lib/jquery-2.1.1.min.js" %}"></script>
+    <script src="{% static "ckeditor/ckeditor.js" %}"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <style>
         img {
             width:200px;
@@ -44,6 +47,23 @@
         }
     </style>
     <script>
+    function Deleting_pic( pic_id ){
+        
+        var p = $('#'+pic_id);
+        var link = p.attr('data-id');
+        name = link.split('/')[1];
+        id = link.split('/')[0];
+        var url = '/restricted/admin_del_pic/';
+        $.post( '/restricted/admin_del_pic/', 
+        {
+        'csrfmiddlewaretoken': '{{ csrf_token }}',
+        'id': id,
+        'name': name } 
+        ).done(function( data ) {
+            p.parent().remove();
+        });
+    }
+
         function admin_get_pic(){
             document.getElementById("images").innerHTML = "";
             $.getJSON("/restricted/admin_get_pic/", {
@@ -56,23 +76,13 @@
                     id = id + 1;
                     var images = document.getElementById("images");
                     images.innerHTML = images.innerHTML + "<div class=\"img-wrap\">" +
-                        "<span id='" + id + "' class=\"close\">&times;</span>" +
-                        "<img src='" + way + item + "' data-id='" + item + "'>" + 
+                        "<a href='javascript:Deleting_pic(" + id + ")'" +
+                        "<span class=\"close\">&times;</span></a>" +
+                        "<img id='" + id + "' src='" + way + item + "' data-id='" + item + "'>" + 
                         "</div>";
-                    return function() {
                         document.getElementById(id).onclick = function() { 
-                            var el = this;
-                            var link = $(this).closest('.img-wrap').find('img').data('id');
-                            name = link.split('/')[1];
-                            id = link.split('/')[0];
-                            var url = '/restricted/admin_del_pic/';
-                            $.post( '/restricted/admin_del_pic/', 
-                                { 'csrfmiddlewaretoken': '{{ csrf_token }}', 'id': id, 'name': name } 
-                            ).done(function( data ) {
-                                el.parentNode.parentNode.removeChild(el.parentNode);
-                            });
+                            
                         }
-                    }
                 });
             }); 
         }
@@ -80,8 +90,8 @@
         $(document).ready(function(){
             $("#refresh").click(function(){
                 admin_get_pic();
+        })
             });
-        });
     </script>
     <script>
         $(document).ready(function(){
@@ -143,48 +153,76 @@
                 $('#file').disabled=false;
             });
         });
+  </script>
+      <script>
+  $(function() {
+    $( "#tabs" ).tabs({
+      collapsible: true
+    });
+  });
     </script>
   </head>
+  <body style="width:90%; margin-left:5%; padding-bottom:100px;">
 
-  <body>
+ 
+
     <table>
-        <tr>
-            <td>
-                <form action="/restricted/edit/" method="post" enctype="multipart/form-data">{% csrf_token %}
-                    {% if id %}
-                    <p>Редактирование: #{{ id }}</p>
-                    {% else %}
-                    <p>Новая статья:</p>
-                    {% endif %}
+    <tr>
+    <td>
+        <form action="/restricted/edit/" method="post" enctype="multipart/form-data">{% csrf_token %}
+        <div style="font-size:40px;">
+        {% if id %}
+        <p>Редактирование #{{ id }}</p>
+        {% else %}
+        <p>Новая статья</p>
+        {% endif %}
+        </div>
+        <input type="file" name="pic" id='pic_url'><br>
+        {% if pic_url %}
+        <img src="{{ pic_url }}" width="200"; height="200" />
+        {% endif %}
+        <br>
 
-                    <input type="file" name="pic" id='pic_url'><br>
-                    {% if pic_url %}
-                    <img src="{{ pic_url }}" width="200"; height="200" />
-                    {% endif %}
-                    <br>
+        <input type="radio" name="new_type" id="Спектакль" value="Спектакль" checked>Спектакль<br>
+        <input type="radio" name="new_type" id="Премьера" value="Премьера" checked>Премьера<br>
+        <input type="radio" name="new_type" id="Новость" value="Новость">Новость<br>
+        <input type="radio" name="new_type" id="Личность" value="Личность">Личность<br>
+        <input type="radio" name="new_type" id="Мастерская" value="Мастерская">Мастерская<br><br>
 
-                    <input type="radio" name="new_type" id="Премьера" value="Премьера" checked>Премьера<br>
-                    <input type="radio" name="new_type" id="Новость" value="Новость">Новость<br>
-                    <input type="radio" name="new_type" id="Личность" value="Личность">Личность<br>
-                    <input type="radio" name="new_type" id="Афиша" value="Афиша">Афиша<br><br>
+        {% if new_type %}
+        <script>document.getElementById("{{ new_type }}").checked = true;</script>
+        {% endif %}
 
-                    {% if new_type %}
-                    <script>document.getElementById("{{ new_type }}").checked = true;</script>
-                    {% endif %}
-
-                    Название: <input type="text" size="80" name="name" value="{{ name }}" id='name'><br><br>
-
-                    <textarea name="info" id="info" rows="5" cols="80" >
-                        {{ info }}
-                    </textarea><br>
-
-                    <textarea name="lid" id="lid" rows="5" cols="80" >
-                        {{ lid }}
-                    </textarea><br>
-
-                    <textarea name="html" id="html" rows="10" cols="160" id='html'>
-                        {{ html }}
-                    </textarea>
+        Название: <input type="text" size="80" name="name" value="{{ name }}" id='name'><br><br>
+        <div id="tabs">
+          <ul>
+            <li><a href="#tabs-1">Информация</a></li>
+            <li><a href="#tabs-2">Лид</a></li>
+            <li><a href="#tabs-3">Тело статьи</a></li>
+          </ul>
+          <div id="tabs-1">
+            <p>
+        <textarea name="info" id="info" rows="5" cols="80" >    
+        {{ info }}
+        </textarea>
+        </p>
+        </div>
+        <div id="tabs-2">
+        <p>
+        <textarea name="lid" id="lid" rows="5" cols="80" >
+        {{ lid }}
+        </textarea>        
+        </p>
+        </div>
+        <div id="tabs-3">
+        <p>
+        <textarea name="html" id="html" rows="10" cols="160" id='html'>
+        {{ html }}
+        </textarea>
+        </p>
+        <div></div
+        </div>
+        </div>
                     <script>
                         CKEDITOR.replace( 'html' );
                         CKEDITOR.replace( 'lid' );
@@ -197,7 +235,7 @@
                     <input type="hidden" name="id" value="{{ id }}" id='id'>
                     <input type="submit" value="Сохранить">
                 </form>
-                <input type="button" value="Предпросмотр" id="preview"><br>
+                <input type="button" value="Предпросмотр" id="preview">
                 <input type="button" value="Новая запись" onclick="window.location='/restricted/edit/';">
             </td>
             <td width=31%>

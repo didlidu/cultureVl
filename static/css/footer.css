@@ -10,14 +10,14 @@ width: auto;
 height: 62px;
 }
 #footer_logo{
-    max-width: 270px;
+    max-width: 300px;
     line-height: 1.2;
     float:left;
 }
 #footer {
     font-size: 11px;
     line-height: 1.5;
-    font-family: sans-serif, 'Roboto';
+    font-family: "Helvetica Neue",Verdana,Arial,Helvetica,sans-serif;
     font-style: normal;
     font-variant: normal;
     background: #000;

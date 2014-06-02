@@ -258,7 +258,7 @@ def preview(request):
 		}
 	html_code = ""
 	html_code += render_to_string('blog_app/header.html', record)
-	html_code += render_to_string('pages/item.html', record)
+	html_code += render_to_string('pages/preview.html', record)
 	html_code += render_to_string('blog_app/footer.html', record)
 	return HttpResponse(html_code)
 

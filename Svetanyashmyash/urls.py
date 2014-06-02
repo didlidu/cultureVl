@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 
+from django.http import HttpResponseRedirect
 from blog_app.views import *
 from django.contrib import admin
 admin.autodiscover()
@@ -7,6 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
 	url(r'^$', lenta_mask, {'mask': ""}),
+	
 	url(r'^about/$', about),
 	url(r'^item/(?P<item_id>\d+)/$', item),	
 	url(r'^restricted/', include('Svetanyashmyash.urls_restricted')),

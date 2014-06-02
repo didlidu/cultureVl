@@ -1,0 +1,35 @@
+{% load static %}
+<div id="main">
+	{% if user.is_authenticated %}
+		<a href="/restricted/edit/{{ id }}" style="position:relative;">
+			<div style="width:40px; height:40px; font-size: 40px; background-color: white; opacity:0.8; border: solid 1px black; position: absolute; right: -800px;"><span style="" class="glyphicon glyphicon-pencil"></span></div>
+		</a>
+	{% endif %}
+	<div id ="article_id" style="display: none;">{{ id }}</div>
+	<img alt="{{ title }}" src="{{main_pic}}" id="main_photo"/> 
+	
+	<div id="item_date">{{ date }}</div>
+
+	<div id="title">{{ title }}</div>
+	<div id="info">{{ info|safe }}</div>
+	<div id="author">
+		    {{ authors }}
+		</div>
+	<div id="item_body">
+	    {{ body|safe }}
+</div>
+	
+
+	<div id="item_footer">
+		    <div id="looks">
+		    	<img id="looks_pic" src="{% static "pics/eye.png" %}" /> 
+		    	<span>{{ views }}</span>
+		    </div>
+	</div>
+	</div>    
+
+<div id="item_wrapper"></div>
+
+<div id="item_container">
+    {{ other_news|safe }}
+</div>
