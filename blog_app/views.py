@@ -168,7 +168,6 @@ def get_more(request):
 
 
 def lenta_mask(request, mask):
-	print(mask)
 	rcds = get_records(5, mask, 0)
 	html_code = ""
 	for i in rcds:

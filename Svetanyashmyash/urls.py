@@ -7,9 +7,9 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
 	url(r'^$', lenta_mask, {'mask': ""}),
-	url(r'^about/', about),
-	url(r'^item/(?P<item_id>\d+)', item),	
-	url(r'^restricted/', include('Svetanyashmyash.urls_restricted')),
+	url(r'^about/$', about),
+	url(r'^item/(?P<item_id>\d+)/$', item),	
+	url(r'^restricted/$', include('Svetanyashmyash.urls_restricted')),
 	url(r'^search/', search),
 	url(r'^register/$', register, name='register'),
 	url(r'^get_more/$', get_more ),
@@ -29,5 +29,4 @@ urlpatterns += patterns('',
 	url(r'^news/$', lenta_mask, {'mask': 'Новость'}),
 	url(r'^person/$', lenta_mask, {'mask': 'Личность'}),
 	url(r'^workshop/$', lenta_mask, {'mask': 'Мастерская'}),
-
 )
