@@ -68,23 +68,17 @@ $( document ).ready(function() {
 
 
 var regex = new RegExp('\\*{3}\\[([0-9 ]+)\\]\\*{3}');
-var p = $("#item_body > p").filter(function( index ){
-    return regex.test($(this).text())
-  });
-var id = $('#article_id').text();
-p.each(function(){
-  text = $(this).text();
-  text = text.match(/[0-9 ]+/);
-  arpic = text[0].split(' ');
-  var arrayLength = arpic.length;
-  divbody = ""
-  for (var i = 0; i < arrayLength; i++) {
-      divbody += '<a href="/media/'+ id + '/' + arpic[i] +'.jpg"' +'></a>';
-  }
-  divbody = '<div class="fotorama" data-width="100%" data-ratio="800/600" data-minwidth="400" data-maxwidth="800" data-minheight="300" data-maxheight="500" data-loop="true">' + divbody + '</div>';
-  $(this).replaceWith( divbody );
-});
-
+var P = $("img" , $("#item_body")).parent();
+for(var i=0; i<P.length;i++){
+	var imgs = $('img', P[i]);
+	divbody = ""	
+	for(var j=0;j<imgs.length;j++){
+		divbody += '<a href="'+ imgs[j].getAttribute("src") + '"></a>';
+	}
+	divbody = '<div class="fotorama" data-width="100%" data-ratio="800/600" data-minwidth="400" data-maxwidth="800" data-minheight="300" data-maxheight="500" data-loop="true">' + divbody + '</div>';
+	$(P[i]).replaceWith( divbody );
+	
+}
 });
 
 $( document ).ready(function() {
