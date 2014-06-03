@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class New(models.Model):
-    date = models.DateField(auto_now=True)
+    date = models.DateField(auto_now_add=True)
     pic_url = models.CharField(max_length=100)
     new_type = models.CharField(max_length=20)
     name = models.TextField()
