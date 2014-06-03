@@ -1,6 +1,9 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns, url, include
 
 from blog_app.views import *
+from django.contrib import admin
+admin.autodiscover()
+
 
 urlpatterns = patterns('',
 	url(r'^$',					restricted, name='restricted'),
@@ -14,5 +17,5 @@ urlpatterns = patterns('',
 	url(r'^profile/$', 			profile),
 	url(r'^logout/$', 			user_logout),
 	url(r'^login/$', 			'django.contrib.auth.views.login', {'template_name': 'blog_app/login.html'}),
-
+	url(r'^admin/', include(admin.site.urls)),
 )

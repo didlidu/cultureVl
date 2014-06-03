@@ -2,8 +2,7 @@ from django.conf.urls import patterns, include, url
 
 from django.http import HttpResponseRedirect
 from blog_app.views import *
-from django.contrib import admin
-admin.autodiscover()
+
 
 
 urlpatterns = patterns('',
@@ -15,9 +14,6 @@ urlpatterns = patterns('',
 	url(r'^search/', search),
 	url(r'^register/$', register, name='register'),
 	url(r'^get_more/$', get_more ),
-
-
-	url(r'^admin/', include(admin.site.urls)),
 )
 urlpatterns += patterns(
     'django.views.static',

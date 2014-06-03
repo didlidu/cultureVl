@@ -1,9 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
+import datetime
 
 
 class New(models.Model):
-    date = models.DateField(auto_now_add=True)
+    date = models.DateField()
     pic_url = models.CharField(max_length=100)
     new_type = models.CharField(max_length=20)
     name = models.TextField()
@@ -14,6 +15,7 @@ class New(models.Model):
     ccomments = models.PositiveIntegerField( default=0 )
     authors = models.TextField()
     is_enabled = models.BooleanField( default = False )
+    last_change = models.DateTimeField( auto_now=True )
     def __str__(self):
         return str(self.id) + ' ' + str(self.date)
     def __unicode__(self):
@@ -23,14 +25,15 @@ class New(models.Model):
 import datetime
 
 def get_records(n, mask, next):
-    objects = New.objects.all().filter(is_enabled=True).order_by('-id')
+    objects = New.objects.all().filter(is_enabled=True).exclude(date__gt=datetime.date.today()).order_by('-id')
+    if mask:
+        objects.filter(new_type=mask)
     next=int(next)
     i = 0 if next == 0 else list(objects.values_list('id', flat=True)).index(next) + 1;
     j = 0
     selected_objects = []
     while(j < n and i < len(objects)):
-        if((objects[i].new_type == mask or mask == "") and 
-            objects[i].date <= datetime.date.today()):
+        if(objects[i].new_type == mask or mask == ""):
             selected_objects.append(objects[i])
             j += 1
         i += 1

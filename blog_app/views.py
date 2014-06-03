@@ -21,7 +21,7 @@ def new(request):
 		if not request.POST['id']:
 			p = New(
 					new_type = request.POST['new_type'],
-					date = str(datetime.datetime.now()),
+					date = str(datetime.date.today()),
 					name = request.POST['name'],
 					lid = request.POST['lid'],
 					info = request.POST['info'],
@@ -38,6 +38,9 @@ def new(request):
 			p.html = request.POST['html']
 			p.authors = request.POST['authors']
 			p.is_enabled = 'is_enabled' in request.POST
+			if request.POST['date']:
+				new_date = request.POST['date'].split('.')
+				p.date = datetime.date()
 		p.save()
 		for upfile in request.FILES.getlist('pic'):
 			if default_storage.exists(str(p.id) + '/' + "pic.jpg"):
@@ -46,18 +49,10 @@ def new(request):
 			tmp_file = os.path.join(settings.MEDIA_ROOT, path)
 			p.pic_url = settings.MEDIA_URL + str(p.id) + '/' + "pic.jpg"
 		p.save()
-		dictionary.update({
-			'new_type': request.POST['new_type'],
-			'name': request.POST['name'],
-			'info': request.POST['info'],
-			'lid': request.POST['lid'],
-			'html': request.POST['html'],
-			'authors': request.POST['authors'],
-			'is_enabled': 'is_enabled' in request.POST,
-			'pic_url': p.pic_url,
-			'id': p.id,
-			})
-	return render(request, 'new.html', dictionary)
+		red = '/restricted/edit/'+str(p.id)
+		return HttpResponseRedirect(red)
+	return render(request, 'new.html', {})
+
 
 def about(request):
 	return render(request, 'pages/static/about.html', {})
@@ -77,6 +72,9 @@ def edit(request, id):
 				'id': a.id,
 				'authors': a.authors,
 				'is_enabled': a.is_enabled,
+				'date': a.date,
+				'id': a.id,
+				'last_change': a.last_change,
 			}
 			return render(request, 'new.html', dictionary)
 	except:
