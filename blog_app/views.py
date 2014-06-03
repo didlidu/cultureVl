@@ -220,6 +220,7 @@ def item(request, item_id):
 			'date': i.date,
 			'pic_url': i.pic_url,
 			'type': i.new_type,
+			'lid': i.lid,
 			'title': i.name,
 			'views': i.cviews,
 		}
