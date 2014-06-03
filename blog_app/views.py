@@ -146,13 +146,15 @@ def admin_get_pic(request):
 
 
 def get_more(request):
+	next = 0;
+	try:
+		next = request.COOKIES["next"]
+	except:
+		next = 0
 	html_code = ""
-	if 'next' in request.POST:
-		next = request.POST['next']
-		a = get_records(5, "", next)
-		ctx = {}
-		for i in a:
-			ctx = {
+	a = get_records(5, request.POST['type_of_page'], next)
+	for i in a:
+		ctx = {
 			'id': i.id,
 			'date': i.date,
 			'type': i.new_type,
@@ -163,13 +165,18 @@ def get_more(request):
 			'comments': i.ccomments,
 		}
 		html_code += render_to_string('pages/parts/item_li.html', ctx)
-	return HttpResponse(html_code)
+		next = int(ctx['id'])
+	response = HttpResponse(html_code)
+	response.set_cookie("next", next)
+	return response
 
 
 
 def lenta_mask(request, mask):
+	request.META["CSRF_COOKIE_USED"] = True
 	rcds = get_records(5, mask, 0)
 	html_code = ""
+	next = 0;
 	for i in rcds:
 		record = {
 			'id': i.id,
@@ -182,10 +189,12 @@ def lenta_mask(request, mask):
 			'views': i.cviews,
 			'comments': i.ccomments,
 		}
+		next = record['id']
 		html_code += render_to_string('pages/parts/item_li.html', record)
-	dictionary = {'stuff': html_code, }
-	return render(request, 'pages/lenta.html', dictionary)
-
+	dictionary = { 'stuff': html_code, 'type_of_page':  mask }
+	response = render(request, 'pages/lenta.html', dictionary)
+	response.set_cookie(key="next", value=next)
+	return response
 
 def lenta_get(request):
 	data = {'something': 'useful'}
