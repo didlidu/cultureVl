@@ -177,23 +177,28 @@
         <p>Новая статья</p>
         {% endif %}
         </div>
-        <input type="file" name="pic" id='pic_url'><br>
+        <div id="main_pic" style="border: solid 1px grey; border-radius:2px; float:left;">
+        <input type="file" name="pic" id='pic_url'>
         {% if pic_url %}
         <img src="{{ pic_url }}" width="200"; height="200" />
         {% endif %}
+        </div>
         <br>
-
+        <div style="float:right;">Время опубликования {{ date }}<br>
+            <input type="text" auto_now=False size="20" name="date" value="" id='name'> <br>
+            Время последнего изменения <span>{{ last_change }}</span></div>
+        <div id="type_container" style="padding">
         <input type="radio" name="new_type" id="Спектакль" value="Спектакль" checked>Спектакль<br>
         <input type="radio" name="new_type" id="Премьера" value="Премьера" checked>Премьера<br>
         <input type="radio" name="new_type" id="Новость" value="Новость">Новость<br>
         <input type="radio" name="new_type" id="Личность" value="Личность">Личность<br>
         <input type="radio" name="new_type" id="Мастерская" value="Мастерская">Мастерская<br><br>
-
+        </div>
         {% if new_type %}
         <script>document.getElementById("{{ new_type }}").checked = true;</script>
         {% endif %}
 
-        Название: <input type="text" size="80" name="name" value="{{ name }}" id='name'><br><br>
+        Название: <input type="text" auto_now=Falsesize="80" name="name" value="{{ name }}" id='name'><br><br>
         <div id="tabs">
           <ul>
             <li><a href="#tabs-1">Информация</a></li>
@@ -220,7 +225,7 @@
         {{ html }}
         </textarea>
         </p>
-        <div></div
+        <div></div>
         </div>
         </div>
                     <script>
@@ -228,7 +233,7 @@
                         CKEDITOR.replace( 'lid' );
                         CKEDITOR.replace( 'info' );
                     </script><br>
-
+Авторы: <br>
                     <textarea name="authors" id="authors" rows="4" cols="110">{{ authors }}</textarea><br><br>
                     Новость активна: <input type="checkbox" id="is_enabled" name="is_enabled" {% if is_enabled %}{{ 'checked' }}{% endif %}><br><br>
 

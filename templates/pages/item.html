@@ -8,7 +8,7 @@
 	<div id ="article_id" style="display: none;">{{ id }}</div>
 	<img alt="{{ title }}" src="{{main_pic}}" id="main_photo"/> 
 	
-	<div id="item_date">{{ date }}</div>
+	<div id="item_date">{{ date|date:"d F" }}</div>
 
 	<div id="title">{{ title }}</div>
 	<div id="info">{{ info|safe }}</div>

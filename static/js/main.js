@@ -100,30 +100,24 @@ $( document ).ready(function() {
 
     );
 
-
-	//next = {{ next }};
-	next = 0;
-      $( "#more" ).click(function( event ) {
-		alert(next);
-		$.ajax({
-		   type:"POST",
-		   url:"/get_more/",
-		   data: {
-					'csrfmiddlewaretoken': '{{ csrf_token }}',
-					"csrftoken": "{{ csrf_token }}",
-				  'next': next,
-				  'some-form-field': $("myform input:first").val(), // from form
-				  'background-color': $("body").css("background-color")
-				  // all of this data is submitted via POST to your view.
-				  // in django, request.POST['background-color'] 
-		   },
-		   success: function(data){
-			   alert(data);
-			   $("#main_container").append(data);
-		   }
-		});
-        event.preventDefault();
- 
+		$( "#more" ).click(function( event ) {
+			$('#more').text("");
+			$('#more').append("<span><img src=\"{% static 'pics/ajax-loader-big.gif' %}\"/></span>");
+			$.ajax({
+			   type:"POST",
+			   url:"/get_more/",
+			   data: {
+				   'next': getCookie('next'),
+				   'type_of_page': $('#type_of_page').text(),
+			   },
+			   success: function(data){
+				   $("#main_container").append(data);
+				   $('#more').text("");
+				   $('#more').append("<span><a>Ещё записи</a></span>");
+			   }
+			});
+			event.preventDefault();
+			
     });
 
 

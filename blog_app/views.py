@@ -21,7 +21,7 @@ def new(request):
 		if not request.POST['id']:
 			p = New(
 					new_type = request.POST['new_type'],
-					date = str(datetime.datetime.now()),
+					date = str(datetime.date.today()),
 					name = request.POST['name'],
 					lid = request.POST['lid'],
 					info = request.POST['info'],
@@ -38,6 +38,9 @@ def new(request):
 			p.html = request.POST['html']
 			p.authors = request.POST['authors']
 			p.is_enabled = 'is_enabled' in request.POST
+			if request.POST['date']:
+				new_date = request.POST['date'].split('.')
+				p.date = datetime.date()
 		p.save()
 		for upfile in request.FILES.getlist('pic'):
 			if default_storage.exists(str(p.id) + '/' + "pic.jpg"):
@@ -46,18 +49,10 @@ def new(request):
 			tmp_file = os.path.join(settings.MEDIA_ROOT, path)
 			p.pic_url = settings.MEDIA_URL + str(p.id) + '/' + "pic.jpg"
 		p.save()
-		dictionary.update({
-			'new_type': request.POST['new_type'],
-			'name': request.POST['name'],
-			'info': request.POST['info'],
-			'lid': request.POST['lid'],
-			'html': request.POST['html'],
-			'authors': request.POST['authors'],
-			'is_enabled': 'is_enabled' in request.POST,
-			'pic_url': p.pic_url,
-			'id': p.id,
-			})
-	return render(request, 'new.html', dictionary)
+		red = '/restricted/edit/'+str(p.id)
+		return HttpResponseRedirect(red)
+	return render(request, 'new.html', {})
+
 
 def about(request):
 	return render(request, 'pages/static/about.html', {})
@@ -77,6 +72,9 @@ def edit(request, id):
 				'id': a.id,
 				'authors': a.authors,
 				'is_enabled': a.is_enabled,
+				'date': a.date,
+				'id': a.id,
+				'last_change': a.last_change,
 			}
 			return render(request, 'new.html', dictionary)
 	except:
@@ -146,13 +144,15 @@ def admin_get_pic(request):
 
 
 def get_more(request):
+	next = 0;
+	try:
+		next = request.COOKIES["next"]
+	except:
+		next = 0
 	html_code = ""
-	if 'next' in request.POST:
-		next = request.POST['next']
-		a = get_records(5, "", next)
-		ctx = {}
-		for i in a:
-			ctx = {
+	a = get_records(5, request.POST['type_of_page'], next)
+	for i in a:
+		ctx = {
 			'id': i.id,
 			'date': i.date,
 			'type': i.new_type,
@@ -163,13 +163,18 @@ def get_more(request):
 			'comments': i.ccomments,
 		}
 		html_code += render_to_string('pages/parts/item_li.html', ctx)
-	return HttpResponse(html_code)
+		next = int(ctx['id'])
+	response = HttpResponse(html_code)
+	response.set_cookie("next", next)
+	return response
 
 
 
 def lenta_mask(request, mask):
+	request.META["CSRF_COOKIE_USED"] = True
 	rcds = get_records(5, mask, 0)
 	html_code = ""
+	next = 0;
 	for i in rcds:
 		record = {
 			'id': i.id,
@@ -182,10 +187,12 @@ def lenta_mask(request, mask):
 			'views': i.cviews,
 			'comments': i.ccomments,
 		}
+		next = record['id']
 		html_code += render_to_string('pages/parts/item_li.html', record)
-	dictionary = {'stuff': html_code, }
-	return render(request, 'pages/lenta.html', dictionary)
-
+	dictionary = { 'stuff': html_code, 'type_of_page':  mask }
+	response = render(request, 'pages/lenta.html', dictionary)
+	response.set_cookie(key="next", value=next)
+	return response
 
 def lenta_get(request):
 	data = {'something': 'useful'}
