@@ -45,6 +45,9 @@
         .img-wrap:hover .close {
             opacity: 1;
         }
+        .date_error_text {
+			color: red;
+		}
     </style>
     <script>
     function Deleting_pic( pic_id ){
@@ -152,7 +155,18 @@
                 this.disabled=false; this.value='Загрузить';
                 $('#file').disabled=false;
             });
-        });
+        
+			$('#date').change(function() {
+				var date = this.value;
+				var rfull = /^\d{2}[.]\d{2}[.]\d{4}$/;
+				var rddmm = /^\d{2}[.]\d{2}$/;
+				var rdd = /^\d{2}$/;
+				if(!(rfull.test(date) || rddmm.test(date) || rdd.test(date)))
+					$('#date_error_text').text("Дата должна быть в форматах: 'dd', 'dd.mm' или 'dd.mm.yyyy'");
+				else
+					$('#date_error_text').text("");
+			});
+		});
   </script>
       <script>
   $(function() {
@@ -185,7 +199,8 @@
         </div>
         <br>
         <div style="float:right;">Время опубликования {{ date }}<br>
-            <input type="text" auto_now=False size="20" name="date" value="" id='name'> <br>
+            <input type="text" auto_now=False size="20" name="date" value="" id='date'> <br>
+            <p style='color: red;'><span id='date_error_text'></span></p>
             Время последнего изменения <span>{{ last_change }}</span></div>
         <div id="type_container" style="padding">
         <input type="radio" name="new_type" id="Спектакль" value="Спектакль" checked>Спектакль<br>
