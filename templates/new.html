@@ -70,6 +70,9 @@
         #container_name{
             margin-top: 40px;
         }
+        .date_error_text {
+			color: red;
+		}
     </style>
     <script>
     function Deleting_pic( pic_id ){
@@ -177,7 +180,18 @@
                 this.disabled=false; this.value='Загрузить';
                 $('#file').disabled=false;
             });
-        });
+        
+			$('#date').change(function() {
+				var date = this.value;
+				var rfull = /^\d{2}[.]\d{2}[.]\d{4}$/;
+				var rddmm = /^\d{2}[.]\d{2}$/;
+				var rdd = /^\d{2}$/;
+				if(!(rfull.test(date) || rddmm.test(date) || rdd.test(date)))
+					$('#date_error_text').text("Дата должна быть в форматах: 'dd', 'dd.mm' или 'dd.mm.yyyy'");
+				else
+					$('#date_error_text').text("");
+			});
+		});
   </script>
       <script>
   $(function() {
@@ -211,6 +225,7 @@
         </div>
         <div style="float:right;">Время опубликования: {{ date }}<br>
             <input type="text" auto_now=False size="20" name="date" value="" id='date'> <br>
+            <p style='color: red;'><span id='date_error_text'></span></p>
             Время последнего изменения: <br> <span>{{ last_change }}</span></div>
         <div id="type_container">
             <input type="checkbox" id="is_enabled" name="is_enabled" 

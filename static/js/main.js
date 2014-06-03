@@ -114,6 +114,11 @@ $( document ).ready(function() {
 				   $("#main_container").append(data);
 				   $('#more').text("");
 				   $('#more').append("<span><a>Ещё записи</a></span>");
+			   },
+			   error: function() {
+				   $('#more').text("");
+				   $('#more').append("<span><a>Ещё записи</a></span>");
+				   popup("Ошибка соединения с сервером.");
 			   }
 			});
 			event.preventDefault();
