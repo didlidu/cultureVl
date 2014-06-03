@@ -40,7 +40,15 @@ def new(request):
 			p.is_enabled = 'is_enabled' in request.POST
 			if request.POST['date']:
 				new_date = request.POST['date'].split('.')
-				p.date = datetime.date()
+				date = p.date.isoformat().split('-')
+				print(date)
+				print (new_date)
+				j = 2
+				for i in new_date:
+					date[j] = i
+					j -= 1 
+				print(date)
+				p.date = datetime.date(int(date[0]), int(date[1]), int(date[2]))
 		p.save()
 		for upfile in request.FILES.getlist('pic'):
 			if default_storage.exists(str(p.id) + '/' + "pic.jpg"):
@@ -258,10 +266,9 @@ def preview(request):
 			'type': request.POST['new_type'],
 			'body': request.POST['html'],
 			'title': request.POST['name'],
-			'info': request.POST['lid'],
+			'info': request.POST['info'],
 			'lid': request.POST['lid'],
 			'views': 0,
-			'comments': 0,
 		}
 	html_code = ""
 	html_code += render_to_string('blog_app/header.html', record)

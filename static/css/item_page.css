@@ -18,6 +18,7 @@ p {
     width: inherit;
     text-align: left;
     display: inline-block;
+    font-style: italic;
 }
 #title{
     font-size: 32px;
