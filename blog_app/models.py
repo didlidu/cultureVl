@@ -24,13 +24,10 @@ import datetime
 
 def get_records(n, mask, next):
     objects = New.objects.all().filter(is_enabled=True).order_by('-date')
-    print(objects)
     i = 0 if next == 0 else list(objects.values_list('id', flat=True)).index(next) + 1;
     j = 0
     selected_objects = []
     while(j < n and i < len(objects)):
-        print(i)
-        print(objects[i].date + ' ' + objects[i].new_type + ' ' + str(objects[i].id))
         if((objects[i].new_type == mask or mask == "") and 
             datetime.datetime.strptime(objects[i].date, '%Y-%m-%d %H:%M:%S.%f') <= datetime.datetime.now()):
             selected_objects.append(objects[i])
