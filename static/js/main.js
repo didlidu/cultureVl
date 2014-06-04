@@ -96,7 +96,8 @@ $( document ).ready(function() {
 
 		$( "#more" ).click(function( event ) {
 			$('#more').text("");
-			$('#more').append("<span><img src=\"{% static 'pics/ajax-loader-big.gif' %}\"/></span>");
+
+            $('#more').append("<span><img style='width:15px; height: auto;' src='" + $('#loader_pic').attr('src') + "'/></span>");
 			$.ajax({
 			   type:"POST",
 			   url:"/get_more/",
