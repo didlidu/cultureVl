@@ -2,310 +2,100 @@
 {% load static %}
 <html>
   <head>
-    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">    
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Ubuntu:300,400,700,300italic,400italic&amp;subset=latin,cyrillic">
-    <!-- Latest compiled and minified JavaScript -->
-
-    <meta content="">
-
+    <link rel="stylesheet" type="text/css" href="{% static "css/admin.css" %}">
     <title>Editing</title>
     <script src="{% static "js/lib/jquery-2.1.1.min.js" %}"></script>
     <script src="{% static "ckeditor/ckeditor.js" %}"></script>
     <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <style>
-        img {
-            width:200px;
-        }
-        .img-wrap {
-            position: relative;
-            display: inline-block;
-            font-size: 0;
-        }
-        .img-wrap .close {
-            position: absolute;
-            top: 2px;
-            right: 2px;
-            z-index: 100;
-            background-color: #FFF;
-            padding: 5px 2px 2px;
-            color: #000;
-            font-weight: bold;
-            cursor: pointer;
-            opacity: .2;
-            text-align: center;
-            font-size: 22px;
-            line-height: 10px;
-            border-radius: 50%;
-        }
-        .img-wrap:hover .close {
-            opacity: 1;
-        }
-
-        #lvl2{
-            height: 220px;
-        }
-        #name{
-            font-size: 19px;
-            font-weight: 700;
-            font-family: 'Ubuntu';
-        }
-        #type_container{
-            font-size: 16px;
-        }
-        #type_container input{
-            margin-left:20px;
-        }
-        #tabs{
-            min-height: 340px;
-        }
-        #main_pic{
-            width:250px;
-            height:250px;
-        }
-        #container_name{
-            margin-top: 40px;
-        }
-        .date_error_text {
-			color: red;
-		}
-    </style>
     <script>
-    function Deleting_pic( pic_id ){
-        
-        var p = $('#'+pic_id);
-        var link = p.attr('data-id');
-        name = link.split('/')[1];
-        id = link.split('/')[0];
-        var url = '/restricted/admin_del_pic/';
-        $.post( '/restricted/admin_del_pic/', 
-        {
-        'csrfmiddlewaretoken': '{{ csrf_token }}',
-        'id': id,
-        'name': name } 
-        ).done(function( data ) {
-            p.parent().remove();
-        });
-    }
-
-        function admin_get_pic(){
-            document.getElementById("images").innerHTML = "";
-            $.getJSON("/restricted/admin_get_pic/", {
-                    "csrftoken": "{{ csrf_token }}",
-                    "id": "{% if id %}{{ id }}{% else %}{{ -1 }}{% endif %}",
-            }).done(function( data ) {
-                var way = {{ MEDIA_URL }};
-                var id = 0;
-                $.each(data, function(i,item){
-                    id = id + 1;
-                    var images = document.getElementById("images");
-                    images.innerHTML = images.innerHTML + "<div class=\"img-wrap\">" +
-                        "<a href='javascript:Deleting_pic(" + id + ")'" +
-                        "<span class=\"close\">&times;</span></a>" +
-                        "<img id='" + id + "' src='" + way + item + "' data-id='" + item + "'>" + 
-                        "</div>";
-                        document.getElementById(id).onclick = function() { 
-                            
-                        }
-                });
-            }); 
-        }
-
-        $(document).ready(function(){
-            $("#refresh").click(function(){
-                admin_get_pic();
-        })
-            });
+		var csrf_token = "{{ csrf_token }}";
+		var global_id = "{% if id %}{{ id }}{% else %}{{ -1 }}{% endif %}";
+		var MEDIA_URL = {{ MEDIA_URL }};
+		var new_type = "{{ new_type }}";
     </script>
-    <script>
-        $(document).ready(function(){
-            $("#preview").click(function(){
-                var formData = new FormData($('form')[0]);
-                formData.append('pic_url', document.getElementById("pic_url").value);
-                formData.append('new_type', document.querySelector('input[name="new_type"]:checked').value);
-                formData.append('name', document.getElementById("name").value);
-                formData.append('info', CKEDITOR.instances.info.getData());
-                formData.append('lid', CKEDITOR.instances.lid.getData());
-                formData.append('html', CKEDITOR.instances.html.getData());
-                formData.append('authors', $('#authors').val());
-                formData.append('id', document.getElementById("id").value);
-                $.ajax({
-                    url: '/restricted/preview/',
-                    type: 'POST',
-                    data: formData,
-                    success: function(responseData, textStatus, jqXHR) {
-                        var params = "menubar=no,location=no,resizable=yes,scrollbars=yes,status=yes";
-                        myWindow = window.open("");
-                        myWindow.document.write(responseData);
-                    },
-                    cache: false,
-                    contentType: false,
-                    processData: false
-                });
-            });
-        });
-    </script>
-    <script type="text/javascript">
-        function progressHandlingFunction(e){
-            if(e.lengthComputable){
-                $('progress').attr({value:e.loaded,max:e.total});
-            }
-        }
-        $(document).ready(function(){
-            $('#upload').click(function(){
-                this.disabled=true; this.value='Please Wait...';
-                var formData = new FormData($('form')[1]);
-                formData.append("id", "{% if id %}{{ id }}{% else %}{{ -1 }}{% endif %}");
-                formData.append("csrftoken", "{{ csrf_token }}");
-                $.ajax({
-                    url: '/restricted/admin_post_pic/',  //Server script to process data
-                    type: 'POST',
-                    xhr: function() {  // Custom XMLHttpRequest
-                        var myXhr = $.ajaxSettings.xhr();
-                        if(myXhr.upload){ // Check if upload property exists
-                            myXhr.upload.addEventListener('progress',progressHandlingFunction, false);
-                        }
-                        return myXhr;
-                    },
-                    data: formData,
-                    cache: false,
-                    contentType: false,
-                    processData: false
-                });
-                //admin_get_pic();
-                this.disabled=false; this.value='Загрузить';
-                $('#file').disabled=false;
-            });
-        
-			$('#date').change(function() {
-				var date = this.value;
-				var rfull = /^\d{2}[.]\d{2}[.]\d{4}$/;
-				var rddmm = /^\d{2}[.]\d{2}$/;
-				var rdd = /^\d{2}$/;
-				if(!(rfull.test(date) || rddmm.test(date) || rdd.test(date)))
-					$('#date_error_text').text("Дата должна быть в форматах: 'dd', 'dd.mm' или 'dd.mm.yyyy'");
-				else
-					$('#date_error_text').text("");
-			});
-		});
-  </script>
-      <script>
-  $(function() {
-    $( "#tabs" ).tabs({
-      collapsible: true
-    });
-  });
-    </script>
+    <script src="{% static 'js/admin.js' %}"></script>
   </head>
-<body style="width:90%; margin-left:5%; padding-bottom:100px;">
+<body>
 
+<div class="container">
+	<div class="title">
+		{% if id %}	<p>Редактирование #{{ id }}</p>{% else %}
+		<p>Новая статья</p>{% endif %}
+	</div>
+	<div class="row">
+		<form action="/restricted/edit/" method="post" enctype="multipart/form-data">{% csrf_token %}
+		<div class="main-pic col-md-4">
+			<input type="file" name="pic" id='pic_url'>
+			{% if pic_url %}
+			<img src="{{ pic_url }}" width="200" height="200" />
+			{% endif %}
+		</div>
+		<div class="col-md-4">
+			<input type="checkbox" id="is_enabled" name="is_enabled" {% if is_enabled %}{{ 'checked' }}{% endif %}>
+				Новость сейчас: {% if is_enabled %}<strong style="color: forestgreen;"> активна
+			{% else %}<strong style="color: mediumblue;"> отключена{% endif %}</strong>
+			<br>
+			<br>
+			<input type="radio" name="new_type" id="Спектакль" value="Спектакль" checked>Спектакль<br>
+			<input type="radio" name="new_type" id="Премьера" value="Премьера" checked>Премьера<br>
+			<input type="radio" name="new_type" id="Новость" value="Новость">Новость<br>
+			<input type="radio" name="new_type" id="Личность" value="Личность">Личность<br>
+			<input type="radio" name="new_type" id="Мастерская" value="Мастерская">Мастерская<br><br>
+		</div>
+		
+		<div class="col-md-4">Время опубликования: {{ date }}<br>
+			<input type="text" auto_now=False size="20" name="date" value="" id='date'> <br>
+			<p style='color: red;'><span id='date_error_text'></span></p>
+			Время последнего изменения: <br> <span>{{ last_change }}</span>
+		</div>
+		
+		{% if new_type %}
+		<script>document.getElementById(new_type).checked = true;</script>
+		{% endif %}
 
+	</div>
+	<div class="editing row">
+		<div class="editor col-md-10">
+			<div class="edit-name">Название:
+				<input type="text" name="name" value="{{ name }}" id='name'>
+			</div>
+			<div id="tabs">
+				<ul>
+					<li><a href="#tabs-1">Информация</a></li>
+					<li><a href="#tabs-2">Лид</a></li>
+					<li><a href="#tabs-3">Тело статьи</a></li>
+					<li><a href="#tabs-4">Авторы</a></li>
+				</ul>
+				<div id="tabs-1"><textarea name="info" id="info" rows="5" cols="80" >{{ info }}</textarea></div>
+				<div id="tabs-2"><textarea name="lid" id="lid" rows="5" cols="80" >{{ lid }}</textarea></div>
+				<div id="tabs-3"><textarea name="html" id="html" rows="10" cols="160" id='html'>{{ html }}</textarea></div>
+				<div id="tabs-4"><textarea name="authors" id="authors" rows="4" cols="80">{{ authors }}</textarea></div>
+			</div>
+			<div class="edit-controls">
+				<input type="hidden" name="id" value="{{ id }}" id='id'>
+				<input type="submit" value="Сохранить">
+				<input type="button" value="Предпросмотр" id="preview">
+				<input type="button" value="Новая запись" onclick="window.location='/restricted/edit/';">
+				<input type="button" value="На главную" onclick="window.location='/';">
+			</div>
+			</form>
+		</div>
+		<div class="img-upload col-md-2">
+			<div id="images" class="images"></div>
+			<input type="button" value="Обновить" id="refresh">
+			<form enctype="multipart/form-data">{% csrf_token %}
+				<input name="file" type="file" id="file" multiple/>
+				<input type="button" value="Загрузить" id="upload"/>
+				<progress value="0"></progress>
+			</form>
+		</div>
+	</div>
+</div>
 
-<table>
-<tr>
-<td>
-<form action="/restricted/edit/" method="post" enctype="multipart/form-data">{% csrf_token %}
-    <div style="font-size:40px; width:inherit;">
-    {% if id %}
-    <p>Редактирование #{{ id }}</p>
-    {% else %}
-    <p>Новая статья</p>
-    {% endif %}
-    </div>
-    <div id="lvl2">
-        <div id="main_pic" style="border: solid 1px grey; border-radius:2px; float:left;">
-        <input type="file" name="pic" id='pic_url'>
-        {% if pic_url %}
-        <img src="{{ pic_url }}" width="200"; height="200" />
-        {% endif %}
-        </div>
-        <div style="float:right;">Время опубликования: {{ date }}<br>
-            <input type="text" auto_now=False size="20" name="date" value="" id='date'> <br>
-            <p style='color: red;'><span id='date_error_text'></span></p>
-            Время последнего изменения: <br> <span>{{ last_change }}</span></div>
-        <div id="type_container">
-            <input type="checkbox" id="is_enabled" name="is_enabled" 
-            {% if is_enabled %}{{ 'checked' }}{% endif %}>
-            Новость сейчас: {% if is_enabled %}<strong style="color: forestgreen;"> активна
-            {% else %}<strong style="color: mediumblue;"> отключена{% endif %}</strong>
-            <br>
-            <br>
-            <input type="radio" name="new_type" id="Спектакль" value="Спектакль" checked>Спектакль<br>
-            <input type="radio" name="new_type" id="Премьера" value="Премьера" checked>Премьера<br>
-            <input type="radio" name="new_type" id="Новость" value="Новость">Новость<br>
-            <input type="radio" name="new_type" id="Личность" value="Личность">Личность<br>
-            <input type="radio" name="new_type" id="Мастерская" value="Мастерская">Мастерская<br><br>
-        </div>
-        {% if new_type %}
-        <script>document.getElementById("{{ new_type }}").checked = true;</script>
-        {% endif %}
-    </div>
-    <br>
-    <div id="container_name">
-    Название: <input type="text" auto_now=False size="75" name="name" value="{{ name }}" id='name'><br><br>
-    </div>
-    <div id="tabs">
-      <ul>
-        <li><a href="#tabs-1">Информация</a></li>
-        <li><a href="#tabs-2">Лид</a></li>
-        <li><a href="#tabs-3">Тело статьи</a></li>
-        <li><a href="#tabs-4">Авторы</a></li>
-      </ul>
-      <div id="tabs-1">
-        <p>
-    <textarea name="info" id="info" rows="5" cols="80" >    
-    {{ info }}
-    </textarea>
-    </p>
-    </div>
-    <div id="tabs-2">
-    <p>
-    <textarea name="lid" id="lid" rows="5" cols="80" >
-    {{ lid }}
-    </textarea>        
-    </p>
-    </div>
-    <div id="tabs-3">
-    <p>
-    <textarea name="html" id="html" rows="10" cols="160" id='html'>
-    {{ html }}
-    </textarea>
-    </p>
-    <div></div>
-    </div>
-    <div id="tabs-4">
-    <p><textarea name="authors" id="authors" rows="4" cols="80">
-        {{ authors }}</textarea>        
-    </p>
-    </div>
-    <script>
-        CKEDITOR.replace( 'html' );
-        CKEDITOR.replace( 'lid' );
-        CKEDITOR.replace( 'info' );
-    </script><br>
-    </div>
-    <br>
-    <input type="hidden" name="id" value="{{ id }}" id='id'>
-    <input type="submit" value="Сохранить">
-    <input type="button" value="Предпросмотр" id="preview">
-    <input type="button" value="Новая запись" onclick="window.location='/restricted/edit/';">
-</form>
-        </td>
-        <td width=31%>
-            <div id="images" class="images"></div>
-            <input type="button" value="Обновить" id="refresh">
-            <form enctype="multipart/form-data">
-                {% csrf_token %}
-                <input name="file" type="file" id="file" multiple/>
-                <input type="button" value="Загрузить" id="upload"/>
-                <progress value="0"></progress>
-            </form>
-        </td>
-    </tr>
-</table>
 </body>
 </html>
