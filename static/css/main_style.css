@@ -1,7 +1,7 @@
 @charset "UTF-8"; 
 
 #more{
-    width: inherit;
+    width: 100%;
     height: 80px;
     text-align: center;
     background-color: whitesmoke;

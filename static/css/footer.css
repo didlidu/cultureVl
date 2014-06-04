@@ -39,7 +39,7 @@ height: 62px;
     text-decoration: underline;
 }
 #footer_wrap{
-    width:1000px;
+    max-width:1000px;
     margin: 0 auto;
     display: block !important;
     padding-top: 20px;
@@ -91,4 +91,8 @@ height: 62px;
     float: right;
     text-align: right;
     padding-right:100px;
+}
+
+html{
+    background-color: black;
 }

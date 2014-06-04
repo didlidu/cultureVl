@@ -1,0 +1,46 @@
+{% include 'blog_app/header.html' %}
+{% load static %}
+<style>
+	.pcontainer{
+		width: inherit;
+		margin-top:20px;
+
+	}
+
+	.text{
+		font-size:17px;
+	}
+	.pcontainer span{
+		font-size: 24;
+		font-weight: 700;
+	}
+
+	.pcontainer img {
+		float:left;
+		width: 200px;
+		height: 200px;
+		padding-right: 20px;
+	}
+	 .pwork{
+	 	font-style: italic;
+	 	font-size:14px;
+	 }
+	 .pcontact{
+	 	font-size:14px;
+	 }
+
+
+</style>
+<div id="main">
+<img alt="Редакция" src="{% static "pics/redaction.jpg" %}" id="main_photo"/> 
+
+<div class="pcontainer">
+	<img src="http://cs417426.vk.me/v417426230/91d1/Nyu2JW-OLRM.jpg"/>
+<span>Храновская Светлана</span>
+<p class="pwork">Главарь и босс</p>
+	<p class='text'>Виновник торжества, мисс культурность. Наш любимый начальник, театральный маньяк, который всё это затеял и благодаря которому этот сайт есть. Делает Владивосток культурнее изо всех сил, и мы её за это любим.</p>
+<p class="pcontact"><a href="http://vk.com/id90684230">Вконтакте</a> | <a href="mailto:culturevl@mail.ru">Почта</a></p>
+</div>
+
+</div>
+{% include 'blog_app/footer.html' %}

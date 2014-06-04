@@ -65,6 +65,9 @@ def new(request):
 def about(request):
 	return render(request, 'pages/static/about.html', {})
 
+def redaction(request):
+	return render(request, 'pages/static/redaction.html', {})
+
 @login_required
 def edit(request, id):
 	try:

@@ -14,6 +14,7 @@ urlpatterns = patterns('',
 	url(r'^search/', search),
 	url(r'^register/$', register, name='register'),
 	url(r'^get_more/$', get_more ),
+	url(r'^redaction/$', redaction ),
 )
 urlpatterns += patterns(
     'django.views.static',
