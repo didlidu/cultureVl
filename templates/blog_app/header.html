@@ -26,7 +26,6 @@
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script></javascript>
         -->
         <script src="{% static "js/lib/jquery-2.1.1.min.js" %}"></script>
-        <script src="{% static "js/lib/jquery.dropotron.min.js" %}"></script>
         <script src="{% static "js/popup.js" %}"></script>
         <script src="{% static "js/main.js" %}"></script>
         <script src="http://vk.com/js/api/openapi.js"; type="text/javascript" charset="windows-1251"></script>
@@ -83,16 +82,21 @@
             </div>
             <div id="bot_header">
                 <div id="div_filter">
-<nav id="nav">
-<ul>
-<li class="li_item"><a href="/play/">СПЕКТАКЛЬ</a>
-<ul style="width: 95px"><li><a href="/premiere/">ПРЕМЬЕРА</a></li></ul></li><li class="li_wrapper"></li>
-<li class="li_item"><a href="/news/">НОВОСТЬ</a></li><li class="li_wrapper"></li>
-<li class="li_item"><a href="/person/">ЛИЧНОСТЬ</a></li><li class="li_wrapper"></li>
-<li class="li_item"><a href="/workshop/">МАСТЕРСКАЯ</a></li><li class="li_wrapper"></li>
-<li class="li_item"><a href="/search/"><span class="glyphicon glyphicon-search"></a></li>
-</ul>
-</nav>
+					<nav id="header-nav">
+						<ul>
+							<li class="li_item"><a href="/play/">СПЕКТАКЛЬ</a>
+								<ul>
+									<li><a href="/premiere/">ПРЕМЬЕРА</a></li>
+								</ul>
+							</li>
+							<li class="li_item"><a href="/news/">НОВОСТЬ</a></li>
+							<li class="li_item"><a href="/person/">ЛИЧНОСТЬ</a></li>
+							<li class="li_item"><a href="/workshop/">МАСТЕРСКАЯ</a></li>
+							<li class="li_item"><a href="/search/" style="width: 40px;">
+								<span class="glyphicon glyphicon-search"></a>
+							</li>
+						</ul>
+					</nav>
                 </div>
             </div>
        </div>
