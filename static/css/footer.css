@@ -96,3 +96,6 @@ height: 62px;
 html{
     background-color: black;
 }
+#loader_pic{
+    display:none;
+}
