@@ -28,4 +28,5 @@ urlpatterns += patterns('',
 	url(r'^news/$', lenta_mask, {'mask': 'Новость'}),
 	url(r'^person/$', lenta_mask, {'mask': 'Личность'}),
 	url(r'^workshop/$', lenta_mask, {'mask': 'Мастерская'}),
+	url(r'^(?P<mask>author/[\w\s]+)/$', lenta_mask),
 )

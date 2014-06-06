@@ -205,6 +205,7 @@ def lenta_mask(request, mask):
 	response.set_cookie(key="next", value=next)
 	return response
 
+
 def lenta_get(request):
 	data = {'something': 'useful'}
 	return HttpResponse(json.dumps(data), content_type="application/json")

@@ -115,11 +115,12 @@ img {
 }
 
 #header-nav ul {
+    width: inherit;
 	list-style:none;
 	position: relative;
 	display: inline-table;
-	padding: 0 20px;
-	border-bottom: 2px solid;
+    padding-left: 250px;
+	
 }
 
 #header-nav ul ul {
@@ -128,9 +129,15 @@ img {
 	padding: 0;
 	top: 100%;
 	background: black;
+    border-radius: 0px 0px 6px 6px;
 }
-#header-nav ul li {
+#header-nav ul .li_item {
 	float: left;
+}
+
+#header-nav {
+    border-bottom: 1px solid gray;
+    height: 57px;
 }
 
 #header-nav ul li a {
@@ -145,15 +152,18 @@ img {
 }
 
 #header-nav ul li:hover > ul {
+    border-radius: 0px 0px 6px 6px;
 	display: block;
 }
 
 #header-nav ul ul li:hover {
+    border-radius: 0px 0px 6px 6px;
 	display: block;
 }
 
 #header-nav ul li:hover {
 	background: black;
+    border-radius: 6px 6px 0 0;
 }
 
 #header-nav ul li:hover a {
@@ -162,6 +172,10 @@ img {
 
 .glyphicon{
     width:inherit;
+}
+
+#header-nav .no-wrapper a {
+    background: 0;
 }
 
 #source{

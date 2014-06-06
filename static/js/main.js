@@ -83,7 +83,7 @@ $( document ).ready(function() {
 				   'type_of_page': $('#type_of_page').text(),
 			   },
 			   success: function(data){
-				   if(data.length == 0) popup("Больше записей нет :("); 
+				   if(data.length == 0) popup("Больше записей нет :(");
 				   $("#main_container").append(data);
 				   $('#more').text("");
 				   $('#more').append("<span><a>Ещё записи</a></span>");

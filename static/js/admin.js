@@ -116,4 +116,5 @@ $(document).ready(function(){
 	CKEDITOR.replace( 'html' );
     CKEDITOR.replace( 'lid' );
     CKEDITOR.replace( 'info' );
+    CKEDITOR.replace( 'authors' );
 });

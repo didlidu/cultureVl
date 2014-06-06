@@ -24,10 +24,16 @@ class New(models.Model):
 
 import datetime
 
-def get_records(n, mask, next):
+def get_records(n, mask, next):    
     objects = New.objects.all().filter(is_enabled=True).exclude(date__gt=datetime.date.today()).order_by('-id')
     if mask:
-        objects.filter(new_type=mask)
+        if mask.find('author') != -1:
+            mask = mask[7:]
+            objects = objects.filter(authors__contains=mask)
+            mask = ""
+        else:
+            objects.filter(new_type=mask)
+    print(next)
     next=int(next)
     i = 0 if next == 0 else list(objects.values_list('id', flat=True)).index(next) + 1;
     j = 0
