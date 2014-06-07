@@ -131,8 +131,9 @@ img {
 	background: black;
     border-radius: 0px 0px 6px 6px;
 }
-#header-nav ul .li_item {
+#header-nav ul .li_item, #header-nav ul .li_wrapper {
 	float: left;
+	
 }
 
 #header-nav {
@@ -141,33 +142,46 @@ img {
 }
 
 #header-nav ul li a {
-	margin-top: -2px;
+	margin-top: -4px;
 	padding: 10px 0;
-	width: 150px;
+	width: 135px;
 	display: block;
 }
-
+.subul li {
+/* border-bottom: 1px solid gray; */
+}
 #header-nav ul ul li a {
 	color: white;
 }
 
 #header-nav ul li:hover > ul {
-    border-radius: 0px 0px 6px 6px;
 	display: block;
 }
 
 #header-nav ul ul li:hover {
-    border-radius: 0px 0px 6px 6px;
 	display: block;
+	border-radius: 0px 0px 6px 6px;
 }
 
 #header-nav ul li:hover {
 	background: black;
-    border-radius: 6px 6px 0 0;
 }
 
 #header-nav ul li:hover a {
 	color: white;
+	
+}
+#header-nav ul .li_item { border-radius: 5px 5px 0 0; }
+
+.li_wrapper{
+    white-space: nowrap;
+    padding: 3px 0;
+    margin: 0 7px 0 7px;
+    /* bottom: 0; */
+    margin-top: 30px;
+    border-right: 1px solid gray;
+    /* display: inline-block; */
+    height: 4px;
 }
 
 .glyphicon{
