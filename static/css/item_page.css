@@ -133,3 +133,7 @@ p {
     margin-right: 5px;
     display: inline-block;
 }
+
+#author a:hover {
+    color: grey;
+}
