@@ -33,7 +33,6 @@ def get_records(n, mask, next):
             mask = ""
         else:
             objects.filter(new_type=mask)
-    print(next)
     next=int(next)
     i = 0 if next == 0 else list(objects.values_list('id', flat=True)).index(next) + 1;
     j = 0

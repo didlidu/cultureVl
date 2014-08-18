@@ -263,7 +263,6 @@ def item(request, item_id):
 
 def preview(request):
 	if request.method == "POST":
-		print(request.POST)
 		record = {
 			'id': request.POST['id'],
 			'main_pic': request.POST['pic_url'],
