@@ -67,6 +67,8 @@ def about(request):
 	return render(request, 'pages/static/about.html', {})
 
 def redaction(request):
+	return HttpResponseRedirect('/about/')
+	#Till now
 	return render(request, 'pages/static/redaction.html', {})
 
 @login_required
