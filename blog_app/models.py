@@ -33,8 +33,9 @@ def get_records(n, mask, next):
             mask = ""
         else:
             objects.filter(new_type=mask)
-    print(next)
     next=int(next)
+    if not next:
+        next = 0
     i = 0 if next == 0 else list(objects.values_list('id', flat=True)).index(next) + 1;
     j = 0
     selected_objects = []
