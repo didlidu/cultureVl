@@ -168,6 +168,7 @@ def get_more(request):
 	for i in a:
 		ctx = {
 			'id': i.id,
+			'pic_url': i.pic_url,
 			'date': i.date,
 			'type': i.new_type,
 			'title': i.name,
