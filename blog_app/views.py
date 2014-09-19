@@ -221,6 +221,8 @@ def item(request, item_id):
 	q = ""
 	try:
 		u = New.objects.get(id=item_id)
+		if not u.is_enabled:
+			raise NameError('NewIsNotEnabledExeption')
 	except:
 		return render(request, 'blog_app/404.html', )
 	u.cviews += 1
