@@ -172,7 +172,7 @@ def get_more(request):
 			'date': i.date,
 			'type': i.new_type,
 			'title': i.name,
-			'info': i.lid,
+			'info': i.info,
 			'lid': i.lid,
 			'views': i.cviews,
 			'comments': i.ccomments,
