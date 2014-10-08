@@ -84,6 +84,7 @@ p {
     vertical-align: top;
     width: 270px;
     min-height: 330px;
+    float: left;
 }
 #title{
 
