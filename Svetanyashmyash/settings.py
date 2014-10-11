@@ -35,8 +35,8 @@ TEMPLATE_LOADERS = (
 SECRET_KEY = 'hjxpk*p)pyi*d0gfq(30xon6l1-y8-#hudksp38y4usig1=9&2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-TEMPLATE_DEBUG = True
+DEBUG = False
+TEMPLATE_DEBUG = False
 ALLOWED_HOSTS = []
 
 # Application definition
