@@ -17,279 +17,276 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def new(request):
-	dictionary = {}
-	if request.method == 'POST':  # If the form has been submitted...
-		if not request.POST['id']:
-			p = New(
-					new_type = request.POST['new_type'],
-					date = str(datetime.date.today()),
-					name = request.POST['name'],
-					lid = request.POST['lid'],
-					info = request.POST['info'],
-					html = request.POST['html'],
-					authors = request.POST['authors'],
-					is_enabled = 'is_enabled' in request.POST,
-					)
-		else:
-			p = New.objects.get(id=request.POST['id'])
-			p.new_type = request.POST['new_type']
-			p.name = request.POST['name']
-			p.lid = request.POST['lid']
-			p.info = request.POST['info']
-			p.html = request.POST['html']
-			p.authors = request.POST['authors']
-			p.is_enabled = 'is_enabled' in request.POST
-			if request.POST['date']:
-				new_date = request.POST['date'].split('.')
-				date = p.date.isoformat().split('-')
-				print(date)
-				print (new_date)
-				j = 2
-				for i in new_date:
-					date[j] = i
-					j -= 1 
-				print(date)
-				p.date = datetime.date(int(date[0]), int(date[1]), int(date[2]))
-		p.save()
-		for upfile in request.FILES.getlist('pic'):
-			if default_storage.exists(str(p.id) + '/' + "pic.jpg"):
-				default_storage.delete(str(p.id) + '/' + "pic.jpg")
-			path = default_storage.save(str(p.id) + '/' + "pic.jpg", ContentFile(upfile.read()))
-			tmp_file = os.path.join(settings.MEDIA_ROOT, path)
-			p.pic_url = settings.MEDIA_URL + str(p.id) + '/' + "pic.jpg"
-		p.save()
-		red = '/restricted/edit/'+str(p.id)
-		return HttpResponseRedirect(red)
-	return render(request, 'new.html', {})
+    dictionary = {}
+    if request.method == 'POST':  # If the form has been submitted...
+        if not request.POST['id']:
+            p = New(
+                new_type=request.POST['new_type'],
+                date=str(datetime.date.today()),
+                name=request.POST['name'],
+                lid=request.POST['lid'],
+                info=request.POST['info'],
+                html=request.POST['html'],
+                authors=request.POST['authors'],
+                is_enabled='is_enabled' in request.POST,
+            )
+        else:
+            p = New.objects.get(id=request.POST['id'])
+            p.new_type = request.POST['new_type']
+            p.name = request.POST['name']
+            p.lid = request.POST['lid']
+            p.info = request.POST['info']
+            p.html = request.POST['html']
+            p.authors = request.POST['authors']
+            p.is_enabled = 'is_enabled' in request.POST
+            if request.POST['date']:
+                new_date = request.POST['date'].split('.')
+                date = p.date.isoformat().split('-')
+                print(date)
+                print(new_date)
+                j = 2
+                for i in new_date:
+                    date[j] = i
+                    j -= 1
+                print(date)
+                p.date = datetime.date(int(date[0]), int(date[1]), int(date[2]))
+        p.save()
+        for upfile in request.FILES.getlist('pic'):
+            if default_storage.exists(str(p.id) + '/' + "pic.jpg"):
+                default_storage.delete(str(p.id) + '/' + "pic.jpg")
+            path = default_storage.save(str(p.id) + '/' + "pic.jpg", ContentFile(upfile.read()))
+            tmp_file = os.path.join(settings.MEDIA_ROOT, path)
+            p.pic_url = settings.MEDIA_URL + str(p.id) + '/' + "pic.jpg"
+        p.save()
+        red = '/restricted/edit/' + str(p.id)
+        return HttpResponseRedirect(red)
+    return render(request, 'new.html', {})
 
 
 def about(request):
-	return render(request, 'pages/static/about.html', {})
+    return render(request, 'pages/static/about.html', {})
+
 
 def redaction(request):
-	return HttpResponseRedirect('/about/')
-	#Till now
-	return render(request, 'pages/static/redaction.html', {})
+    return HttpResponseRedirect('/about/')
+    # Till now
+    return render(request, 'pages/static/redaction.html', {})
+
 
 @login_required
 def edit(request, id):
-	try:
-		if id:
-			a = New.objects.get(id=id)
-			dictionary = {
-				'new_type': a.new_type,
-				'name': a.name,
-				'lid': a.lid,
-				'info': a.info,
-				'html': a.html,
-				'pic_url': a.pic_url,
-				'id': a.id,
-				'authors': a.authors,
-				'is_enabled': a.is_enabled,
-				'date': a.date,
-				'id': a.id,
-				'last_change': a.last_change,
-			}
-			return render(request, 'new.html', dictionary)
-	except:
-		pass
-	return render(request, 'blog_app/404.html')
+    try:
+        if id:
+            a = New.objects.get(id=id)
+            dictionary = {
+                'new_type': a.new_type,
+                'name': a.name,
+                'lid': a.lid,
+                'info': a.info,
+                'html': a.html,
+                'pic_url': a.pic_url,
+                'id': a.id,
+                'authors': a.authors,
+                'is_enabled': a.is_enabled,
+                'date': a.date,
+                'id': a.id,
+                'last_change': a.last_change,
+            }
+            return render(request, 'new.html', dictionary)
+    except:
+        pass
+    return render(request, 'blog_app/404.html')
 
 
 @login_required
 def admin_del_pic(request):
-	response_data = {}
-	if request.method == 'POST':
-		id = request.POST['id']
-		name = request.POST['name']
-		if default_storage.exists(id + '/' + name):
-			default_storage.delete(id + '/' + name)
-		response_data['status'] = "success"
-		response_data['result'] = "Your file " + id + '/' + name + " has been deleted:"
-	return HttpResponse(json.dumps(response_data), content_type='application/json')
-
+    response_data = {}
+    if request.method == 'POST':
+        id = request.POST['id']
+        name = request.POST['name']
+        if default_storage.exists(id + '/' + name):
+            default_storage.delete(id + '/' + name)
+        response_data['status'] = "success"
+        response_data['result'] = "Your file " + id + '/' + name + " has been deleted:"
+    return HttpResponse(json.dumps(response_data), content_type='application/json')
 
 
 def get_new_id():
-	last = New.objects.last()
-	if last != None:
-		id = last.id
-	else:
-		id = 0
-	return id + 1
-
-
+    last = New.objects.last()
+    if last != None:
+        id = last.id
+    else:
+        id = 0
+    return id + 1
 
 
 @login_required
 def admin_post_pic(request):
-	if request.method == 'POST':
-		id = int(request.POST['id'])
-		for upfile in request.FILES.getlist('file'):
-			if id == -1:
-				if default_storage.exists(str(get_new_id()) + '/' + upfile.name):
-					default_storage.delete(str(get_new_id()) + '/' + upfile.name)
-				path = default_storage.save(str(get_new_id()) + '/' + upfile.name, ContentFile(upfile.read()))
-			else:
-				if default_storage.exists(str(id) + '/' + upfile.name):
-					default_storage.delete(str(id) + '/' + upfile.name)
-				path = default_storage.save(str(id) + '/' + upfile.name, ContentFile(upfile.read()))
-			tmp_file = os.path.join(settings.MEDIA_ROOT, path)
-	response_data = {}
-	response_data['status'] = "success"
-	response_data['result'] = "Your file has been uploaded:"
-	return HttpResponse(json.dumps(response_data), content_type='application/json')
+    if request.method == 'POST':
+        id = int(request.POST['id'])
+        for upfile in request.FILES.getlist('file'):
+            if id == -1:
+                if default_storage.exists(str(get_new_id()) + '/' + upfile.name):
+                    default_storage.delete(str(get_new_id()) + '/' + upfile.name)
+                path = default_storage.save(str(get_new_id()) + '/' + upfile.name, ContentFile(upfile.read()))
+            else:
+                if default_storage.exists(str(id) + '/' + upfile.name):
+                    default_storage.delete(str(id) + '/' + upfile.name)
+                path = default_storage.save(str(id) + '/' + upfile.name, ContentFile(upfile.read()))
+            tmp_file = os.path.join(settings.MEDIA_ROOT, path)
+    response_data = {}
+    response_data['status'] = "success"
+    response_data['result'] = "Your file has been uploaded:"
+    return HttpResponse(json.dumps(response_data), content_type='application/json')
 
 
 @login_required
 def admin_get_pic(request):
-	list_dir = {}
-	try:
-		if request.method == 'GET':
-			id = int(request.GET.get("id"))
-			if id == -1:
-				id = get_new_id()
-			list_dir = os.listdir(settings.MEDIA_ROOT + '/' + str(id))
-			for i in range(0, len(list_dir)):
-				list_dir[i] = str(id) + '/' + list_dir[i]
-	except: 
-		pass
-	return HttpResponse(json.dumps(list_dir), content_type='application/json')
+    list_dir = {}
+    try:
+        if request.method == 'GET':
+            id = int(request.GET.get("id"))
+            if id == -1:
+                id = get_new_id()
+            list_dir = os.listdir(settings.MEDIA_ROOT + '/' + str(id))
+            for i in range(0, len(list_dir)):
+                list_dir[i] = str(id) + '/' + list_dir[i]
+    except:
+        pass
+    return HttpResponse(json.dumps(list_dir), content_type='application/json')
 
 
 def get_more(request):
-	next = 0;
-	try:
-		next = request.COOKIES["next"]
-	except:
-		next = 0
-	html_code = ""
-	a = get_records(5, request.POST['type_of_page'], next)
-	for i in a:
-		ctx = {
-			'id': i.id,
-			'pic_url': i.pic_url,
-			'date': i.date,
-			'type': i.new_type,
-			'title': i.name,
-			'info': i.info,
-			'lid': i.lid,
-			'views': i.cviews,
-			'comments': i.ccomments,
-		}
-		html_code += render_to_string('pages/parts/item_li.html', ctx)
-		next = int(ctx['id'])
-	response = HttpResponse(html_code)
-	response.set_cookie("next", next)
-	return response
-
+    next = 0;
+    try:
+        next = request.COOKIES["next"]
+    except:
+        next = 0
+    html_code = ""
+    a = get_records(5, request.POST['type_of_page'], next)
+    for i in a:
+        ctx = {
+            'id': i.id,
+            'pic_url': i.pic_url,
+            'date': i.date,
+            'type': i.new_type,
+            'title': i.name,
+            'info': i.info,
+            'lid': i.lid,
+            'views': i.cviews,
+            'comments': i.ccomments,
+        }
+        html_code += render_to_string('pages/parts/item_li.html', ctx)
+        next = int(ctx['id'])
+    response = HttpResponse(html_code)
+    response.set_cookie("next", next)
+    return response
 
 
 def lenta_mask(request, mask):
-	request.META["CSRF_COOKIE_USED"] = True
-	rcds = get_records(5, mask, 0)
-	html_code = ""
-	next = 0;
-	for i in rcds:
-		record = {
-			'id': i.id,
-			'date': i.date,
-			'pic_url': i.pic_url,
-			'type': i.new_type,
-			'title': i.name,
-			'info': i.info,
-			'lid': i.lid,
-			'views': i.cviews,
-			'comments': i.ccomments,
-		}
-		next = record['id']
-		html_code += render_to_string('pages/parts/item_li.html', record)
-	dictionary = { 'stuff': html_code, 'type_of_page':  mask }
-	response = render(request, 'pages/lenta.html', dictionary)
-	response.set_cookie(key="next", value=next)
-	return response
+    request.META["CSRF_COOKIE_USED"] = True
+    rcds = get_records(5, mask, 0)
+    html_code = ""
+    next = 0;
+    for i in rcds:
+        record = {
+            'id': i.id,
+            'date': i.date,
+            'pic_url': i.pic_url,
+            'type': i.new_type,
+            'title': i.name,
+            'info': i.info,
+            'lid': i.lid,
+            'views': i.cviews,
+            'comments': i.ccomments,
+        }
+        next = record['id']
+        html_code += render_to_string('pages/parts/item_li.html', record)
+    dictionary = {'stuff': html_code, 'type_of_page': mask}
+    response = render(request, 'pages/lenta.html', dictionary)
+    response.set_cookie(key="next", value=next)
+    return response
 
 
 def lenta_get(request):
-	data = {'something': 'useful'}
-	return HttpResponse(json.dumps(data), content_type="application/json")
+    data = {'something': 'useful'}
+    return HttpResponse(json.dumps(data), content_type="application/json")
 
 
 def item(request, item_id):
-	context = RequestContext(request)
-	html_code = ""
-	q = ""
-	try:
-		u = New.objects.get(id=item_id)
-		if not u.is_enabled:
-			raise NameError('NewIsNotEnabledExeption')
-	except:
-		return render(request, 'blog_app/404.html', )
-	u.cviews += 1
-	u.save()
-	count_news = 3
-	j = 0
-	rcds = New.objects.all().filter(is_enabled=True)[:count_news+1]
-	for i in rcds:
-		if u.id == i.id: continue
-		j += 1
-		record = {
-			'id': i.id,
-			'date': i.date,
-			'pic_url': i.pic_url,
-			'type': i.new_type,
-			'lid': i.lid,
-			'title': i.name,
-			'views': i.cviews,
-		}
-		q += render_to_string('pages/parts/little_div.html', record)
-		if j == count_news: break
+    context = RequestContext(request)
+    html_code = ""
+    q = ""
+    try:
+        u = New.objects.get(id=item_id)
+        if not u.is_enabled:
+            raise NameError('NewIsNotEnabledExeption')
+    except:
+        return render(request, 'blog_app/404.html', )
+    u.cviews += 1
+    u.save()
+    count_news = 3
+    j = 0
+    rcds = New.objects.all().filter(is_enabled=True)[:count_news + 1]
+    for i in rcds:
+        if u.id == i.id: continue
+        j += 1
+        record = {
+            'id': i.id,
+            'date': i.date,
+            'pic_url': i.pic_url,
+            'type': i.new_type,
+            'lid': i.lid,
+            'title': i.name,
+            'views': i.cviews,
+        }
+        q += render_to_string('pages/parts/little_div.html', record)
+        if j == count_news: break
 
-	record = {
-		'id': u.id,
-		'main_pic': u.pic_url,
-		'date': u.date,
-		'type': u.new_type,
-		'body': u.html,
-		'title': u.name,
-		'authors': u.authors,
-		'info': u.info,
-		'lid': u.lid,
-		'views': u.cviews,
-		'comments': u.ccomments,
-		'other_news': q,
-	}
-	
-	html_code += render_to_string('blog_app/header.html', record, context)
-	html_code += render_to_string('pages/item.html', record, context)
-	html_code += render_to_string('blog_app/footer.html', record)
-	return HttpResponse(html_code)
+    record = {
+        'id': u.id,
+        'main_pic': u.pic_url,
+        'date': u.date,
+        'type': u.new_type,
+        'body': u.html,
+        'title': u.name,
+        'authors': u.authors,
+        'info': u.info,
+        'lid': u.lid,
+        'views': u.cviews,
+        'comments': u.ccomments,
+        'other_news': q,
+    }
+
+    html_code += render_to_string('blog_app/header.html', record, context)
+    html_code += render_to_string('pages/item.html', record, context)
+    html_code += render_to_string('blog_app/footer.html', record)
+    return HttpResponse(html_code)
 
 
 def preview(request):
-	if request.method == "POST":
-		record = {
-			'id': request.POST['id'],
-			'main_pic': request.POST['pic_url'],
-			'authors': request.POST['authors'],
-			'date': str(datetime.datetime.now()),
-			'type': request.POST['new_type'],
-			'body': request.POST['html'],
-			'title': request.POST['name'],
-			'info': request.POST['info'],
-			'lid': request.POST['lid'],
-			'views': 0,
-		}
-	html_code = ""
-	html_code += render_to_string('blog_app/header.html', record)
-	html_code += render_to_string('pages/preview.html', record)
-	html_code += render_to_string('blog_app/footer.html', record)
-	return HttpResponse(html_code)
-
+    if request.method == "POST":
+        record = {
+            'id': request.POST['id'],
+            'main_pic': request.POST['pic_url'],
+            'authors': request.POST['authors'],
+            'date': str(datetime.datetime.now()),
+            'type': request.POST['new_type'],
+            'body': request.POST['html'],
+            'title': request.POST['name'],
+            'info': request.POST['info'],
+            'lid': request.POST['lid'],
+            'views': 0,
+        }
+    html_code = ""
+    html_code += render_to_string('blog_app/header.html', record)
+    html_code += render_to_string('pages/preview.html', record)
+    html_code += render_to_string('blog_app/footer.html', record)
+    return HttpResponse(html_code)
 
 
 def search(request):
-	return render(request, 'pages/search.html')
+    return render(request, 'pages/search.html')
 
 
 def register(request):
@@ -349,7 +346,7 @@ def register(request):
     # Render the template depending on the context.
     ctx = {'user_form': user_form, 'profile_form': profile_form, 'registered': registered}
     return render_to_response(
-            'blog_app/registration.html', ctx, context)
+        'blog_app/registration.html', ctx, context)
 
 
 def user_login(request):
@@ -382,7 +379,7 @@ def user_login(request):
                 return HttpResponse("Your Culture account is disabled.")
         else:
             # Bad login details were provided. So we can't log the user in.
-            print ("Invalid login details: {0}, {1}".format(username, password))
+            print("Invalid login details: {0}, {1}".format(username, password))
             return HttpResponse("Invalid login details supplied.")
 
     # The request is not a HTTP POST, so display the login form.
@@ -392,33 +389,36 @@ def user_login(request):
         # blank dictionary object...
         return render_to_response('blog_app/login.html', {}, context)
 
+
 @login_required
 def restricted(request):
-	context = RequestContext(request)
-	return render_to_response('restricted/restricted.html', {}, context)
+    context = RequestContext(request)
+    return render_to_response('restricted/restricted.html', {}, context)
+
 
 @login_required
 def profile(request):
-	context = RequestContext(request)
-	return render_to_response('restricted/profile.html', {}, context)
+    context = RequestContext(request)
+    return render_to_response('restricted/profile.html', {}, context)
+
 
 @login_required
 def archive(request):
-	context = RequestContext(request)
-	rrr = New.objects.all()
-	html_code = ""
-	for i in reversed(rrr):
-		record = {
-			'id': i.id,
-			'date': i.date,
-			'type': i.new_type,
-			'title': i.name,
-			'is_active': i.is_enabled,
-			'authors': i.authors,
-			'views': i.cviews,
-		}
-		html_code += render_to_string('pages/parts/archive_td.html', record)
-	return render_to_response('restricted/archive.html', {'info': html_code}, context)
+    context = RequestContext(request)
+    rrr = New.objects.all()
+    html_code = ""
+    for i in reversed(rrr):
+        record = {
+            'id': i.id,
+            'date': i.date,
+            'type': i.new_type,
+            'title': i.name,
+            'is_active': i.is_enabled,
+            'authors': i.authors,
+            'views': i.cviews,
+        }
+        html_code += render_to_string('pages/parts/archive_td.html', record)
+    return render_to_response('restricted/archive.html', {'info': html_code}, context)
 
 
 @login_required

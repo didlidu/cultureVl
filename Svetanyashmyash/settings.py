@@ -19,7 +19,7 @@ STATICFILES_FINDERS = (
 )
 
 FILE_UPLOAD_HANDLERS = ("django.core.files.uploadhandler.MemoryFileUploadHandler",
- "django.core.files.uploadhandler.TemporaryFileUploadHandler",)
+                        "django.core.files.uploadhandler.TemporaryFileUploadHandler",)
 
 TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
 TEMPLATE_DIRS = (TEMPLATE_PATH,)
@@ -38,8 +38,8 @@ SECRET_KEY = 'hjxpk*p)pyi*d0gfq(30xon6l1-y8-#hudksp38y4usig1=9&2'
 DEBUG = False
 TEMPLATE_DEBUG = False
 ALLOWED_HOSTS = [
-    '.culturevl.ru', # Allow domain and subdomains
-    '.culturevl.tk', # Allow domain and subdomains
+    '.culturevl.tk',  # Allow domain and subdomains
+    '.culturevl.ru',  # Allow domain and subdomains
 ]
 
 # Application definition
@@ -52,7 +52,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog_app',
-	'gunicorn',
+    'gunicorn',
 )
 
 MIDDLEWARE_CLASSES = (

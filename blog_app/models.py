@@ -24,7 +24,7 @@ class New(models.Model):
 
 import datetime
 
-def get_records(n, mask, next):    
+def get_records(n, mask, next):
     objects = New.objects.all().filter(is_enabled=True).exclude(date__gt=datetime.date.today()).order_by('-id')
     if mask:
         if mask.find('author') != -1:
