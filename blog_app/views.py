@@ -11,8 +11,8 @@ from django.template.loader import render_to_string
 from blog_app.models import New, get_records
 from blog_app.forms import UserForm, UserProfileForm
 from django.template import RequestContext
-from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
 
 
 @login_required
@@ -85,7 +85,6 @@ def edit(request, id):
                 'info': a.info,
                 'html': a.html,
                 'pic_url': a.pic_url,
-                'id': a.id,
                 'authors': a.authors,
                 'is_enabled': a.is_enabled,
                 'date': a.date,
@@ -157,7 +156,7 @@ def admin_get_pic(request):
 
 
 def get_more(request):
-    next = 0;
+    next = 0
     try:
         next = request.COOKIES["next"]
     except:
