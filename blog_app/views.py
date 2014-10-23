@@ -1,6 +1,7 @@
 import os
 import json
 import datetime
+import random
 import re
 from django.shortcuts import render, render_to_response
 from django.core.files.storage import default_storage
@@ -133,9 +134,7 @@ def admin_post_pic(request):
                     default_storage.delete(str(id) + '/' + upfile.name)
                 path = default_storage.save(str(id) + '/' + upfile.name, ContentFile(upfile.read()))
             tmp_file = os.path.join(settings.MEDIA_ROOT, path)
-    response_data = {}
-    response_data['status'] = "success"
-    response_data['result'] = "Your file has been uploaded:"
+    response_data = {'status': "success", 'result': "Your file has been uploaded:"}
     return HttpResponse(json.dumps(response_data), content_type='application/json')
 
 
@@ -186,7 +185,7 @@ def lenta_mask(request, mask):
     request.META["CSRF_COOKIE_USED"] = True
     rcds = get_records(5, mask, 0)
     html_code = ""
-    next = 0;
+    next = 0
     for i in rcds:
         record = {
             'id': i.id,
@@ -225,22 +224,31 @@ def item(request, item_id):
     u.cviews += 1
     u.save()
     count_news = 3
-    j = 0
-    rcds = New.objects.all().filter(is_enabled=True)[:count_news + 1]
-    for i in rcds:
-        if u.id == i.id: continue
-        j += 1
-        record = {
-            'id': i.id,
-            'date': i.date,
-            'pic_url': i.pic_url,
-            'type': i.new_type,
-            'lid': i.lid,
-            'title': i.name,
-            'views': i.cviews,
-        }
-        q += render_to_string('pages/parts/little_div.html', record)
-        if j == count_news: break
+
+    rcds = New.objects.all().filter(is_enabled=True, date__gt=(datetime.date.today() - datetime.timedelta(days=30))).exclude(date__gt=datetime.date.today(), id=u.id).order_by('-cviews')
+    if len(rcds) < 3:
+        rcds = New.objects.all().filter(is_enabled=True, date__gt=(datetime.date.today() - datetime.timedelta(days=90))).exclude(date__gt=datetime.date.today(), id=u.id).order_by('-cviews')
+    if len(rcds) >= 3:
+        z = [rcds.first()]
+        rcds = rcds.exclude(id=z[0].id)
+        j = random.sample(range(len(rcds)), 2)
+        for i in j:
+            z.append(rcds[i])
+        j = 0
+        random.shuffle(z)
+        for i in z:
+            j += 1
+            record = {
+                'id': i.id,
+                'date': i.date,
+                'pic_url': i.pic_url,
+                'type': i.new_type,
+                'lid': i.lid,
+                'title': i.name,
+                'views': i.cviews,
+            }
+            q += render_to_string('pages/parts/little_div.html', record)
+            if j == count_news: break
 
     record = {
         'id': u.id,
