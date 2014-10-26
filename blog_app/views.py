@@ -16,6 +16,22 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 
 
+import os, sys
+from PIL import Image
+
+size = 320, 189
+
+def thumbnail(infile):
+    outfile = infile + ".thumbnail"
+    if infile != outfile:
+        try:
+            im = Image.open(infile)
+            im.thumbnail(size)
+            im.save(outfile, "JPEG")
+        except IOError:
+            print ("cannot create thumbnail")
+
+
 @login_required
 def new(request):
     dictionary = {}
@@ -55,8 +71,11 @@ def new(request):
         for upfile in request.FILES.getlist('pic'):
             if default_storage.exists(str(p.id) + '/' + "pic.jpg"):
                 default_storage.delete(str(p.id) + '/' + "pic.jpg")
+            if default_storage.exists(str(p.id) + '/' + "pic.jpg.thumbnail"):
+                default_storage.delete(str(p.id) + '/' + "pic.jpg.thumbnail")
             path = default_storage.save(str(p.id) + '/' + "pic.jpg", ContentFile(upfile.read()))
             tmp_file = os.path.join(settings.MEDIA_ROOT, path)
+            thumbnail(tmp_file)
             p.pic_url = settings.MEDIA_URL + str(p.id) + '/' + "pic.jpg"
         p.save()
         red = '/restricted/edit/' + str(p.id)
