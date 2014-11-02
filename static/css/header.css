@@ -13,7 +13,7 @@ a {
 html, body{
     margin:0;
     min-height: 100%;
-    font-family: Helvetica, 'Ubuntu', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
     font-kerning: auto; 
     font-size: 18px;
     color: #292828;
@@ -128,7 +128,7 @@ img {
 	padding: 0;
 	top: 100%;
 	background: black;
-    border-radius: 0px 0px 6px 6px;
+    border-radius: 0 0 6px 6px;
 }
 #header-nav ul .li_item, #header-nav ul .li_wrapper {
 	float: left;
@@ -191,8 +191,9 @@ img {
     background: 0;
 }
 
-#source{
+#source {
     width: inherit;
     display: inline-block;
     min-height: 600px;
-    padding-left:70px;
+    padding-left: 70px;
+}
