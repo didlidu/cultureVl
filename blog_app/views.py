@@ -15,11 +15,11 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 
-
 import os, sys
 from PIL import Image
 
 size = 320, 189
+
 
 def thumbnail(infile):
     outfile = infile + ".thumbnail"
@@ -29,7 +29,7 @@ def thumbnail(infile):
             im.thumbnail(size)
             im.save(outfile, "JPEG")
         except IOError:
-            print ("cannot create thumbnail")
+            print("cannot create thumbnail")
 
 
 @login_required
@@ -174,7 +174,6 @@ def admin_get_pic(request):
 
 
 def get_more(request):
-    next = 0
     try:
         next = request.COOKIES["next"]
     except:
@@ -244,9 +243,13 @@ def item(request, item_id):
     u.save()
     count_news = 3
 
-    rcds = New.objects.all().filter(is_enabled=True, date__gt=(datetime.date.today() - datetime.timedelta(days=30))).exclude(date__gt=datetime.date.today(), id=u.id).order_by('-cviews')
+    rcds = New.objects.all().filter(is_enabled=True,
+                                    date__gt=(datetime.date.today() - datetime.timedelta(days=30))).exclude(
+        date__gt=datetime.date.today(), id=u.id).order_by('-cviews')
     if len(rcds) < 3:
-        rcds = New.objects.all().filter(is_enabled=True, date__gt=(datetime.date.today() - datetime.timedelta(days=90))).exclude(date__gt=datetime.date.today(), id=u.id).order_by('-cviews')
+        rcds = New.objects.all().filter(is_enabled=True,
+                                        date__gt=(datetime.date.today() - datetime.timedelta(days=90))).exclude(
+            date__gt=datetime.date.today(), id=u.id).order_by('-cviews')
     if len(rcds) >= 3:
         z = [rcds.first()]
         rcds = rcds.exclude(id=z[0].id)

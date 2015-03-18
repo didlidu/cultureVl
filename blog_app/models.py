@@ -11,18 +11,21 @@ class New(models.Model):
     info = models.TextField()
     lid = models.TextField()
     html = models.TextField()
-    cviews = models.PositiveIntegerField( default=0 )
-    ccomments = models.PositiveIntegerField( default=0 )
+    cviews = models.PositiveIntegerField(default=0)
+    ccomments = models.PositiveIntegerField(default=0)
     authors = models.TextField()
-    is_enabled = models.BooleanField( default = False )
-    last_change = models.DateTimeField( auto_now=True )
+    is_enabled = models.BooleanField(default=False)
+    last_change = models.DateTimeField(auto_now=True)
+
     def __str__(self):
         return str(self.id) + ' ' + str(self.date)
+
     def __unicode__(self):
         return (str(self.id) + str(self.date))
 
 
 import datetime
+
 
 def get_records(n, mask, next):
     objects = New.objects.all().filter(is_enabled=True).exclude(date__gt=datetime.date.today()).order_by('-id')
@@ -33,14 +36,14 @@ def get_records(n, mask, next):
             mask = ""
         else:
             objects.filter(new_type=mask)
-    next=int(next)
+    next = int(next)
     if not next:
         next = 0
-    i = 0 if next == 0 else list(objects.values_list('id', flat=True)).index(next) + 1;
+    i = 0 if next == 0 else list(objects.values_list('id', flat=True)).index(next) + 1
     j = 0
     selected_objects = []
-    while(j < n and i < len(objects)):
-        if(objects[i].new_type == mask or mask == ""):
+    while j < n and i < len(objects):
+        if objects[i].new_type == mask or mask == "":
             selected_objects.append(objects[i])
             j += 1
         i += 1

@@ -37,9 +37,23 @@ SECRET_KEY = 'hjxpk*p)pyi*d0gfq(30xon6l1-y8-#hudksp38y4usig1=9&2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 TEMPLATE_DEBUG = False
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'culturevl@yandex.ru'
+EMAIL_HOST_PASSWORD = 'Pasha123lol'
+DEFAULT_FROM_EMAIL = 'culturevl@yandex.ru'
+DEFAULT_TO_EMAIL = 'culturevl@yandex.ru'
+SERVER_EMAIL = 'culturevl@yandex.ru'
+
+ADMINS = (('Pavel Mesenev', 'ox1omon@gmail.com'), ('Pavel Mesenev', 'heredemonsnearby@mail.ru'))
+
+
 ALLOWED_HOSTS = [
     '.culturevl.tk',  # Allow domain and subdomains
     '.culturevl.ru',  # Allow domain and subdomains
+    '127.0.0.1'
 ]
 
 # Application definition
