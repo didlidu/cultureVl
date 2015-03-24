@@ -53,7 +53,8 @@ ADMINS = (('Pavel Mesenev', 'ox1omon@gmail.com'), ('Pavel Mesenev', 'heredemonsn
 ALLOWED_HOSTS = [
     '.culturevl.tk',  # Allow domain and subdomains
     '.culturevl.ru',  # Allow domain and subdomains
-    '127.0.0.1'
+    '127.0.0.1',
+    '54.149.166.96',
 ]
 
 # Application definition
